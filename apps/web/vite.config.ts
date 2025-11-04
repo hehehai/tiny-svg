@@ -15,19 +15,22 @@ export default defineConfig(({ mode }) => ({
     tsconfigPaths(),
     tanstackStart({
       prerender: {
-        // Disable prerendering in production due to Cloudflare Workers compatibility
-        // The Cloudflare plugin injects runtime-specific code that's not compatible with Node.js SSR
-        enabled: mode !== "production",
-        filter: ({ path }) =>
-          ["blog", "about"].some((item) => path.startsWith(item)),
+        // Enable prerendering for static pages
+        // Cloudflare Pages will serve prerendered HTML files directly
+        // Dynamic routes will fall back to SSR via Cloudflare Functions
+        enabled: mode === "production",
+        crawlLinks: true,
         // FIX: ignore worker error
         failOnError: false,
 
         // Callback when page is successfully rendered
         onSuccess: ({ page }) => {
-          // biome-ignore lint/suspicious/noConsole: <explanation>
-          console.info(`Rendered ${page.path}!`);
+          // biome-ignore lint/suspicious/noConsole: logging prerender progress
+          console.info(`✓ Prerendered ${page.path}`);
         },
+      },
+      sitemap: {
+        host: "https://tiny-svg.actnow.dev",
       },
     }),
     viteReact({

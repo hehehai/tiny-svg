@@ -20,15 +20,14 @@ export async function getBlogPost(
   slug: string,
   locale: Locales = Locales.ENGLISH
 ) {
-  const blogs = getBlogPosts();
-  const collections = blogs.filter((blog) => blog._meta.directory === slug);
-  if (!collections) {
+  // Get all posts without locale filtering to find all versions of this slug
+  const collections = allPosts.filter((blog) => blog.slug === slug);
+  if (collections.length === 0) {
     return null;
   }
 
-  const content = collections.find((blog) =>
-    blog._meta.fileName.includes(locale)
-  );
+  // Find the post for the requested locale
+  const content = collections.find((blog) => blog.locale === locale);
 
   if (!content) {
     return null;
