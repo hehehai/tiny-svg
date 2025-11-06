@@ -5,3 +5,4 @@ export { useDragAndDrop } from "./use-drag-and-drop";
 export { useLocalStorage } from "./use-local-storage";
 export { usePasteHandler } from "./use-paste-handler";
 export { usePrettifiedSvg } from "./use-prettified-svg";
+export { useSvgPanZoom } from "./use-svg-pan-zoom";

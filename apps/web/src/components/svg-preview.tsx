@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useLocalStorage } from "@/hooks/use-local-storage";
+import { useSvgPanZoom } from "@/hooks/use-svg-pan-zoom";
 import { cn } from "@/lib/utils";
 
 type SvgPreviewProps = {
@@ -9,10 +9,6 @@ type SvgPreviewProps = {
   className?: string;
 };
 
-const DEFAULT_ZOOM = 100;
-const MAX_ZOOM = 400;
-const MIN_ZOOM = 20;
-const ZOOM_STEP = 20;
 const ZOOM_SCALE_DIVISOR = 100;
 
 type BackgroundStyle =
@@ -50,24 +46,27 @@ const BACKGROUND_STYLES: Record<
 };
 
 export function SvgPreview({ svg, title, className }: SvgPreviewProps) {
-  const [zoom, setZoom] = useState(DEFAULT_ZOOM);
+  const {
+    zoom,
+    pan,
+    isDragging,
+    containerRef,
+    handleZoomIn,
+    handleZoomOut,
+    handleZoomReset,
+    handleMouseDown,
+    handleMouseMove,
+    handleMouseUp,
+    handleMouseLeave,
+    minZoom,
+    maxZoom,
+  } = useSvgPanZoom();
+
   const [backgroundStyle, setBackgroundStyle] =
     useLocalStorage<BackgroundStyle>(
       "svg-preview-background",
       "transparent-light"
     );
-
-  const handleZoomIn = () => {
-    setZoom((prev) => Math.min(prev + ZOOM_STEP, MAX_ZOOM));
-  };
-
-  const handleZoomOut = () => {
-    setZoom((prev) => Math.max(prev - ZOOM_STEP, MIN_ZOOM));
-  };
-
-  const handleZoomReset = () => {
-    setZoom(DEFAULT_ZOOM);
-  };
 
   const cycleBackground = () => {
     const styles: BackgroundStyle[] = [
@@ -114,7 +113,7 @@ export function SvgPreview({ svg, title, className }: SvgPreviewProps) {
           </Button>
           <div className="mx-1 h-4 w-px bg-border" />
           <Button
-            disabled={zoom <= MIN_ZOOM}
+            disabled={zoom <= minZoom}
             onClick={handleZoomOut}
             size="sm"
             title="Zoom out"
@@ -127,7 +126,7 @@ export function SvgPreview({ svg, title, className }: SvgPreviewProps) {
             {zoom}%
           </span>
           <Button
-            disabled={zoom >= MAX_ZOOM}
+            disabled={zoom >= maxZoom}
             onClick={handleZoomIn}
             size="sm"
             title="Zoom in"
@@ -147,20 +146,37 @@ export function SvgPreview({ svg, title, className }: SvgPreviewProps) {
           </Button>
         </div>
       </div>
-      <div
+      <button
+        aria-label="SVG preview canvas - use mouse wheel to zoom, click and drag to pan"
         className={cn(
-          "flex-1 overflow-auto p-4",
-          BACKGROUND_STYLES[backgroundStyle].className
+          "relative flex-1 overflow-hidden border-0 p-0 outline-none focus-visible:ring-2 focus-visible:ring-ring",
+          BACKGROUND_STYLES[backgroundStyle].className,
+          isDragging ? "cursor-grabbing" : "cursor-grab"
         )}
+        onMouseDown={handleMouseDown}
+        onMouseLeave={handleMouseLeave}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        ref={containerRef}
+        type="button"
       >
-        <div className="flex min-h-full items-center justify-center">
+        <div
+          className="absolute inset-0 flex items-center justify-center"
+          style={{
+            transform: `translate(${pan.x}px, ${pan.y}px)`,
+            transition: isDragging ? "none" : "transform 0.1s ease-out",
+          }}
+        >
           <div
-            className="origin-center transition-transform"
+            className="pointer-events-none select-none"
             dangerouslySetInnerHTML={{ __html: svg }}
-            style={{ transform: `scale(${zoom / ZOOM_SCALE_DIVISOR})` }}
+            style={{
+              transform: `scale(${zoom / ZOOM_SCALE_DIVISOR})`,
+              transition: "transform 0.2s ease-out",
+            }}
           />
         </div>
-      </div>
+      </button>
     </div>
   );
 }
