@@ -58,7 +58,7 @@ export function DataUriTabContent({ compressedSvg }: DataUriTabContentProps) {
   }
 
   return (
-    <div className="flex h-full flex-col gap-4 overflow-y-auto p-4">
+    <div className="flex h-full flex-col gap-4 overflow-y-auto">
       {/* Minified Data URI Card */}
       <Card className="flex-shrink-0">
         <CardHeader>

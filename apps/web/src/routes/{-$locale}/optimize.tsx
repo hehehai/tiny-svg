@@ -212,7 +212,7 @@ function OptimizeTabs({
 
       {safeGlobalSettings.showOriginal && (
         <TabsContent
-          className="mt-0 flex-1 data-[state=active]:flex"
+          className="mt-4 flex-1 data-[state=active]:flex"
           value="original"
         >
           <SvgPreview
@@ -224,7 +224,7 @@ function OptimizeTabs({
       )}
 
       <TabsContent
-        className="mt-0 flex-1 data-[state=active]:flex"
+        className="mt-4 flex-1 data-[state=active]:flex"
         value="optimized"
       >
         {compressedSvg ? (
@@ -240,7 +240,7 @@ function OptimizeTabs({
         )}
       </TabsContent>
 
-      <TabsContent className="mt-0 flex-1 overflow-hidden" value="code">
+      <TabsContent className="mt-4 flex-1 overflow-hidden" value="code">
         {compressedSvg ? (
           <CodeDiffViewerLazy
             language="html"
@@ -254,7 +254,7 @@ function OptimizeTabs({
         )}
       </TabsContent>
 
-      <TabsContent className="mt-0 flex-1 overflow-hidden" value="data-uri">
+      <TabsContent className="mt-4 flex-1 overflow-hidden" value="data-uri">
         <DataUriTabContent compressedSvg={compressedSvg} />
       </TabsContent>
 
@@ -267,7 +267,7 @@ function OptimizeTabs({
         "flutter",
       ].map((tab) => (
         <TabsContent
-          className="mt-0 flex-1 overflow-hidden"
+          className="mt-4 flex-1 overflow-hidden"
           key={tab}
           value={tab}
         >

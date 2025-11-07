@@ -1,6 +1,6 @@
 /**
  * Lazy-loaded wrapper for CodeViewer
- * Monaco Editor is heavy (~500KB), so we load it on-demand
+ * Shiki highlighter is loaded on-demand for better performance
  */
 
 import { lazy, Suspense } from "react";

@@ -69,12 +69,9 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          // Monaco Editor - very large dependency (~500KB)
-          if (
-            id.includes("@monaco-editor/react") ||
-            id.includes("monaco-editor")
-          ) {
-            return "monaco";
+          // Shiki - syntax highlighting (~300KB)
+          if (id.includes("shiki")) {
+            return "shiki";
           }
           // Prettier - large dependency (~1.2MB with parsers)
           if (
