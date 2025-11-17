@@ -54,7 +54,7 @@ export function OptimizeLayout({
   onTabChange,
 }: OptimizeLayoutProps) {
   return (
-    <div className="flex h-[calc(100vh-4rem)] w-screen flex-col md:flex-row">
+    <div className="flex h-full min-h-0 w-full flex-col md:flex-row">
       <div className="flex flex-1 flex-col overflow-hidden">
         {/* Mobile Settings Toggle Button */}
         {!originalSvg && (

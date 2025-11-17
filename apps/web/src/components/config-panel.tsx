@@ -5,13 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import {
   DEFAULT_JPEG_QUALITY,
@@ -25,6 +18,13 @@ import { exportAsJpeg, exportAsPng } from "@/lib/file-utils";
 import { getPluginLabel } from "@/lib/svgo-plugins";
 import { useSvgStore } from "@/store/svg-store";
 import { type ExportScale, useUiStore } from "@/store/ui-store";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 
 type ConfigPanelProps = {
   isCollapsed: boolean;
@@ -243,7 +243,7 @@ export function ConfigPanel({
   };
 
   return (
-    <div className={className}>
+    <div className={`flex flex-col ${className || ""}`}>
       <div className="mb-4 flex items-center justify-between">
         <h2 className="font-semibold text-lg">{safeSettings.title}</h2>
         <Button
@@ -256,7 +256,7 @@ export function ConfigPanel({
         </Button>
       </div>
 
-      <div className="max-h-[calc(100vh-9rem)] space-y-4 overflow-y-auto">
+      <div className="flex-1 space-y-4 overflow-y-auto">
         {/* Global Settings */}
         <Card>
           <CardHeader>
@@ -400,12 +400,9 @@ export function ConfigPanel({
           <CardHeader>
             <CardTitle className="flex items-center justify-between gap-1">
               <h3 className="text-base">{safeSettings.export.title}</h3>
-              <div className="flex items-center gap-1">
-                {/* Scale Selector */}
-                <div>
-                  <Label className="sr-only text-xs" htmlFor="export-scale">
-                    {safeSettings.export.scale}
-                  </Label>
+              {compressedSvg && (
+                <div className="flex items-center gap-1">
+                  {/* Scale Selector */}
                   <Select
                     onValueChange={handleScaleChange}
                     value={exportScale?.toString() || "custom"}
@@ -424,13 +421,8 @@ export function ConfigPanel({
                       ))}
                     </SelectContent>
                   </Select>
-                </div>
 
-                {/* Width Input */}
-                <div>
-                  <Label className="sr-only text-xs" htmlFor="export-width">
-                    {safeSettings.export.width}
-                  </Label>
+                  {/* Width Input */}
                   <Input
                     className="h-8 w-16 px-2 md:text-xs"
                     id="export-width"
@@ -439,13 +431,8 @@ export function ConfigPanel({
                     type="number"
                     value={exportWidth || ""}
                   />
-                </div>
 
-                {/* Height Input */}
-                <div>
-                  <Label className="sr-only text-xs" htmlFor="export-height">
-                    {safeSettings.export.height}
-                  </Label>
+                  {/* Height Input */}
                   <Input
                     className="h-8 w-16 px-2 md:text-xs"
                     id="export-height"
@@ -455,7 +442,7 @@ export function ConfigPanel({
                     value={exportHeight || ""}
                   />
                 </div>
-              </div>
+              )}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
