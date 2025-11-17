@@ -4,13 +4,13 @@ export const mdxComponents = {
   // Headings
   h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
-      className="group relative mt-8 mb-4 scroll-mt-20 font-bold text-2xl text-gray-900 tracking-tight md:mt-12 md:mb-6 md:text-4xl dark:text-gray-100"
+      className="group relative mt-8 mb-4 scroll-mt-20 font-bold text-gray-900 text-xl tracking-tight md:mt-10 md:mb-5 md:text-3xl dark:text-gray-100"
       {...props}
     />
   ),
   h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2
-      className="group relative mt-8 mb-4 scroll-mt-20 border-gray-200 border-b pb-2 font-bold text-gray-900 text-xl tracking-tight md:mt-10 md:mb-5 md:pb-3 md:text-3xl dark:border-gray-800 dark:text-gray-100"
+      className="group relative mt-7 mb-3 scroll-mt-20 border-gray-200 border-b pb-2 font-bold text-gray-900 text-lg tracking-tight md:mt-8 md:mb-4 md:pb-3 md:text-2xl dark:border-gray-800 dark:text-gray-100"
       {...props}
     >
       {props.children}
@@ -21,18 +21,18 @@ export const mdxComponents = {
   ),
   h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h3
-      className="group relative mt-6 mb-3 scroll-mt-20 font-semibold text-gray-900 text-lg md:mt-8 md:mb-4 md:text-2xl dark:text-gray-100"
+      className="group relative mt-6 mb-3 scroll-mt-20 font-semibold text-base text-gray-900 md:mt-7 md:mb-3 md:text-xl dark:text-gray-100"
       {...props}
     >
       {props.children}
-      <span className="-left-5 absolute top-0 hidden text-blue-500 text-xl opacity-0 transition-opacity group-hover:opacity-100 md:inline">
+      <span className="-left-5 absolute top-0 hidden text-blue-500 text-lg opacity-0 transition-opacity group-hover:opacity-100 md:inline">
         #
       </span>
     </h3>
   ),
   h4: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h4
-      className="mt-5 mb-2 font-semibold text-base text-gray-900 md:mt-6 md:mb-3 md:text-xl dark:text-gray-100"
+      className="mt-5 mb-2 font-semibold text-gray-900 text-sm md:mt-6 md:mb-3 md:text-lg dark:text-gray-100"
       {...props}
     />
   ),
@@ -60,13 +60,13 @@ export const mdxComponents = {
   // Lists
   ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
     <ul
-      className="my-6 space-y-2 text-gray-700 md:my-8 md:space-y-3 dark:text-gray-300"
+      className="my-5 space-y-1.5 text-gray-700 md:my-6 md:space-y-2 dark:text-gray-300"
       {...props}
     />
   ),
   ol: (props: React.HTMLAttributes<HTMLOListElement>) => (
     <ol
-      className="my-6 ml-6 space-y-2 text-gray-700 md:my-8 md:space-y-3 dark:text-gray-300"
+      className="my-5 ml-6 space-y-1.5 text-gray-700 md:my-6 md:space-y-2 dark:text-gray-300"
       {...props}
     />
   ),
