@@ -12,6 +12,7 @@ export const getRouter = () => {
     defaultPendingComponent: () => <Loader />,
     defaultNotFoundComponent: () => <div>Not Found</div>,
     Wrap: ({ children }) => <>{children}</>,
+    defaultViewTransition: true,
   });
   return router;
 };

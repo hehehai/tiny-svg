@@ -16,7 +16,8 @@ type CollapseDoubleSlashes<S extends string> =
 
 type LocalizedLinkProps = {
   to?: To;
-} & Omit<LinkComponentProps, "to">;
+  viewTransition?: LinkComponentProps["viewTransition"];
+} & Omit<LinkComponentProps, "to" | "viewTransition">;
 
 // Helpers
 type RemoveAll<
@@ -30,15 +31,17 @@ type RemoveLocaleFromString<S extends string> = CollapseDoubleSlashes<
 
 export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
   const { locale } = useLocale();
+  const { viewTransition, ...restProps } = props;
 
   return (
     <Link
-      {...props}
+      {...restProps}
       params={{
         locale,
         ...(typeof props?.params === "object" ? props?.params : {}),
       }}
       to={`/${LOCALE_ROUTE}${props.to}` as LinkComponentProps["to"]}
+      viewTransition={viewTransition}
     />
   );
 };

@@ -3,11 +3,9 @@ import {
   HeadContent,
   Outlet,
   Scripts,
-  useRouterState,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { ErrorBoundary } from "@/components/error-boundary";
-import Loader from "@/components/loader";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import appCss from "@/styles.css?url";
@@ -110,8 +108,6 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
 });
 
 function RootDocument() {
-  const isFetching = useRouterState({ select: (s) => s.isLoading });
-
   // Structured Data (JSON-LD) for SEO
   const structuredData = {
     "@context": "https://schema.org",
@@ -149,9 +145,7 @@ function RootDocument() {
       <body className="overflow-x-hidden" suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ErrorBoundary>
-            <div className="grid h-svh grid-rows-[1fr]">
-              {isFetching ? <Loader /> : <Outlet />}
-            </div>
+            <Outlet />
           </ErrorBoundary>
           <Toaster richColors />
           <TanStackRouterDevtools position="bottom-left" />

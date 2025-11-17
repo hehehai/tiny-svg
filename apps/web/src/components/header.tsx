@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useLocation } from "@tanstack/react-router";
+import { useCallback, useState } from "react";
 import { useIntlayer } from "react-intlayer";
 import { LocaleSwitcher } from "@/components/intlayer/locale-swithcer";
 import { LocalizedLink } from "@/components/intlayer/localized-link";
@@ -7,14 +8,35 @@ import { useTheme } from "@/components/theme-provider";
 export default function Header() {
   const { nav } = useIntlayer("header");
   const links = [
-    { to: "/", label: nav.home },
-    { to: "/optimize", label: nav.optimize },
-    { to: "/blog", label: nav.blog },
-    { to: "/about", label: nav.about },
+    { to: "/", label: nav.home, index: 0 },
+    { to: "/optimize", label: nav.optimize, index: 1 },
+    { to: "/blog", label: nav.blog, index: 2 },
+    { to: "/about", label: nav.about, index: 3 },
   ] as const;
 
   const { theme, setTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const getViewTransition = useCallback(
+    (_targetPath: string, targetIndex: number) => {
+      // Find current link index
+      const currentLink = links.find((link) =>
+        location.pathname.includes(link.to === "/" ? "/en" : link.to)
+      );
+      const currentIndex = currentLink?.index ?? 0;
+
+      // Determine slide direction
+      if (targetIndex > currentIndex) {
+        return { types: ["slide-left"] };
+      }
+      if (targetIndex < currentIndex) {
+        return { types: ["slide-right"] };
+      }
+      return { types: ["fade"] };
+    },
+    [location.pathname, links]
+  );
 
   const cycleTheme = () => {
     if (theme === "light") {
@@ -55,13 +77,14 @@ export default function Header() {
           </LocalizedLink>
           {/* Desktop Navigation */}
           <nav className="hidden gap-6 md:flex">
-            {links.map(({ to, label }) => (
+            {links.map(({ to, label, index }) => (
               <LocalizedLink
                 activeOptions={{ exact: to === "/" }}
                 activeProps={{ className: "active" }}
                 className="text-muted-foreground transition-colors hover:text-foreground [&.active]:font-medium [&.active]:text-foreground"
                 key={to}
                 to={to}
+                viewTransition={getViewTransition(to, index)}
               >
                 {label}
               </LocalizedLink>
@@ -111,7 +134,7 @@ export default function Header() {
       {mobileMenuOpen && (
         <div className="border-b bg-background md:hidden">
           <nav className="flex flex-col px-4 py-2">
-            {links.map(({ to, label }) => (
+            {links.map(({ to, label, index }) => (
               <LocalizedLink
                 activeOptions={{ exact: to === "/" }}
                 activeProps={{ className: "active" }}
@@ -119,6 +142,7 @@ export default function Header() {
                 key={to}
                 onClick={() => setMobileMenuOpen(false)}
                 to={to}
+                viewTransition={getViewTransition(to, index)}
               >
                 {label}
               </LocalizedLink>

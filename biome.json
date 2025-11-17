@@ -53,6 +53,9 @@
             "allow": ["warn", "info", "error"]
           }
         }
+      },
+      "correctness": {
+        "noUnknownTypeSelector": "off"
       }
     }
   }
