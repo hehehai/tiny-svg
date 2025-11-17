@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useIntlayer, useLocale } from "react-intlayer";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -17,6 +17,15 @@ import { exportAsJpeg, exportAsPng } from "@/lib/file-utils";
 import { getPluginLabel } from "@/lib/svgo-plugins";
 import { useSvgStore } from "@/store/svg-store";
 import { type ExportScale, useUiStore } from "@/store/ui-store";
+
+// Constants
+const VIEWBOX_SPLIT_PATTERN = /\s+|,/;
+const VIEWBOX_VALUES_COUNT = 4;
+const DEFAULT_SVG_DIMENSION = 100;
+const SCALE_MATCH_THRESHOLD = 0.01;
+const JPEG_QUALITY = 0.95;
+// biome-ignore lint/style/noMagicNumbers: These are configuration values for export scale presets
+const SCALE_OPTIONS = [0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6, 7, 8] as const;
 
 type ConfigPanelProps = {
   isCollapsed: boolean;
@@ -46,16 +55,10 @@ export function ConfigPanel({
     exportWidth,
     exportHeight,
     setExportScale,
-    setExportWidth,
-    setExportHeight,
     setExportDimensions,
   } = useUiStore();
   const { settings, messages } = useIntlayer("optimize");
   const { locale } = useLocale();
-
-  const SCALE_OPTIONS: ExportScale[] = [
-    0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6, 7, 8,
-  ];
 
   // 提供默认值，防止服务器端渲染错误
   const safeSettings = settings || {
@@ -88,42 +91,45 @@ export function ConfigPanel({
   };
 
   // Get SVG dimensions
-  const getSvgDimensions = (svg: string): { width: number; height: number } => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(svg, "image/svg+xml");
-    const svgElement = doc.querySelector("svg");
+  const getSvgDimensions = useCallback(
+    (svg: string): { width: number; height: number } => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(svg, "image/svg+xml");
+      const svgElement = doc.querySelector("svg");
 
-    if (!svgElement) {
-      return { width: 100, height: 100 };
-    }
+      if (!svgElement) {
+        return { width: DEFAULT_SVG_DIMENSION, height: DEFAULT_SVG_DIMENSION };
+      }
 
-    let width: string | null = svgElement.getAttribute("width");
-    let height: string | null = svgElement.getAttribute("height");
+      let width: string | null = svgElement.getAttribute("width");
+      let height: string | null = svgElement.getAttribute("height");
 
-    if (!(width && height)) {
-      const viewBox = svgElement.getAttribute("viewBox");
-      if (viewBox) {
-        const values = viewBox.split(/\s+|,/);
-        if (values.length === 4) {
-          width = values[2] ?? null;
-          height = values[3] ?? null;
+      if (!(width && height)) {
+        const viewBox = svgElement.getAttribute("viewBox");
+        if (viewBox) {
+          const values = viewBox.split(VIEWBOX_SPLIT_PATTERN);
+          if (values.length === VIEWBOX_VALUES_COUNT) {
+            width = values[2] ?? null;
+            height = values[3] ?? null;
+          }
         }
       }
-    }
 
-    const parseSize = (size: string | null): number => {
-      if (!size) {
-        return 100;
-      }
-      const parsed = Number.parseFloat(size);
-      return Number.isNaN(parsed) ? 100 : parsed;
-    };
+      const parseSize = (size: string | null): number => {
+        if (!size) {
+          return DEFAULT_SVG_DIMENSION;
+        }
+        const parsed = Number.parseFloat(size);
+        return Number.isNaN(parsed) ? DEFAULT_SVG_DIMENSION : parsed;
+      };
 
-    return {
-      width: parseSize(width),
-      height: parseSize(height),
-    };
-  };
+      return {
+        width: parseSize(width),
+        height: parseSize(height),
+      };
+    },
+    []
+  );
 
   // Initialize export dimensions when SVG changes
   useEffect(() => {
@@ -136,13 +142,19 @@ export function ConfigPanel({
         Math.round(height * scale)
       );
     }
-  }, [compressedSvg, originalSvg, exportScale]);
+  }, [
+    compressedSvg,
+    originalSvg,
+    exportScale,
+    getSvgDimensions,
+    setExportDimensions,
+  ]);
 
   // Get current SVG dimensions and aspect ratio
   const currentSvg = compressedSvg || originalSvg;
   const svgDimensions = currentSvg
     ? getSvgDimensions(currentSvg)
-    : { width: 100, height: 100 };
+    : { width: DEFAULT_SVG_DIMENSION, height: DEFAULT_SVG_DIMENSION };
   const aspectRatio = svgDimensions.width / svgDimensions.height;
 
   // Handle scale change
@@ -171,7 +183,9 @@ export function ConfigPanel({
 
     // Check if it matches any preset scale
     const scale = width / svgDimensions.width;
-    const matchingScale = SCALE_OPTIONS.find((s) => Math.abs(s - scale) < 0.01);
+    const matchingScale = SCALE_OPTIONS.find(
+      (s) => Math.abs(s - scale) < SCALE_MATCH_THRESHOLD
+    );
     setExportScale(matchingScale || null);
   };
 
@@ -187,7 +201,9 @@ export function ConfigPanel({
 
     // Check if it matches any preset scale
     const scale = height / svgDimensions.height;
-    const matchingScale = SCALE_OPTIONS.find((s) => Math.abs(s - scale) < 0.01);
+    const matchingScale = SCALE_OPTIONS.find(
+      (s) => Math.abs(s - scale) < SCALE_MATCH_THRESHOLD
+    );
     setExportScale(matchingScale || null);
   };
 
@@ -217,7 +233,7 @@ export function ConfigPanel({
       await exportAsJpeg(
         compressedSvg,
         fileName,
-        0.95,
+        JPEG_QUALITY,
         exportWidth,
         exportHeight
       );
@@ -383,66 +399,67 @@ export function ConfigPanel({
         {/* Export Options */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">
-              {safeSettings.export.title}
+            <CardTitle className="flex items-center justify-between gap-1">
+              <h3 className="text-base">{safeSettings.export.title}</h3>
+              <div className="flex items-center gap-1">
+                {/* Scale Selector */}
+                <div>
+                  <Label className="sr-only text-xs" htmlFor="export-scale">
+                    {safeSettings.export.scale}
+                  </Label>
+                  <Select
+                    onValueChange={handleScaleChange}
+                    value={exportScale?.toString() || "custom"}
+                  >
+                    <SelectTrigger
+                      className="w-14 px-2 data-[size=default]:h-8 md:text-xs"
+                      id="export-scale"
+                    >
+                      <SelectValue placeholder="--" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {SCALE_OPTIONS.map((scale) => (
+                        <SelectItem key={scale} value={scale.toString()}>
+                          {scale}x
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Width Input */}
+                <div>
+                  <Label className="sr-only text-xs" htmlFor="export-width">
+                    {safeSettings.export.width}
+                  </Label>
+                  <Input
+                    className="h-8 w-16 px-2 md:text-xs"
+                    id="export-width"
+                    min={1}
+                    onChange={(e) => handleWidthChange(e.target.value)}
+                    type="number"
+                    value={exportWidth || ""}
+                  />
+                </div>
+
+                {/* Height Input */}
+                <div>
+                  <Label className="sr-only text-xs" htmlFor="export-height">
+                    {safeSettings.export.height}
+                  </Label>
+                  <Input
+                    className="h-8 w-16 px-2 md:text-xs"
+                    id="export-height"
+                    min={1}
+                    onChange={(e) => handleHeightChange(e.target.value)}
+                    type="number"
+                    value={exportHeight || ""}
+                  />
+                </div>
+              </div>
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            {/* Export Dimensions Controls */}
-            <div className="grid grid-cols-3 gap-2">
-              {/* Scale Selector */}
-              <div className="space-y-1.5">
-                <Label className="text-xs" htmlFor="export-scale">
-                  {safeSettings.export.scale}
-                </Label>
-                <Select
-                  onValueChange={handleScaleChange}
-                  value={exportScale?.toString() || "custom"}
-                >
-                  <SelectTrigger className="h-8" id="export-scale">
-                    <SelectValue placeholder="--" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {SCALE_OPTIONS.map((scale) => (
-                      <SelectItem key={scale} value={scale.toString()}>
-                        {scale}x
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Width Input */}
-              <div className="space-y-1.5">
-                <Label className="text-xs" htmlFor="export-width">
-                  {safeSettings.export.width}
-                </Label>
-                <Input
-                  className="h-8"
-                  id="export-width"
-                  min={1}
-                  onChange={(e) => handleWidthChange(e.target.value)}
-                  type="number"
-                  value={exportWidth || ""}
-                />
-              </div>
-
-              {/* Height Input */}
-              <div className="space-y-1.5">
-                <Label className="text-xs" htmlFor="export-height">
-                  {safeSettings.export.height}
-                </Label>
-                <Input
-                  className="h-8"
-                  id="export-height"
-                  min={1}
-                  onChange={(e) => handleHeightChange(e.target.value)}
-                  type="number"
-                  value={exportHeight || ""}
-                />
-              </div>
-            </div>
-
             {/* Export Buttons */}
             <div className="space-y-2 pt-1">
               <Button
