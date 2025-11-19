@@ -340,17 +340,17 @@ Tiny SVG is a modern, lightning-fast SVG optimizer and code generator built with
 - Main pages: index (home), about, optimize
 
 ## Common Tasks
-- `pnpm dev` - Start all workspace apps in development mode
-- `pnpm dev:web` - Start only the web app
-- `pnpm build` - Build all workspace packages
-- `pnpm --filter web build` - Build only the web app
-- `pnpm --filter web deploy` - Deploy to Vercel
-- `pnpm check` - Run Biome linter and formatter
-- `pnpm check-types` - Run TypeScript type checking
-- `npx ultracite init` - Initialize Ultracite in your project
-- `npx ultracite fix` - Format and fix code automatically
-- `npx ultracite check` - Check for issues without fixing
-- `pnpm intlayer build` - Build internationalization dictionaries
+- `bun dev` - Start all workspace apps in development mode
+- `bun dev:web` - Start only the web app
+- `bun run build` - Build all workspace packages
+- `bun --filter web build` - Build only the web app
+- `bun --filter web deploy` - Deploy to Vercel
+- `bun run check` - Run Biome linter and formatter
+- `bun run check-types` - Run TypeScript type checking
+- `bunx ultracite init` - Initialize Ultracite in your project
+- `bunx ultracite fix` - Format and fix code automatically
+- `bunx ultracite check` - Check for issues without fixing
+- `bun run intlayer build` - Build internationalization dictionaries
 
 ## Example: Error Handling
 ```typescript

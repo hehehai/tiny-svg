@@ -8,10 +8,10 @@
   ],
   "scripts": {
     "check": "biome check --write .",
-    "dev": "pnpm -r dev",
-    "build": "pnpm -r build",
-    "check-types": "pnpm -r check-types",
-    "dev:web": "pnpm --filter web dev"
+    "dev": "bun --filter '*' dev",
+    "build": "bun --filter '*' build",
+    "check-types": "bun --filter '*' check-types",
+    "dev:web": "bun --filter web dev"
   },
   "dependencies": {
     "dotenv": "^17.2.2",
@@ -23,6 +23,5 @@
     "husky": "^9.1.7",
     "tsdown": "^0.15.5",
     "ultracite": "6.0.0"
-  },
-  "packageManager": "pnpm@10.14.0"
+  }
 }

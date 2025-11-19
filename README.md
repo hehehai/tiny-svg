@@ -56,8 +56,8 @@ Powerful optimization tools with real-time preview and code generation.
 
 ### Prerequisites
 
-- **Node.js**: >= 18.x
-- **pnpm**: >= 9.x (recommended package manager)
+- **Node.js**: >= 18.x (or use Bun runtime)
+- **Bun**: >= 1.0.0 (recommended package manager and runtime)
 
 ### Installation
 
@@ -67,19 +67,19 @@ git clone https://github.com/your-username/tiny-svg.git
 cd tiny-svg
 
 # Install dependencies
-pnpm install
+bun install
 ```
 
 ### Development
 
-This is a **pnpm workspace** monorepo. Start the development server:
+This is a **Bun workspace** monorepo. Start the development server:
 
 ```bash
 # Start all workspace apps (runs in all apps/*)
-pnpm dev
+bun dev
 
 # Or start only the web app
-pnpm dev:web
+bun dev:web
 ```
 
 Open [http://localhost:3001](http://localhost:3001) in your browser.
@@ -90,13 +90,13 @@ Build for production:
 
 ```bash
 # Build all workspace packages
-pnpm build
+bun run build
 
 # Or build only the web app
-pnpm --filter web build
+bun --filter web build
 
 # Preview the production build locally
-pnpm --filter web serve
+bun --filter web serve
 ```
 
 Build output will be in `apps/web/.output/`:
@@ -109,10 +109,10 @@ Run linting and formatting:
 
 ```bash
 # Check and fix issues (runs on entire workspace)
-pnpm check
+bun run check
 
 # Type check all packages
-pnpm check-types
+bun run check-types
 ```
 
 ---
@@ -306,7 +306,7 @@ tiny-svg/
 │       └── vite.config.ts       # Vite configuration
 ├── docs/
 │   └── images/                  # Documentation images
-├── package.json                 # Root package.json (pnpm workspace)
+├── package.json                 # Root package.json (Bun workspace)
 └── README.md                    # This file
 ```
 
@@ -483,9 +483,9 @@ npm i -g vercel
 # Deploy to production
 vercel --prod
 
-# Or use the npm script
+# Or use the bun script
 cd apps/web
-pnpm deploy
+bun run deploy
 ```
 
 #### Environment Variables
@@ -509,8 +509,8 @@ vercel env pull
 
 #### Deployment Best Practices
 
-- **Build locally first**: Run `pnpm --filter web build` to catch errors before deploying
-- **Test with preview**: Use `pnpm --filter web serve` to test the production build locally
+- **Build locally first**: Run `bun --filter web build` to catch errors before deploying
+- **Test with preview**: Use `bun --filter web serve` to test the production build locally
 - **Check bundle size**: Monitor `apps/web/.output/public/assets/` to ensure bundles are optimized
 - **Preview deployments**: Every push to a branch creates a preview deployment
 
@@ -538,7 +538,7 @@ docker run -p 3001:3001 tiny-svg
 
 ### Build Output
 
-After running `pnpm build`, the output structure is:
+After running `bun run build`, the output structure is:
 
 ```
 apps/web/.output/
@@ -637,7 +637,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](./LICENSE
 
 ## Code Template
 
-- start with same template [tiny-svg start template](https://better-t-stack.dev/stack?name=my-better-t-app&fe-w=tanstack-start&fe-n=none&rt=none&be=none&api=none&db=none&orm=none&dbs=none&au=none&pay=none&pm=pnpm&add=biome%2Cultracite&ex=&git=true&i=true&wd=none&sd=vercel&yolo=false)
+- start with same template [tiny-svg start template](https://better-t-stack.dev/stack?name=my-better-t-app&fe-w=tanstack-start&fe-n=none&rt=none&be=none&api=none&db=none&orm=none&dbs=none&au=none&pay=none&pm=bun&add=biome%2Cultracite&ex=&git=true&i=true&wd=none&sd=vercel&yolo=false)
 
 ---
 
