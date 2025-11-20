@@ -34,6 +34,7 @@ export function useOptimizePage() {
     svgoConfig,
     setOriginalSvg,
     setCompressedSvg,
+    setHistoryEntry,
   } = useSvgStore();
 
   const {
@@ -164,11 +165,15 @@ export function useOptimizePage() {
 
   const handleSelectHistoryEntry = useCallback(
     (entry: HistoryEntry) => {
-      setOriginalSvg(entry.originalSvg, entry.fileName);
+      setHistoryEntry({
+        compressedSvg: entry.compressedSvg,
+        fileName: entry.fileName,
+        originalSvg: entry.originalSvg,
+      });
       toggleHistoryPanel();
       setHasAutoSwitchedTab(false);
     },
-    [setOriginalSvg, toggleHistoryPanel, setHasAutoSwitchedTab]
+    [setHistoryEntry, toggleHistoryPanel, setHasAutoSwitchedTab]
   );
 
   const handleDeleteHistoryEntry = useCallback(

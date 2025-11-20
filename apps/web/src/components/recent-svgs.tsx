@@ -14,14 +14,18 @@ type RecentSvgsProps = {
 
 export function RecentSvgs({ entries, className }: RecentSvgsProps) {
   const router = useRouter();
-  const { setOriginalSvg } = useSvgStore();
+  const { setHistoryEntry } = useSvgStore();
 
   const handleSelectEntry = useCallback(
     (entry: HistoryEntry) => {
-      setOriginalSvg(entry.originalSvg, entry.fileName);
+      setHistoryEntry({
+        compressedSvg: entry.compressedSvg,
+        fileName: entry.fileName,
+        originalSvg: entry.originalSvg,
+      });
       router.navigate({ to: "/{-$locale}/optimize" });
     },
-    [router, setOriginalSvg]
+    [router, setHistoryEntry]
   );
 
   if (entries.length === 0) {

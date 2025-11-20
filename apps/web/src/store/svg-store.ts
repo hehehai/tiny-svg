@@ -22,6 +22,11 @@ export type SvgState = {
 type SvgActions = {
   setOriginalSvg: (svg: string, fileName: string) => void;
   setCompressedSvg: (svg: string) => void;
+  setHistoryEntry: (entry: {
+    originalSvg: string;
+    compressedSvg: string;
+    fileName: string;
+  }) => void;
   setSvgoConfig: (config: SvgoConfig) => void;
   togglePlugin: (pluginName: string) => void;
   updateGlobalSettings: (settings: Partial<SvgoGlobalSettings>) => void;
@@ -49,6 +54,8 @@ export const useSvgStore = create<SvgState & SvgActions>((set) => ({
   setOriginalSvg: (svg, fileName) =>
     set({ originalSvg: svg, fileName, compressedSvg: "" }),
   setCompressedSvg: (svg) => set({ compressedSvg: svg }),
+  setHistoryEntry: ({ originalSvg, compressedSvg, fileName }) =>
+    set({ originalSvg, compressedSvg, fileName }),
   setSvgoConfig: (config) => set({ svgoConfig: config }),
   togglePlugin: (pluginName) =>
     set((state) => ({
