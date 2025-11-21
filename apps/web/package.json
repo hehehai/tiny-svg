@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "serve": "pnpm run vite preview",
+    "serve": "vite preview",
     "dev": "vite dev --port=3001",
     "deploy": "vercel --prod",
     "blog:build": "content-collections build",
