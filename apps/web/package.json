@@ -86,6 +86,7 @@
     "typescript": "^5.7.2",
     "vite": "^7.0.2",
     "vite-intlayer": "^6.1.6",
+    "vite-plugin-pwa": "^1.1.0",
     "web-vitals": "^5.0.3",
     "workbox-window": "^7.3.0"
   }
