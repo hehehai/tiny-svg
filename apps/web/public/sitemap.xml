@@ -4,66 +4,66 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-  
+
   <!-- Homepage -->
   <url>
-    <loc>https://tiny-svg.com/</loc>
+    <loc>https://tiny-svg.actnow.dev/</loc>
     <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  
+
   <!-- Optimize Page -->
   <url>
-    <loc>https://tiny-svg.com/optimize</loc>
+    <loc>https://tiny-svg.actnow.dev/optimize</loc>
     <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-  
+
   <!-- Blog Index -->
   <url>
-    <loc>https://tiny-svg.com/blog</loc>
+    <loc>https://tiny-svg.actnow.dev/blog</loc>
     <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  
+
   <!-- Blog Posts -->
   <url>
-    <loc>https://tiny-svg.com/blog/getting-started-with-svg-optimization</loc>
+    <loc>https://tiny-svg.actnow.dev/blog/getting-started-with-svg-optimization</loc>
     <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  
+
   <url>
-    <loc>https://tiny-svg.com/blog/svg-vs-png-when-to-use-each</loc>
+    <loc>https://tiny-svg.actnow.dev/blog/svg-vs-png-when-to-use-each</loc>
     <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  
+
   <url>
-    <loc>https://tiny-svg.com/blog/advanced-svg-techniques</loc>
+    <loc>https://tiny-svg.actnow.dev/blog/advanced-svg-techniques</loc>
     <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  
+
   <url>
-    <loc>https://tiny-svg.com/blog/why-client-side-processing-matters</loc>
+    <loc>https://tiny-svg.actnow.dev/blog/why-client-side-processing-matters</loc>
     <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  
+
   <!-- About Page -->
   <url>
-    <loc>https://tiny-svg.com/about</loc>
+    <loc>https://tiny-svg.actnow.dev/about</loc>
     <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-  
+
 </urlset>

@@ -57,7 +57,7 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
       },
       {
         property: "og:url",
-        content: "https://tiny-svg.com/",
+        content: "https://tiny-svg.actnow.dev/",
       },
       {
         property: "og:title",
@@ -70,7 +70,7 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
       },
       {
         property: "og:image",
-        content: "https://tiny-svg.com/og-image.png",
+        content: "https://tiny-svg.actnow.dev/og-image.png",
       },
       // Twitter
       {
@@ -79,7 +79,7 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
       },
       {
         property: "twitter:url",
-        content: "https://tiny-svg.com/",
+        content: "https://tiny-svg.actnow.dev/",
       },
       {
         property: "twitter:title",
@@ -92,7 +92,7 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
       },
       {
         property: "twitter:image",
-        content: "https://tiny-svg.com/og-image.png",
+        content: "https://tiny-svg.actnow.dev/og-image.png",
       },
       // Additional SEO meta tags
       {
@@ -114,7 +114,7 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "canonical", href: "https://tiny-svg.com/" },
+      { rel: "canonical", href: "https://tiny-svg.actnow.dev/" },
       { rel: "manifest", href: "/site.webmanifest" },
     ],
   }),
@@ -126,7 +126,7 @@ function RootDocument() {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     name: "Tiny SVG",
-    url: "https://tiny-svg.com",
+    url: "https://tiny-svg.actnow.dev",
     description:
       "Free online SVG optimizer and converter. Compress SVG files up to 70%, convert to React, Vue, and Svelte components.",
     applicationCategory: "DesignApplication",

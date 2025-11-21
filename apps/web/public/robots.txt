@@ -6,7 +6,7 @@ Allow: /
 # Disallow: /admin/
 
 # Sitemaps
-Sitemap: https://tiny-svg.com/sitemap.xml
+Sitemap: https://tiny-svg.actnow.dev/sitemap.xml
 
 # Crawl delay (optional, adjust if needed)
 # Crawl-delay: 1

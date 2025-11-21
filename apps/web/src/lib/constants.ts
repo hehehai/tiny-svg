@@ -258,7 +258,7 @@ export const VIEWBOX_VALUES_LENGTH = 4;
 // ============================================================================
 
 /** Base URL for the application */
-export const BASE_URL = "https://tiny-svg.com";
+export const BASE_URL = "https://tiny-svg.actnow.dev";
 
 /** Open Graph image URL */
 export const OG_IMAGE_URL = `${BASE_URL}/og-image.png`;

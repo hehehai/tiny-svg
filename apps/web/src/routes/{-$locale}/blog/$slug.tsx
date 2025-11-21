@@ -18,8 +18,8 @@ export const Route = createFileRoute("/{-$locale}/blog/$slug")({
     }
 
     const { post } = loaderData;
-    const url = `https://tiny-svg.com/blog/${post.slug}`;
-    const imageUrl = post.cover || "https://tiny-svg.com/og-image.png";
+    const url = `https://tiny-svg.actnow.dev/blog/${post.slug}`;
+    const imageUrl = post.cover || "https://tiny-svg.actnow.dev/og-image.png";
 
     return {
       meta: [
@@ -61,25 +61,25 @@ function BlogDetailPage() {
     "@type": "BlogPosting",
     headline: post.title,
     description: post.desc,
-    image: post.cover || "https://tiny-svg.com/og-image.png",
+    image: post.cover || "https://tiny-svg.actnow.dev/og-image.png",
     datePublished: post.datetime,
     dateModified: post.datetime,
     author: {
       "@type": "Organization",
       name: "Tiny SVG Team",
-      url: "https://tiny-svg.com",
+      url: "https://tiny-svg.actnow.dev",
     },
     publisher: {
       "@type": "Organization",
       name: "Tiny SVG",
       logo: {
         "@type": "ImageObject",
-        url: "https://tiny-svg.com/logo.png",
+        url: "https://tiny-svg.actnow.dev/logo.png",
       },
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://tiny-svg.com/blog/${post.slug}`,
+      "@id": `https://tiny-svg.actnow.dev/blog/${post.slug}`,
     },
   };
 

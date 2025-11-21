@@ -2,7 +2,7 @@
 
 export const siteConfig = {
   name: "Tiny SVG",
-  url: "https://tiny-svg.com",
+  url: "https://tiny-svg.actnow.dev",
   title: "Tiny SVG - Optimize SVGs & Convert to React, Vue, Svelte Components",
   description:
     "Free online SVG optimizer and converter. Compress SVG files up to 70%, convert to React, Vue, and Svelte components. All processing happens in your browser - secure and fast!",
@@ -17,7 +17,7 @@ export const siteConfig = {
     "SVG converter",
     "web performance",
   ],
-  ogImage: "https://tiny-svg.com/og-image.png",
+  ogImage: "https://tiny-svg.actnow.dev/og-image.png",
   author: "Tiny SVG Team",
   social: {
     twitter: "@tinysvg",

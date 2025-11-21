@@ -24,7 +24,7 @@ export const Route = createFileRoute("/{-$locale}/blog/")({
       },
       // Open Graph
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://tiny-svg.com/blog" },
+      { property: "og:url", content: "https://tiny-svg.actnow.dev/blog" },
       {
         property: "og:title",
         content: "Blog - SVG Optimization Tips & Tutorials",
@@ -34,10 +34,13 @@ export const Route = createFileRoute("/{-$locale}/blog/")({
         content:
           "Learn SVG optimization techniques, best practices, and tips for web performance.",
       },
-      { property: "og:image", content: "https://tiny-svg.com/og-image.png" },
+      {
+        property: "og:image",
+        content: "https://tiny-svg.actnow.dev/og-image.png",
+      },
       // Twitter
       { property: "twitter:card", content: "summary_large_image" },
-      { property: "twitter:url", content: "https://tiny-svg.com/blog" },
+      { property: "twitter:url", content: "https://tiny-svg.actnow.dev/blog" },
       {
         property: "twitter:title",
         content: "Blog - SVG Optimization Tips & Tutorials",
@@ -49,10 +52,10 @@ export const Route = createFileRoute("/{-$locale}/blog/")({
       },
       {
         property: "twitter:image",
-        content: "https://tiny-svg.com/og-image.png",
+        content: "https://tiny-svg.actnow.dev/og-image.png",
       },
     ],
-    links: [{ rel: "canonical", href: "https://tiny-svg.com/blog" }],
+    links: [{ rel: "canonical", href: "https://tiny-svg.actnow.dev/blog" }],
   }),
   component: BlogListPage,
 });
