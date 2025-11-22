@@ -1,5 +1,8 @@
 import contentCollections from "@content-collections/vite";
 import tailwindcss from "@tailwindcss/vite";
+import takumiPackageJson from "@takumi-rs/core/package.json" with {
+  type: "json",
+};
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import { Locales } from "intlayer";
@@ -114,12 +117,6 @@ export default defineConfig(({ mode }) => ({
       },
     }),
   ],
-  ssr: {
-    external: ["@takumi-rs/image-response"],
-  },
-  optimizeDeps: {
-    exclude: ["@takumi-rs/image-response"],
-  },
   build: {
     rollupOptions: {
       output: {
@@ -150,15 +147,8 @@ export default defineConfig(({ mode }) => ({
   nitro: {
     preset: "vercel",
     externals: {
-      traceInclude: [
-        "node_modules/@takumi-rs/core",
-        "node_modules/@takumi-rs/image-response",
-        "node_modules/@takumi-rs/helpers",
-        "node_modules/@takumi-rs/core-linux-x64-gnu",
-        "node_modules/@takumi-rs/core-linux-arm64-gnu",
-        "node_modules/@takumi-rs/core-darwin-arm64",
-        "node_modules/@takumi-rs/core-darwin-x64",
-      ],
+      external: ["@takumi-rs/core"],
+      traceInclude: Object.keys(takumiPackageJson.optionalDependencies),
     },
   },
 }));
