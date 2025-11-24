@@ -2,7 +2,7 @@ import { type IntlayerConfig, Locales } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.CHINESE, Locales.KOREAN, Locales.GERMAN],
+    locales: [Locales.ENGLISH, Locales.CHINESE, Locales.KOREAN, Locales.GERMAN, Locales.FRENCH],
     defaultLocale: Locales.ENGLISH,
   },
   editor: {
