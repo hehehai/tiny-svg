@@ -144,6 +144,9 @@ export default defineConfig(({ mode }) => ({
       },
     },
   },
+  optimizeDeps: {
+    exclude: ["@takumi-rs/core"],
+  },
   nitro: {
     preset: "vercel",
     externals: {
