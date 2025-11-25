@@ -52,7 +52,19 @@ const initialState: SvgState = {
 export const useSvgStore = create<SvgState & SvgActions>((set) => ({
   ...initialState,
   setOriginalSvg: (svg, fileName) =>
-    set({ originalSvg: svg, fileName, compressedSvg: "" }),
+    set((state) => {
+      // Check if this is the same content being uploaded again
+      const isDuplicateContent =
+        state.originalSvg === svg && state.fileName === fileName;
+
+      if (isDuplicateContent && state.compressedSvg) {
+        // Same file uploaded again - don't clear compressedSvg
+        return { originalSvg: svg, fileName };
+      }
+
+      // New file or different content - clear compressedSvg for fresh compression
+      return { originalSvg: svg, fileName, compressedSvg: "" };
+    }),
   setCompressedSvg: (svg) => set({ compressedSvg: svg }),
   setHistoryEntry: ({ originalSvg, compressedSvg, fileName }) =>
     set({ originalSvg, compressedSvg, fileName }),
