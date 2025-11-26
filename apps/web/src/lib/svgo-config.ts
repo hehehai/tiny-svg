@@ -9,7 +9,7 @@ import type { SvgoGlobalSettings, SvgoPluginConfig } from "@/lib/svgo-plugins";
 
 export const getStandardPreset = (): SvgoConfig => ({
   multipass: true,
-  plugins: ["preset-default"] as any,
+  plugins: ["preset-default"] as unknown as SvgoConfig["plugins"],
 });
 
 export const buildSvgoConfig = (
@@ -23,31 +23,13 @@ export const buildSvgoConfig = (
     floatPrecision: globalSettings.floatPrecision,
     plugins:
       enabledPlugins.length > 0
-        ? (enabledPlugins as any)
-        : (["preset-default"] as any),
+        ? (enabledPlugins as unknown as SvgoConfig["plugins"])
+        : (["preset-default"] as unknown as SvgoConfig["plugins"]),
   };
 };
 
-const PERCENTAGE_MULTIPLIER = 100;
-
-export const calculateCompressionRate = (
-  original: string,
-  compressed: string
-): number => {
-  if (!(original && compressed)) {
-    return 0;
-  }
-  const originalSize = new Blob([original]).size;
-  const compressedSize = new Blob([compressed]).size;
-  return (1 - compressedSize / originalSize) * PERCENTAGE_MULTIPLIER;
-};
-
-export const formatBytes = (bytes: number): string => {
-  if (bytes === 0) {
-    return "0 Bytes";
-  }
-  const k = 1024;
-  const sizes = ["Bytes", "KB", "MB"];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return `${Number.parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`;
-};
+// Re-export from svg-core for backward compatibility
+export {
+  calculateCompressionRatio as calculateCompressionRate,
+  formatSize as formatBytes,
+} from "@tiny-svg/svg-core";

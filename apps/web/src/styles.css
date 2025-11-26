@@ -264,20 +264,20 @@ body {
 }
 
 /* Fallback for SVGs without explicit width/height attributes */
-.svg-preview-container > div > svg:not([width]):not([height]),
-.svg-preview-container svg:not([width]):not([height]) {
+.svg-preview-container svg:not([width]):not([height]),
+.svg-preview-container > div > svg:not([width]):not([height]) {
   width: 200px;
   height: 200px;
 }
 
 /* Preview svg */
 .svg-view-outline::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    content: '';
-    outline: 1px dashed rgba(192, 192, 192, 0.8);
-    z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+  outline: 1px dashed rgba(192, 192, 192, 0.8);
+  z-index: 1;
 }

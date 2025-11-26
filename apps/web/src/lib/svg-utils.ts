@@ -84,15 +84,8 @@ export function getSvgDimensions(
   }
 }
 
-export function formatFileSize(bytes: number): string {
-  if (bytes === 0) {
-    return "0 B";
-  }
-  const k = 1024;
-  const sizes = ["B", "KB", "MB"];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return `${Number.parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`;
-}
+// Re-export from svg-core for backward compatibility
+export { formatSize as formatFileSize } from "@tiny-svg/svg-core";
 
 export function formatTimestamp(timestamp: number): string {
   const date = new Date(timestamp);

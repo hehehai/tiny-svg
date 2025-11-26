@@ -18,6 +18,9 @@
     ]
   },
   "extends": ["ultracite", "ultracite/core"],
+  "javascript": {
+    "globals": ["figma", "__html__"]
+  },
   "linter": {
     "rules": {
       "nursery": {
@@ -55,7 +58,8 @@
         "noUnknownTypeSelector": "off"
       },
       "a11y": {
-        "useSemanticElements": "off"
+        "useSemanticElements": "off",
+        "noNoninteractiveElementInteractions": "off"
       }
     }
   }

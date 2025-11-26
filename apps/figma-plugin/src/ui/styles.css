@@ -1,0 +1,313 @@
+@import "tailwindcss";
+
+/* Figma Plugin Theme */
+@theme {
+  --color-figma-bg: #ffffff;
+  --color-figma-bg-secondary: #f5f5f5;
+  --color-figma-bg-tertiary: #e8e8e8;
+  --color-figma-border: #e0e0e0;
+  --color-figma-border-selected: #0969da;
+  --color-figma-text: #24292e;
+  --color-figma-text-secondary: #656d76;
+  --color-figma-text-tertiary: #8b949e;
+  --color-figma-accent: #0969da;
+  --color-figma-success: #1a7f37;
+  --color-figma-warning: #9a6700;
+  --color-figma-danger: #cf222e;
+
+  --font-figma:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --text-figma-xs: 10px;
+  --text-figma-sm: 11px;
+  --text-figma-base: 12px;
+  --text-figma-lg: 14px;
+
+  --spacing-figma-xs: 4px;
+  --spacing-figma-sm: 8px;
+  --spacing-figma-md: 12px;
+  --spacing-figma-lg: 16px;
+
+  --radius-figma: 4px;
+
+  --shadow-figma-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-figma-md: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-figma);
+  font-size: var(--text-figma-base);
+  background: var(--color-figma-bg);
+  color: var(--color-figma-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Layout Components */
+.plugin-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-figma-bg);
+}
+
+.plugin-header {
+  padding: var(--spacing-figma-md);
+  border-bottom: 1px solid var(--color-figma-border);
+  background: var(--color-figma-bg);
+  flex-shrink: 0;
+}
+
+.plugin-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-figma-md);
+}
+
+.plugin-footer {
+  padding: var(--spacing-figma-md);
+  border-top: 1px solid var(--color-figma-border);
+  background: var(--color-figma-bg-secondary);
+  flex-shrink: 0;
+}
+
+/* Typography */
+.figma-h1 {
+  font-size: var(--text-figma-lg);
+  font-weight: 600;
+  color: var(--color-figma-text);
+  margin: 0;
+}
+
+.figma-h2 {
+  font-size: var(--text-figma-base);
+  font-weight: 600;
+  margin: 0 0 var(--spacing-figma-sm);
+  color: var(--color-figma-text);
+}
+
+.figma-h3 {
+  font-size: var(--text-figma-sm);
+  font-weight: 500;
+  margin: 0 0 var(--spacing-figma-xs);
+  color: var(--color-figma-text-secondary);
+}
+
+.text-secondary {
+  color: var(--color-figma-text-secondary);
+}
+
+.text-tertiary {
+  color: var(--color-figma-text-tertiary);
+}
+
+.text-xs {
+  font-size: var(--text-figma-xs);
+}
+
+/* Buttons */
+.btn {
+  padding: var(--spacing-figma-xs) var(--spacing-figma-sm);
+  border: 1px solid var(--color-figma-border);
+  border-radius: var(--radius-figma);
+  background: var(--color-figma-bg);
+  color: var(--color-figma-text);
+  font-size: var(--text-figma-base);
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 150ms;
+  outline: none;
+}
+
+.btn:hover {
+  background: var(--color-figma-bg-secondary);
+  border-color: var(--color-figma-border-selected);
+}
+
+.btn:active {
+  background: var(--color-figma-bg-tertiary);
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--color-figma-accent);
+  color: white;
+  border-color: var(--color-figma-accent);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #0860c7;
+  border-color: #0860c7;
+}
+
+.btn-secondary {
+  background: var(--color-figma-bg-secondary);
+  color: var(--color-figma-text);
+  border-color: var(--color-figma-border);
+}
+
+.btn-danger {
+  background: var(--color-figma-danger);
+  color: white;
+  border-color: var(--color-figma-danger);
+}
+
+.btn-sm {
+  padding: 2px var(--spacing-figma-xs);
+  font-size: var(--text-figma-sm);
+}
+
+.btn-lg {
+  padding: var(--spacing-figma-sm) var(--spacing-figma-md);
+  font-weight: 500;
+}
+
+.btn-block {
+  width: 100%;
+  display: block;
+}
+
+/* Form Elements */
+.input {
+  width: 100%;
+  padding: var(--spacing-figma-xs) var(--spacing-figma-sm);
+  border: 1px solid var(--color-figma-border);
+  border-radius: var(--radius-figma);
+  background: var(--color-figma-bg);
+  color: var(--color-figma-text);
+  font-size: var(--text-figma-base);
+  font-weight: 400;
+  transition: border-color 150ms;
+  outline: none;
+}
+
+.input:focus {
+  border-color: var(--color-figma-border-selected);
+}
+
+.input::placeholder {
+  color: var(--color-figma-text-tertiary);
+}
+
+.select {
+  width: 100%;
+  padding: var(--spacing-figma-xs) var(--spacing-figma-sm);
+  border: 1px solid var(--color-figma-border);
+  border-radius: var(--radius-figma);
+  background: var(--color-figma-bg);
+  color: var(--color-figma-text);
+  font-size: var(--text-figma-base);
+  font-weight: 400;
+  cursor: pointer;
+  outline: none;
+}
+
+.select:focus {
+  border-color: var(--color-figma-border-selected);
+}
+
+/* Cards */
+.card {
+  background: var(--color-figma-bg);
+  border: 1px solid var(--color-figma-border);
+  border-radius: var(--radius-figma);
+  overflow: hidden;
+  margin-bottom: var(--spacing-figma-sm);
+  box-shadow: var(--shadow-figma-sm);
+}
+
+.card-header {
+  padding: var(--spacing-figma-sm);
+  background: var(--color-figma-bg-secondary);
+  border-bottom: 1px solid var(--color-figma-border);
+}
+
+.card-content {
+  padding: var(--spacing-figma-sm);
+}
+
+/* Status Indicators */
+.status-success {
+  color: var(--color-figma-success);
+}
+
+.status-warning {
+  color: var(--color-figma-warning);
+}
+
+.status-error {
+  color: var(--color-figma-danger);
+}
+
+.badge {
+  padding: 2px var(--spacing-figma-xs);
+  border-radius: calc(var(--radius-figma) / 2);
+  font-size: var(--text-figma-xs);
+  font-weight: 500;
+  background: var(--color-figma-bg-tertiary);
+  color: var(--color-figma-text-secondary);
+}
+
+.badge-success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge-warning {
+  background: #fef9c3;
+  color: #854d0e;
+}
+
+/* Loading State */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-figma-lg);
+  color: var(--color-figma-text-secondary);
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--color-figma-border);
+  border-top-color: var(--color-figma-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: var(--spacing-figma-sm);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-figma-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-figma-border);
+  border-radius: var(--radius-figma);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-figma-text-tertiary);
+}
