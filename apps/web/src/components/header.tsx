@@ -1,7 +1,7 @@
 import { useLocation } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
 import { useIntlayer } from "react-intlayer";
-import { LocaleSwitcher } from "@/components/intlayer/locale-swithcer";
+import { LocaleSwitcher } from "@/components/intlayer/locale-switcher";
 import { LocalizedLink } from "@/components/intlayer/localized-link";
 import { useTheme } from "@/components/theme-provider";
 import { Logo } from "./logo";
