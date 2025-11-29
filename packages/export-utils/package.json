@@ -1,0 +1,28 @@
+{
+  "name": "@tiny-svg/export-utils",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsdown src/index.ts --dts --format esm,cjs",
+    "dev": "tsdown src/index.ts --dts --format esm,cjs --watch"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "tsdown": "^0.16.7",
+    "typescript": "^5.7.2"
+  }
+}

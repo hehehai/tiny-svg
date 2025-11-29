@@ -1,0 +1,145 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@plugin "@egoist/tailwindcss-icons";
+
+@custom-variant dark (&:is(.figma-dark *));
+
+/* ============================================
+   TAILWIND THEME
+   Define custom colors for Tailwind utilities
+   ============================================ */
+
+@theme {
+  --color-background: var(--figma-color-bg);
+  --color-foreground: var(--figma-color-text);
+  --color-card: var(--figma-color-bg);
+  --color-card-foreground: var(--figma-color-text);
+  --color-popover: var(--figma-color-bg);
+  --color-popover-foreground: var(--figma-color-text);
+  --color-primary: var(--figma-color-bg-brand);
+  --color-primary-foreground: var(--figma-color-text-onbrand);
+  --color-secondary: var(--figma-color-bg-secondary);
+  --color-secondary-foreground: var(--figma-color-text);
+  --color-muted: var(--figma-color-bg-secondary);
+  --color-muted-foreground: var(--figma-color-text-secondary);
+  --color-accent: var(--figma-color-bg-brand);
+  --color-accent-foreground: var(--figma-color-text-onbrand);
+  --color-destructive: var(--figma-color-bg-danger);
+  --color-destructive-foreground: var(--figma-color-text-onbrand);
+  --color-success: var(--figma-color-bg-success);
+  --color-success-foreground: var(--figma-color-text-onbrand);
+  --color-warning: var(--figma-color-bg-warning);
+  --color-warning-foreground: var(--figma-color-text);
+  --color-border: var(--figma-color-border);
+  --color-input: var(--figma-color-border);
+  --color-ring: var(--figma-color-border-selected);
+
+  --radius-sm: 0.125rem; /*2px*/
+  --radius: 0.25rem; /*4px*/
+  --radius-md: 0.375rem; /*6px*/
+  --radius-lg: 0.5rem; /*8px*/
+  --radius-xl: 0.75rem; /*12px*/
+  --radius-2xl: 1rem; /*16px*/
+  --radius-3xl: 1.5rem; /*24px*/
+
+  /* Override Tailwind default font sizes */
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.8125rem; /* 13px */
+  --text-base: 0.875rem; /* 14px */
+  --text-lg: 1rem; /* 16px */
+  --text-xl: 1.125rem; /* 18px */
+  --text-2xl: 1.25rem; /* 20px */
+  --text-3xl: 1.5rem; /* 24px */
+}
+
+/* ============================================
+   CSS CUSTOM PROPERTIES
+   For direct var() usage in CSS
+   ============================================ */
+
+:root {
+  /* Spacing scale (Figma 4px base) */
+  --spacing-xs: 0.25rem; /* 4px */
+  --spacing-sm: 0.5rem; /* 8px */
+  --spacing-md: 0.75rem; /* 12px */
+  --spacing-lg: 1rem; /* 16px */
+
+  /* Border radius (Figma style) */
+  --radius: 0.25rem; /* 4px */
+
+  /* shadcn/ui semantic colors mapped to Figma variables */
+  --background: var(--figma-color-bg);
+  --foreground: var(--figma-color-text);
+
+  --card: var(--figma-color-bg);
+  --card-foreground: var(--figma-color-text);
+
+  --popover: var(--figma-color-bg);
+  --popover-foreground: var(--figma-color-text);
+
+  --primary: var(--figma-color-bg-brand);
+  --primary-foreground: var(--figma-color-text-onbrand);
+
+  --secondary: var(--figma-color-bg-secondary);
+  --secondary-foreground: var(--figma-color-text);
+
+  --muted: var(--figma-color-bg-secondary);
+  --muted-foreground: var(--figma-color-text-secondary);
+
+  --accent: var(--figma-color-bg-brand);
+  --accent-foreground: var(--figma-color-text-onbrand);
+
+  --destructive: var(--figma-color-bg-danger);
+  --destructive-foreground: var(--figma-color-text-onbrand);
+
+  --success: var(--figma-color-bg-success);
+  --success-foreground: var(--figma-color-text-onbrand);
+
+  --warning: var(--figma-color-bg-warning);
+  --warning-foreground: var(--figma-color-text);
+
+  --border: var(--figma-color-border);
+  --input: var(--figma-color-border);
+  --ring: var(--figma-color-border-selected);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}

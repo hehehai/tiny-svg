@@ -264,8 +264,8 @@ body {
 }
 
 /* Fallback for SVGs without explicit width/height attributes */
-.svg-preview-container > div > svg:not([width]):not([height]),
-.svg-preview-container svg:not([width]):not([height]) {
+.svg-preview-container svg:not([width]):not([height]),
+.svg-preview-container > div > svg:not([width]):not([height]) {
   width: 200px;
   height: 200px;
 }

@@ -72,7 +72,7 @@ const homeContent = {
           zh: "通过并排比较和代码差异查看器即时查看结果",
           ko: "나란히 비교 및 코드 차이 뷰어로 즉시 결과 확인",
           de: "Sehen Sie die Ergebnisse sofort mit Seite-an-Seite-Vergleich und Code-Diff-Viewer",
-          fr: "Visualisez instantanément les résultats en comparant les données avant/après et en utilisant un visualiseur de différences de code"
+          fr: "Visualisez instantanément les résultats en comparant les données avant/après et en utilisant un visualiseur de différences de code",
         }),
       },
     },
