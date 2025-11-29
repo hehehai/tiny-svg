@@ -2,6 +2,7 @@ import { useState } from "react";
 import { SvgSizeAdjuster } from "@/components/svg-size-adjuster";
 import { Button } from "@/components/ui/button";
 import { useLocalStorage } from "@/hooks/use-local-storage";
+import { useLongPress } from "@/hooks/use-long-press";
 import { useSvgPanZoom } from "@/hooks/use-svg-pan-zoom";
 import {
   flipHorizontal,
@@ -83,6 +84,18 @@ export function SvgPreview({ svg, title, className }: SvgPreviewProps) {
     false
   );
   const { applyTransformation } = useSvgStore();
+
+  const zoomInLongPress = useLongPress({
+    onLongPress: handleZoomIn,
+    onClick: handleZoomIn,
+    disabled: zoom >= maxZoom,
+  });
+
+  const zoomOutLongPress = useLongPress({
+    onLongPress: handleZoomOut,
+    onClick: handleZoomOut,
+    disabled: zoom <= minZoom,
+  });
 
   const cycleBackground = () => {
     const styles: BackgroundStyle[] = [
@@ -213,9 +226,9 @@ export function SvgPreview({ svg, title, className }: SvgPreviewProps) {
           <div className="mx-1 h-4 w-px bg-border" />
           <Button
             disabled={zoom <= minZoom}
-            onClick={handleZoomOut}
+            {...zoomOutLongPress}
             size="sm"
-            title="Zoom out"
+            title="Zoom out (hold for continuous zoom)"
             type="button"
             variant="outline"
           >
@@ -226,9 +239,9 @@ export function SvgPreview({ svg, title, className }: SvgPreviewProps) {
           </span>
           <Button
             disabled={zoom >= maxZoom}
-            onClick={handleZoomIn}
+            {...zoomInLongPress}
             size="sm"
-            title="Zoom in"
+            title="Zoom in (hold for continuous zoom)"
             type="button"
             variant="outline"
           >
