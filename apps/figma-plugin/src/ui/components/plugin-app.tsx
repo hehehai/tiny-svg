@@ -21,7 +21,7 @@ export function PluginApp() {
       <PluginLayout footer={<Footer />} header={<Header />}>
         {error && (
           <div className="mb-3 flex gap-2 rounded border border-destructive/30 bg-destructive/10 p-3 text-destructive">
-            <span className="flex-shrink-0 text-base">⚠️</span>
+            <span className="shrink-0 text-base">⚠️</span>
             <div className="flex flex-1 flex-col gap-1">
               <div className="font-medium text-sm">{error.message}</div>
               {error.details && (
