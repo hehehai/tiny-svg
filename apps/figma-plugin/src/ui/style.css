@@ -42,14 +42,14 @@
   --radius-2xl: 1rem; /*16px*/
   --radius-3xl: 1.5rem; /*24px*/
 
-  /* Figma-style font sizes (smaller for plugin UI) */
-  --font-size-xs: 0.6875rem; /* 11px */
-  --font-size-sm: 0.75rem; /* 12px */
-  --font-size-base: 0.8125rem; /* 13px */
-  --font-size-lg: 0.875rem; /* 14px */
-  --font-size-xl: 1rem; /* 16px */
-  --font-size-2xl: 1.125rem; /* 18px */
-  --font-size-3xl: 1.25rem; /* 20px */
+  /* Override Tailwind default font sizes */
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.8125rem; /* 13px */
+  --text-base: 0.875rem; /* 14px */
+  --text-lg: 1rem; /* 16px */
+  --text-xl: 1.125rem; /* 18px */
+  --text-2xl: 1.25rem; /* 20px */
+  --text-3xl: 1.5rem; /* 24px */
 }
 
 /* ============================================
