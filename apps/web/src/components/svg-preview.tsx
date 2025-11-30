@@ -1,6 +1,6 @@
+import { Button } from "@tiny-svg/ui/components/button";
 import { useState } from "react";
 import { SvgSizeAdjuster } from "@/components/svg-size-adjuster";
-import { Button } from "@/components/ui/button";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useLongPress } from "@/hooks/use-long-press";
 import { useSvgPanZoom } from "@/hooks/use-svg-pan-zoom";

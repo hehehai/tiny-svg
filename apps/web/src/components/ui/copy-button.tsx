@@ -1,9 +1,9 @@
 "use client";
 
+import { Button } from "@tiny-svg/ui/components/button";
 import { Check, Copy } from "lucide-react";
 import type React from "react";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const COPY_FEEDBACK_TIMEOUT_MS = 2000;

@@ -1,11 +1,11 @@
 "use client";
 
 import * as Collapsible from "@radix-ui/react-collapsible";
+import { Button } from "@tiny-svg/ui/components/button";
 import { ChevronDown } from "lucide-react";
 import type React from "react";
 import { useLayoutEffect, useRef } from "react";
 import { Fade } from "@/components/blur-fade/blur-fade";
-import { Button } from "@/components/ui/button";
 import { clamp } from "@/lib/clamp";
 import { cn } from "@/lib/utils";
 import { CopyButton } from "./copy-button";

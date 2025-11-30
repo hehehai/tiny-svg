@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -8,7 +7,10 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/ui/components/base/alert-dialog";
+} from "@tiny-svg/ui/components/alert-dialog";
+import { Button } from "@tiny-svg/ui/components/button";
+import { ScrollArea } from "@tiny-svg/ui/components/scroll-area";
+import { Separator } from "@tiny-svg/ui/components/separator";
 import {
   Item,
   ItemActions,
@@ -16,11 +18,9 @@ import {
   ItemGroup,
   ItemMedia,
   ItemTitle,
-} from "@/ui/components/base/item";
-import { ScrollArea } from "@/ui/components/base/scroll-area";
-import { Separator } from "@/ui/components/base/separator";
+} from "@tiny-svg/ui/shared/item";
+import { useState } from "react";
 import { usePluginStore } from "@/ui/store";
-import { Button } from "../base/button";
 
 const PLUGIN_INFO = {
   name: "Tiny SVG",

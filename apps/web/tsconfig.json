@@ -3,6 +3,7 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
+    "src/**/*.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".intlayer/**/*.ts"
@@ -21,7 +22,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@content/*": ["./content/*"],
-      "content-collections": ["./.content-collections/generated"]
+      "content-collections": ["./.content-collections/generated"],
+      "@workspace/ui/*": ["../../packages/ui/src/*"]
     }
   }
 }

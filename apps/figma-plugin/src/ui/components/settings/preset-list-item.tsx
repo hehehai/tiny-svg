@@ -1,21 +1,21 @@
-import { useState } from "react";
-import type { Preset } from "@/types/messages";
-import { Badge } from "@/ui/components/base/badge";
-import { Button } from "@/ui/components/base/button";
-import {
-  Item,
-  ItemActions,
-  ItemContent,
-  ItemTitle,
-} from "@/ui/components/base/item";
+import { Badge } from "@tiny-svg/ui/components/badge";
+import { Button } from "@tiny-svg/ui/components/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/ui/components/base/tooltip";
+} from "@tiny-svg/ui/components/tooltip";
+import { cn } from "@tiny-svg/ui/lib/utils";
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemTitle,
+} from "@tiny-svg/ui/shared/item";
+import { useState } from "react";
+import type { Preset } from "@/types/messages";
 import { DeleteConfirmationDialog } from "@/ui/components/preset/delete-confirmation-dialog";
-import { cn } from "@/ui/lib/utils";
 import { usePluginStore } from "@/ui/store";
 
 interface PresetListItemProps {

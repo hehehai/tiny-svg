@@ -1,13 +1,13 @@
-import { useIntlayer } from "react-intlayer";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@tiny-svg/ui/components/badge";
+import { Button } from "@tiny-svg/ui/components/button";
 import {
   Sheet,
   SheetClose,
   SheetContent,
   SheetHeader,
   SheetTitle,
-} from "@/components/ui/sheet";
+} from "@tiny-svg/ui/components/sheet";
+import { useIntlayer } from "react-intlayer";
 import { getStaggerDelay } from "@/lib/animation-utils";
 import { formatFileSize, formatTimestamp } from "@/lib/svg-utils";
 import { cn } from "@/lib/utils";

@@ -1,13 +1,13 @@
 import { useLocation } from "@tanstack/react-router";
-import { getLocaleName, getPathWithoutLocale, Locales } from "intlayer";
-import type { FC } from "react";
-import { setLocaleCookie, useLocale } from "react-intlayer";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@tiny-svg/ui/components/dropdown-menu";
+import { getLocaleName, getPathWithoutLocale, Locales } from "intlayer";
+import type { FC } from "react";
+import { setLocaleCookie, useLocale } from "react-intlayer";
 
 const localeFlags: Partial<Record<Locales, string>> = {
   [Locales.ENGLISH]: "🇺🇸",

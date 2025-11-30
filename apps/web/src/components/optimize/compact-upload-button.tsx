@@ -1,6 +1,6 @@
+import { Button } from "@tiny-svg/ui/components/button";
 import { useIntlayer } from "react-intlayer";
 import { useFilePicker } from "use-file-picker";
-import { Button } from "@/components/ui/button";
 import { isSvgFile } from "@/lib/file-utils";
 
 type CompactUploadButtonProps = {

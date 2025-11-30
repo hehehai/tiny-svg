@@ -1,4 +1,5 @@
-import { Button } from "@/ui/components/base/button";
+import { Button } from "@tiny-svg/ui/components/button";
+import { ScrollArea } from "@tiny-svg/ui/components/scroll-area";
 import {
   Empty,
   EmptyContent,
@@ -6,9 +7,8 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@/ui/components/base/empty";
-import { ItemGroup } from "@/ui/components/base/item";
-import { ScrollArea } from "@/ui/components/base/scroll-area";
+} from "@tiny-svg/ui/shared/empty";
+import { ItemGroup } from "@tiny-svg/ui/shared/item";
 import { usePluginStore } from "@/ui/store";
 import { PresetListItem } from "./preset-list-item";
 

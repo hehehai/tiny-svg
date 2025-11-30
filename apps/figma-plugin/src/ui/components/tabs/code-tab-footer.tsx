@@ -1,11 +1,11 @@
-import { Button } from "@/ui/components/base/button";
+import { Button } from "@tiny-svg/ui/components/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/ui/components/base/select";
+} from "@tiny-svg/ui/components/select";
 import type { CodeFormat } from "@/ui/store";
 import { usePluginStore } from "@/ui/store";
 

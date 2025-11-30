@@ -5,10 +5,10 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import { Toaster } from "@tiny-svg/ui/components/sonner";
 import { lazy, Suspense } from "react";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "@/components/ui/sonner";
 import appCss from "@/styles.css?url";
 
 // Lazy load PWA components to avoid SSR issues

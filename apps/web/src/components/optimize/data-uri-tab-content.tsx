@@ -1,6 +1,4 @@
-import { useMemo, useState } from "react";
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
+import { Button } from "@tiny-svg/ui/components/button";
 import {
   Card,
   CardAction,
@@ -8,7 +6,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@tiny-svg/ui/components/card";
+import { useMemo, useState } from "react";
+import { toast } from "sonner";
 import { formatBytes, svgToDataUri } from "@/lib/data-uri-utils";
 import { copyToClipboard } from "@/lib/file-utils";
 

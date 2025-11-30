@@ -1,9 +1,14 @@
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@tiny-svg/ui/components/tabs";
 import { CodeDiffViewerLazy } from "@/components/lazy/code-diff-viewer-lazy";
 import { ReactTabContentLazy } from "@/components/lazy/react-tab-content-lazy";
 import { CodeTabContent } from "@/components/optimize/code-tab-content";
 import { DataUriTabContent } from "@/components/optimize/data-uri-tab-content";
 import { SvgPreview } from "@/components/svg-preview";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { SvgoGlobalSettings } from "@/lib/svgo-plugins";
 
 type OptimizeTabsProps = {

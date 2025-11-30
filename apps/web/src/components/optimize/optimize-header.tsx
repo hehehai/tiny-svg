@@ -1,7 +1,7 @@
+import { Button } from "@tiny-svg/ui/components/button";
+import { Separator } from "@tiny-svg/ui/components/separator";
 import { useIntlayer } from "react-intlayer";
 import { HistoryButton } from "@/components/history-button";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { formatBytes } from "@/lib/svgo-config";
 import { CompactUploadButton } from "./compact-upload-button";
 

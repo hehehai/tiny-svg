@@ -3,13 +3,11 @@
  * Shows a notification when a new version of the app is available
  */
 
+import { Button } from "@tiny-svg/ui/components/button";
 import { X } from "lucide-react";
 import { useEffect } from "react";
 import { toast } from "sonner";
-
 import { usePWA } from "@/lib/pwa-utils";
-
-import { Button } from "../ui/button";
 
 export function PWAUpdatePrompt() {
   const { needRefresh, updateServiceWorker, closePrompt } = usePWA();

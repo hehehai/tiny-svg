@@ -3,13 +3,11 @@
  * Allows users to install the app to their device
  */
 
+import { Button } from "@tiny-svg/ui/components/button";
 import { Download, X } from "lucide-react";
 import { useState } from "react";
-
 import { useInstallPrompt } from "@/lib/pwa-utils";
 import { cn } from "@/lib/utils";
-
-import { Button } from "../ui/button";
 
 export function InstallPrompt() {
   const { showInstallButton, promptInstall, dismissInstall } =

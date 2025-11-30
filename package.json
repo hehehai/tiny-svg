@@ -11,7 +11,7 @@
     "dev": "pnpm -r dev",
     "build": "pnpm -r build",
     "check-types": "pnpm -r check-types",
-    "dev:web": "pnpm --filter web dev",
+    "dev:web": "pnpm --filter @tiny-svg/web dev",
     "dev:figma": "pnpm --filter @tiny-svg/figma-plugin dev",
     "build:figma": "pnpm --filter @tiny-svg/figma-plugin build",
     "build:packages": "pnpm --filter './packages/*' build"

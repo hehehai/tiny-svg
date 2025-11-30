@@ -1,6 +1,6 @@
+import { Button } from "@tiny-svg/ui/components/button";
 import { copyToClipboard, downloadSvg } from "@tiny-svg/utils";
 import { toast } from "sonner";
-import { Button } from "@/ui/components/base/button";
 import { BaseItem } from "@/ui/components/items/base-item";
 import type { SvgItem as SvgItemType } from "@/ui/store";
 

@@ -1,11 +1,11 @@
-import { type ReactNode, useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/ui/components/base/select";
+} from "@tiny-svg/ui/components/select";
+import { type ReactNode, useEffect, useState } from "react";
 import { generateThumbnail } from "@/ui/lib/thumbnail";
 import { thumbnailCache } from "@/ui/lib/thumbnail-cache";
 import type { SvgItem } from "@/ui/store";

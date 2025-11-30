@@ -1,8 +1,20 @@
+import { Button } from "@tiny-svg/ui/components/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@tiny-svg/ui/components/card";
+import { Input } from "@tiny-svg/ui/components/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@tiny-svg/ui/components/select";
 import { useIntlayer } from "react-intlayer";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import {
   DEFAULT_JPEG_QUALITY,
   DEFAULT_WEBP_QUALITY,
@@ -16,13 +28,6 @@ import {
   exportAsWebP,
 } from "@/lib/file-utils";
 import type { ExportScale } from "@/store/ui-store";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
 
 type ExportPanelProps = {
   compressedSvg: string | null;

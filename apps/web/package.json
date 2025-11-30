@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "@tiny-svg/web",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,7 +8,8 @@
     "dev": "vite dev --port=3001",
     "deploy": "vercel --prod",
     "blog:build": "content-collections build",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "ui:add": "pnpm dlx shadcn@latest add"
   },
   "dependencies": {
     "@egoist/tailwindcss-icons": "^1.9.0",
@@ -48,6 +49,7 @@
     "react-dom": "19.1.0",
     "@tiny-svg/svg": "workspace:*",
     "@tiny-svg/code-generators": "workspace:*",
+    "@tiny-svg/ui": "workspace:*",
     "react-dropzone": "^14.3.8",
     "react-intlayer": "^6.1.6",
     "refractor": "^5.0.0",
@@ -74,8 +76,8 @@
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.2.0",
     "@types/diff": "^8.0.0",
-    "@types/react": "~19.1.10",
-    "@types/react-dom": "^19.0.4",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
     "@vite-pwa/assets-generator": "^1.0.2",
     "@vitejs/plugin-react": "^5.0.4",
     "babel-plugin-react-compiler": "^1.0.0",

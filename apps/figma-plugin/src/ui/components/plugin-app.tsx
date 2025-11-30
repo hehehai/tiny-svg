@@ -1,5 +1,5 @@
+import { Button } from "@tiny-svg/ui/components/button";
 import { Toaster } from "sonner";
-import { Button } from "@/ui/components/base/button";
 import { EmptyState } from "@/ui/components/empty-state";
 import { Footer } from "@/ui/components/footer";
 import { Header } from "@/ui/components/Header";

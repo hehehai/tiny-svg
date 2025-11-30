@@ -7,7 +7,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/ui/components/base/alert-dialog";
+} from "@tiny-svg/ui/components/alert-dialog";
 
 interface DeleteConfirmationDialogProps {
   open: boolean;

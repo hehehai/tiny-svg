@@ -1,12 +1,12 @@
-import { Button } from "@/ui/components/base/button";
+import { Button } from "@tiny-svg/ui/components/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/ui/components/base/select";
-import { Tabs, TabsList, TabsTrigger } from "@/ui/components/base/tabs";
+} from "@tiny-svg/ui/components/select";
+import { Tabs, TabsList, TabsTrigger } from "@tiny-svg/ui/components/tabs";
 import { type TabType, usePluginStore } from "@/ui/store";
 
 export function Header() {

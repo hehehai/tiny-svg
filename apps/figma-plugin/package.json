@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite build --watch",
     "build": "vite build",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "ui:add": "pnpm dlx shadcn@latest add"
   },
   "dependencies": {
     "@create-figma-plugin/utilities": "^4.0.3",
@@ -26,6 +27,7 @@
     "@radix-ui/react-tooltip": "^1.2.8",
     "@tiny-svg/code-generators": "workspace:*",
     "@tiny-svg/svg": "workspace:*",
+    "@tiny-svg/ui": "workspace:*",
     "@tiny-svg/utils": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

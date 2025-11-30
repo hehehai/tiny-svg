@@ -1,7 +1,7 @@
-import { Button } from "@/ui/components/base/button";
+import { Button } from "@tiny-svg/ui/components/button";
+import { Checkbox } from "@tiny-svg/ui/components/checkbox";
 import type { ImageFormat } from "@/ui/store";
 import { usePluginStore } from "@/ui/store";
-import { Checkbox } from "../base/checkbox";
 
 export function ImageTabFooter() {
   const { selectedImageFormats, toggleImageFormat, items, isExporting } =

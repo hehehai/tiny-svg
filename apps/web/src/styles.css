@@ -2,6 +2,8 @@
 @import "tw-animate-css";
 @plugin "@egoist/tailwindcss-icons";
 
+@source "../../../packages/ui/src/**/*.{ts,tsx}";
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {

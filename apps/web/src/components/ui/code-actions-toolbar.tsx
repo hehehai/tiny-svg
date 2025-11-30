@@ -1,5 +1,5 @@
+import { Button } from "@tiny-svg/ui/components/button";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
 import { copyToClipboard, downloadFile } from "@/lib/file-utils";
 import type { SupportedLanguage } from "@/lib/worker-utils/prettier-worker-client";
 import { prettierWorkerClient } from "@/lib/worker-utils/prettier-worker-client";

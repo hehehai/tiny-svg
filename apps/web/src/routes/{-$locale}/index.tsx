@@ -1,11 +1,16 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@tiny-svg/ui/components/card";
 import type { Locales } from "intlayer";
 import { useCallback, useMemo } from "react";
 import { useIntlayer } from "react-intlayer";
 import { toast } from "sonner";
 import { LocalizedLink } from "@/components/intlayer/localized-link";
 import { RecentSvgs } from "@/components/recent-svgs";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { UploadBox } from "@/components/upload-box";
 import { useDragAndDrop } from "@/hooks/use-drag-and-drop";
 import { usePasteHandler } from "@/hooks/use-paste-handler";

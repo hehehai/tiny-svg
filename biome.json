@@ -32,7 +32,8 @@
         "useFilenamingConvention": "off",
         "useConsistentTypeDefinitions": "off",
         "useUnifiedTypeSignatures": "off",
-        "noMagicNumbers": "off"
+        "noMagicNumbers": "off",
+        "noNamespace": "off"
       },
       "performance": {
         "noNamespaceImport": "off",

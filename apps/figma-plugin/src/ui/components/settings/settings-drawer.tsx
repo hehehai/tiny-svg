@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Button } from "@/ui/components/base/button";
+import { Button } from "@tiny-svg/ui/components/button";
 import {
   Drawer,
   DrawerClose,
@@ -7,13 +6,14 @@ import {
   DrawerDescription,
   DrawerHeader,
   DrawerTitle,
-} from "@/ui/components/base/drawer";
+} from "@tiny-svg/ui/components/drawer";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/ui/components/base/tabs";
+} from "@tiny-svg/ui/components/tabs";
+import { useState } from "react";
 import { usePluginStore } from "@/ui/store";
 import { AboutTab } from "./about-tab";
 import { PresetsTab } from "./presets-tab";

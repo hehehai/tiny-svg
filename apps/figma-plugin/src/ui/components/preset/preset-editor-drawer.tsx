@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
-import { Button } from "@/ui/components/base/button";
+import { Button } from "@tiny-svg/ui/components/button";
 import {
   Drawer,
   DrawerClose,
@@ -7,9 +6,12 @@ import {
   DrawerDescription,
   DrawerHeader,
   DrawerTitle,
-} from "@/ui/components/base/drawer";
-import { ScrollArea } from "@/ui/components/base/scroll-area";
-import { Switch } from "@/ui/components/base/switch";
+} from "@tiny-svg/ui/components/drawer";
+import { Input } from "@tiny-svg/ui/components/input";
+import { ScrollArea } from "@tiny-svg/ui/components/scroll-area";
+import { Separator } from "@tiny-svg/ui/components/separator";
+import { Switch } from "@tiny-svg/ui/components/switch";
+import { useCallback, useEffect, useState } from "react";
 import { getPluginLabel } from "@/ui/lib/plugin-labels";
 import {
   allSvgoPlugins,
@@ -18,8 +20,6 @@ import {
   type SvgoPluginConfig,
 } from "@/ui/lib/svgo-plugins";
 import { usePluginStore } from "@/ui/store";
-import { Input } from "../base/input";
-import { Separator } from "../base/separator";
 import { DeleteConfirmationDialog } from "./delete-confirmation-dialog";
 
 // Custom config interface that includes our extensions

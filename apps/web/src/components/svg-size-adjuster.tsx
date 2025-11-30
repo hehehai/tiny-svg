@@ -1,7 +1,7 @@
+import { Button } from "@tiny-svg/ui/components/button";
+import { Input } from "@tiny-svg/ui/components/input";
+import { Label } from "@tiny-svg/ui/components/label";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   calculateProportionalDimensions,
   getSvgDimensions,
