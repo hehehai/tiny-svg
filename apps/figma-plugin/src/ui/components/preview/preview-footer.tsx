@@ -8,6 +8,7 @@ import {
 } from "@tiny-svg/ui/components/select";
 import { Tabs, TabsList, TabsTrigger } from "@tiny-svg/ui/components/tabs";
 import { cn } from "@tiny-svg/ui/lib/utils";
+import { useTranslation } from "@/i18n/hooks";
 import { BACKGROUND_STYLES } from "@/ui/lib/svg-preview-helpers";
 import { usePluginStore } from "@/ui/store";
 import type { CodeViewMode, PreviewTabType } from "@/ui/store/stores/ui-store";
@@ -39,6 +40,7 @@ export function PreviewFooter({
   onPrettify,
   onCopy,
 }: PreviewFooterProps) {
+  const { t } = useTranslation();
   const {
     previewModal,
     setPreviewTab,
@@ -68,10 +70,10 @@ export function PreviewFooter({
       <Tabs onValueChange={handleTabChange} value={activeTab}>
         <TabsList className="h-7 p-0.5">
           <TabsTrigger className="px-3 py-1 text-xs" value="view">
-            View
+            {t("preview.tabs.view")}
           </TabsTrigger>
           <TabsTrigger className="px-3 py-1 text-xs" value="code">
-            Code
+            {t("preview.tabs.code")}
           </TabsTrigger>
         </TabsList>
       </Tabs>
@@ -84,7 +86,11 @@ export function PreviewFooter({
               className="size-7 rounded-lg p-1"
               onClick={togglePreviewViewBoxOutline}
               size="sm"
-              title={showViewBoxOutline ? "Hide outline" : "Show outline"}
+              title={
+                showViewBoxOutline
+                  ? t("preview.toolbar.hideOutline")
+                  : t("preview.toolbar.showOutline")
+              }
               type="button"
               variant="ghost"
             >
@@ -113,7 +119,7 @@ export function PreviewFooter({
               disabled={zoom ? zoom <= (minZoom ?? 20) : true}
               onClick={onZoomOut}
               size="sm"
-              title="Zoom out"
+              title={t("preview.toolbar.zoomOut")}
               type="button"
               variant="ghost"
             >
@@ -127,7 +133,7 @@ export function PreviewFooter({
               disabled={zoom ? zoom >= (maxZoom ?? 800) : true}
               onClick={onZoomIn}
               size="sm"
-              title="Zoom in"
+              title={t("preview.toolbar.zoomIn")}
               type="button"
               variant="ghost"
             >
@@ -137,7 +143,7 @@ export function PreviewFooter({
               className="size-7 rounded-lg p-1"
               onClick={onZoomReset}
               size="sm"
-              title="Reset zoom"
+              title={t("preview.toolbar.resetZoom")}
               type="button"
               variant="ghost"
             >
@@ -157,19 +163,19 @@ export function PreviewFooter({
                   className="rounded-md py-1 pr-4 pl-1 text-xs"
                   value="diff"
                 >
-                  Diff
+                  {t("preview.codeView.diff")}
                 </SelectItem>
                 <SelectItem
                   className="rounded-md py-1 pr-4 pl-1 text-xs"
                   value="origin"
                 >
-                  Origin
+                  {t("preview.codeView.origin")}
                 </SelectItem>
                 <SelectItem
                   className="rounded-md py-1 pr-4 pl-1 text-xs"
                   value="optimized"
                 >
-                  Optimized
+                  {t("preview.codeView.optimized")}
                 </SelectItem>
               </SelectContent>
             </Select>
@@ -179,7 +185,7 @@ export function PreviewFooter({
               disabled={codeViewMode === "diff" || !canPrettify || isPrettified}
               onClick={onPrettify}
               size="sm"
-              title="Prettify code"
+              title={t("preview.toolbar.prettifyCode")}
               type="button"
               variant="ghost"
             >
@@ -189,7 +195,7 @@ export function PreviewFooter({
               className="size-7 rounded-lg p-1"
               onClick={onCopy}
               size="sm"
-              title="Copy code"
+              title={t("preview.toolbar.copyCode")}
               type="button"
               variant="ghost"
             >

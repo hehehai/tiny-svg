@@ -1,4 +1,5 @@
 export { handleInit } from "./init";
+export { handleGetLanguage, handleSaveLanguage } from "./language";
 export {
   handleDeletePreset,
   handleGetPresets,

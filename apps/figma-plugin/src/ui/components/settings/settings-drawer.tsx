@@ -14,11 +14,13 @@ import {
   TabsTrigger,
 } from "@tiny-svg/ui/components/tabs";
 import { useState } from "react";
+import { useTranslation } from "@/i18n/hooks";
 import { usePluginStore } from "@/ui/store";
 import { AboutTab } from "./about-tab";
 import { PresetsTab } from "./presets-tab";
 
 export function SettingsDrawer() {
+  const { t } = useTranslation();
   const { settingsOpen, closeSettings, openPresetEditor } = usePluginStore();
   const [activeTab, setActiveTab] = useState("presets");
 
@@ -48,18 +50,18 @@ export function SettingsDrawer() {
           <DrawerHeader className="flex items-center justify-between border-b px-4 py-2">
             <div className="flex items-center gap-3">
               <DrawerTitle className="font-semibold text-base">
-                Settings
+                {t("settings.title")}
               </DrawerTitle>
               <DrawerDescription className="sr-only">
-                Settings
+                {t("settings.title")}
               </DrawerDescription>
 
               <TabsList className="h-7 p-0.5">
                 <TabsTrigger className="px-2 py-1" value="presets">
-                  预设
+                  {t("settings.presets")}
                 </TabsTrigger>
                 <TabsTrigger className="px-2 py-1" value="about">
-                  关于
+                  {t("settings.about")}
                 </TabsTrigger>
               </TabsList>
             </div>
@@ -72,16 +74,16 @@ export function SettingsDrawer() {
                   type="button"
                   variant="default"
                 >
-                  创建
+                  {t("common.create")}
                 </Button>
               )}
 
               <DrawerClose asChild>
                 <Button
-                  aria-label="关闭"
+                  aria-label={t("common.close")}
                   className="size-7 rounded-lg hover:border-accent"
                   size="icon"
-                  title="关闭"
+                  title={t("common.close")}
                   type="button"
                   variant="outline"
                 >
@@ -99,7 +101,10 @@ export function SettingsDrawer() {
             <PresetsTab />
           </TabsContent>
 
-          <TabsContent className="mt-0 flex-1" value="about">
+          <TabsContent
+            className="mt-0 h-[calc(100dvh-53px)] flex-1"
+            value="about"
+          >
             <AboutTab />
           </TabsContent>
         </Tabs>

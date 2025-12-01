@@ -8,6 +8,7 @@ import {
   handleGetSelection,
   handleInit,
   handleResetPresets,
+  handleSaveLanguage,
   handleSavePreset,
 } from "./plugin/handlers";
 import type {
@@ -17,6 +18,7 @@ import type {
   GetSelectionHandler,
   InitHandler,
   ResetPresetsHandler,
+  SaveLanguageHandler,
   SavePresetHandler,
 } from "./types/messages";
 
@@ -61,6 +63,7 @@ function registerMessageHandlers(): void {
   on<SavePresetHandler>("SAVE_PRESET", handleSavePreset);
   on<DeletePresetHandler>("DELETE_PRESET", handleDeletePreset);
   on<ResetPresetsHandler>("RESET_PRESETS", handleResetPresets);
+  on<SaveLanguageHandler>("SAVE_LANGUAGE", handleSaveLanguage);
   on<CloseHandler>("CLOSE", () => {
     figma.closePlugin();
   });

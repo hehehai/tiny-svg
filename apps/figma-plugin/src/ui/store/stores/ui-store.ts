@@ -1,4 +1,7 @@
+import { emit } from "@create-figma-plugin/utilities";
 import type { StateCreator } from "zustand";
+import type { Locale } from "@/i18n/types";
+import type { SaveLanguageHandler } from "@/types/messages";
 
 // ============================================================================
 // Types
@@ -48,6 +51,9 @@ export interface UiState {
   // Tabs
   activeTab: TabType;
 
+  // Language
+  locale: Locale;
+
   // Preview modal
   previewModal: PreviewModalState;
 
@@ -72,6 +78,10 @@ export interface UiState {
 export interface UiActions {
   // Tabs
   setActiveTab: (tab: TabType) => void;
+
+  // Language
+  setLocale: (locale: Locale) => void;
+  saveLanguagePreference: (locale: Locale) => void;
 
   // Preview modal
   openPreview: (itemId: string, tab?: PreviewTabType) => void;
@@ -113,6 +123,7 @@ export type UiStore = UiState & UiActions;
 
 const initialState: UiState = {
   activeTab: "svg",
+  locale: "en",
   previewModal: {
     isOpen: false,
     itemId: null,
@@ -149,6 +160,16 @@ export const createUiStore: StateCreator<
   // Tabs
   setActiveTab: (tab) => {
     set({ activeTab: tab });
+  },
+
+  // Language
+  setLocale: (locale) => {
+    set({ locale });
+  },
+
+  saveLanguagePreference: (locale) => {
+    set({ locale });
+    emit<SaveLanguageHandler>("SAVE_LANGUAGE", locale);
   },
 
   // Preview modal

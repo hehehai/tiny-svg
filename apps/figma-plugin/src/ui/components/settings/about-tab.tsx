@@ -20,7 +20,10 @@ import {
   ItemTitle,
 } from "@tiny-svg/ui/shared/item";
 import { useState } from "react";
+import { useTranslation } from "@/i18n/hooks";
+import { Logo } from "@/ui/components/logo";
 import { usePluginStore } from "@/ui/store";
+import { LanguageSelector } from "./language-selector";
 
 const PLUGIN_INFO = {
   name: "Tiny SVG",
@@ -31,6 +34,7 @@ const PLUGIN_INFO = {
 };
 
 export function AboutTab() {
+  const { t } = useTranslation();
   const [showResetDialog, setShowResetDialog] = useState(false);
   const resetPresets = usePluginStore((state) => state.resetPresets);
 
@@ -40,30 +44,26 @@ export function AboutTab() {
   };
 
   return (
-    <ScrollArea className="flex-1">
+    <ScrollArea className="h-full">
       <div className="mx-auto max-w-md space-y-4 p-4">
         {/* Plugin Info Header */}
         <div className="flex flex-col items-center gap-4 text-center">
-          <div className="flex size-16 items-center justify-center rounded-xl bg-linear-to-br from-primary to-primary/60">
-            <span className="i-hugeicons-file-validation size-8 text-white" />
+          <div className="flex size-16 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/60">
+            <Logo className="size-10 text-white" />
           </div>
           <div>
-            <h3 className="font-semibold text-xl">{PLUGIN_INFO.name}</h3>
+            <h3 className="font-semibold text-xl">{t("about.pluginName")}</h3>
             <p className="text-muted-foreground text-sm">
               v{PLUGIN_INFO.version}
             </p>
           </div>
           <p className="text-muted-foreground text-sm">
-            {PLUGIN_INFO.description}
+            {t("about.pluginDescription")}
           </p>
         </div>
 
-        <Separator />
-
         {/* Links Section */}
         <div className="space-y-2">
-          <h4 className="font-medium text-sm">链接</h4>
-
           <ItemGroup className="gap-2">
             <Item asChild variant="outline">
               <a
@@ -78,7 +78,9 @@ export function AboutTab() {
                   <span className="i-hugeicons-github size-4" />
                 </ItemMedia>
                 <ItemContent>
-                  <ItemTitle className="leading-relaxed">GitHub 仓库</ItemTitle>
+                  <ItemTitle className="leading-relaxed">
+                    {t("about.githubRepo")}
+                  </ItemTitle>
                 </ItemContent>
                 <span className="i-hugeicons-arrow-up-right-01 size-4 text-muted-foreground" />
               </a>
@@ -97,7 +99,9 @@ export function AboutTab() {
                   <span className="i-hugeicons-alert-circle size-4" />
                 </ItemMedia>
                 <ItemContent>
-                  <ItemTitle className="leading-relaxed">报告问题</ItemTitle>
+                  <ItemTitle className="leading-relaxed">
+                    {t("about.reportIssue")}
+                  </ItemTitle>
                 </ItemContent>
                 <span className="i-hugeicons-arrow-up-right-01 size-4 text-muted-foreground" />
               </a>
@@ -105,10 +109,26 @@ export function AboutTab() {
 
             <Item variant="outline">
               <ItemMedia className="border-none bg-transparent" variant="icon">
+                <span className="i-hugeicons-translate size-4" />
+              </ItemMedia>
+              <ItemContent>
+                <ItemTitle className="leading-relaxed">
+                  {t("settings.language")}
+                </ItemTitle>
+              </ItemContent>
+              <ItemActions className="w-[140px]">
+                <LanguageSelector />
+              </ItemActions>
+            </Item>
+
+            <Item variant="outline">
+              <ItemMedia className="border-none bg-transparent" variant="icon">
                 <span className="i-hugeicons-alert-diamond size-4" />
               </ItemMedia>
               <ItemContent>
-                <ItemTitle className="leading-relaxed">重置预设</ItemTitle>
+                <ItemTitle className="leading-relaxed">
+                  {t("about.resetPresets")}
+                </ItemTitle>
               </ItemContent>
               <ItemActions>
                 <Button
@@ -116,7 +136,7 @@ export function AboutTab() {
                   onClick={() => setShowResetDialog(true)}
                   variant="outline"
                 >
-                  重置
+                  {t("about.resetPresetsButton")}
                 </Button>
               </ItemActions>
             </Item>
@@ -127,27 +147,29 @@ export function AboutTab() {
 
         {/* Credits */}
         <div className="space-y-1 text-center text-muted-foreground text-xs">
-          <p>Built with ❤️ by the Tiny SVG Team</p>
-          <p>Powered by SVGO</p>
+          <p>{t("about.credits")}</p>
+          <p>{t("about.poweredBy")}</p>
         </div>
       </div>
 
       <AlertDialog onOpenChange={setShowResetDialog} open={showResetDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>确认重置预设</AlertDialogTitle>
+            <AlertDialogTitle>{t("about.confirmResetTitle")}</AlertDialogTitle>
             <AlertDialogDescription>
-              此操作将删除所有自定义预设，仅保留默认预设。此操作无法撤销。
+              {t("about.confirmResetDescription")}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="flex-1">取消</AlertDialogCancel>
+            <AlertDialogCancel className="flex-1">
+              {t("common.cancel")}
+            </AlertDialogCancel>
             <AlertDialogAction
               className="flex-1"
               onClick={handleReset}
               variant="destructive"
             >
-              重置
+              {t("common.reset")}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

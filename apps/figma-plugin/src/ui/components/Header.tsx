@@ -7,9 +7,11 @@ import {
   SelectValue,
 } from "@tiny-svg/ui/components/select";
 import { Tabs, TabsList, TabsTrigger } from "@tiny-svg/ui/components/tabs";
+import { useTranslation } from "@/i18n/hooks";
 import { type TabType, usePluginStore } from "@/ui/store";
 
 export function Header() {
+  const { t } = useTranslation();
   const {
     activeTab,
     setActiveTab,
@@ -27,13 +29,13 @@ export function Header() {
       >
         <TabsList className="h-7 p-0.5">
           <TabsTrigger className="px-2 py-1" value="svg">
-            SVG
+            {t("header.svg")}
           </TabsTrigger>
           <TabsTrigger className="px-2 py-1" value="image">
-            Image
+            {t("header.image")}
           </TabsTrigger>
           <TabsTrigger className="px-2 py-1" value="code">
-            Code
+            {t("header.code")}
           </TabsTrigger>
         </TabsList>
       </Tabs>
@@ -57,11 +59,11 @@ export function Header() {
         </Select>
 
         <Button
-          aria-label="Settings"
+          aria-label={t("header.settingsButton")}
           className="size-7 rounded-lg hover:border-accent"
           onClick={toggleSettings}
           size="icon"
-          title="Settings"
+          title={t("header.settingsButton")}
           variant="outline"
         >
           <span className="i-hugeicons-settings-02 size-4" />

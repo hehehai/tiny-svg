@@ -121,6 +121,16 @@ export interface ErrorHandler extends EventHandler {
   handler: (message: string, details?: string) => void;
 }
 
+export interface SaveLanguageHandler extends EventHandler {
+  name: "SAVE_LANGUAGE";
+  handler: (locale: string) => void;
+}
+
+export interface LanguageLoadedHandler extends EventHandler {
+  name: "LANGUAGE_LOADED";
+  handler: (locale: string) => void;
+}
+
 export interface CloseHandler extends EventHandler {
   name: "CLOSE";
   handler: () => void;

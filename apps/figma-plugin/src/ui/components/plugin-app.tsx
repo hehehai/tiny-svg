@@ -3,7 +3,7 @@ import { lazy, Suspense } from "react";
 import { Toaster } from "sonner";
 import { EmptyState } from "@/ui/components/empty-state";
 import { Footer } from "@/ui/components/footer";
-import { Header } from "@/ui/components/header";
+import { Header } from "@/ui/components/Header";
 import { CodeItem } from "@/ui/components/items/code-item";
 import { ImageItem } from "@/ui/components/items/image-item";
 import { SvgItem } from "@/ui/components/items/svg-item";

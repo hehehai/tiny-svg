@@ -1,31 +1,21 @@
-import { emit, on } from "@create-figma-plugin/utilities";
-import { useCallback, useEffect } from "react";
-import type {
-  ErrorHandler,
-  FigmaNodeData,
-  InitHandler,
-  PresetDeletedHandler,
-  PresetSavedHandler,
-  PresetsLoadedHandler,
-  PresetsResetHandler,
-  SelectionChangedHandler,
-} from "@/types/messages";
+import { emit } from "@create-figma-plugin/utilities";
+import { useCallback } from "react";
 import { optimizeSvgBatch } from "@/ui/lib/svgo-optimizer";
 import type { SvgItem } from "@/ui/store";
 import { usePluginStore } from "@/ui/store";
 
+/**
+ * Hook for interacting with Figma plugin
+ * Event handlers are registered globally in init-event-handlers.ts
+ */
 export function useFigmaMessages() {
   const {
-    setItems,
-    setPresets,
-    _syncPreset,
-    _syncDeletePreset,
-    setError,
     setCompressing,
     setCompressionProgress,
     updateItem,
     presets,
     globalPreset,
+    setError,
   } = usePluginStore();
 
   // Auto-compression function wrapped in useCallback
@@ -74,92 +64,6 @@ export function useFigmaMessages() {
       setError,
     ]
   );
-
-  // Handle selection changed message
-  const handleSelectionChanged = useCallback(
-    async (figmaItems: FigmaNodeData[]) => {
-      const svgItems: SvgItem[] = figmaItems.map((node: FigmaNodeData) => ({
-        id: node.id,
-        nodeId: node.nodeId,
-        name: node.name,
-        originalSvg: node.svg,
-        preset: "inherit",
-        originalSize: new Blob([node.svg]).size,
-      }));
-
-      setItems(svgItems);
-
-      if (svgItems.length > 0) {
-        await compressItems(svgItems);
-      }
-    },
-    [setItems, compressItems]
-  );
-
-  // Register event listeners
-  useEffect(() => {
-    const unsubscribeSelection = on<SelectionChangedHandler>(
-      "SELECTION_CHANGED",
-      handleSelectionChanged
-    );
-
-    const unsubscribePresets = on<PresetsLoadedHandler>(
-      "PRESETS_LOADED",
-      (loadedPresets) => {
-        setPresets(loadedPresets);
-      }
-    );
-
-    const unsubscribePresetSaved = on<PresetSavedHandler>(
-      "PRESET_SAVED",
-      (preset) => {
-        _syncPreset(preset);
-      }
-    );
-
-    const unsubscribePresetDeleted = on<PresetDeletedHandler>(
-      "PRESET_DELETED",
-      (id) => {
-        _syncDeletePreset(id);
-      }
-    );
-
-    const unsubscribePresetsReset = on<PresetsResetHandler>(
-      "PRESETS_RESET",
-      () => {
-        // Presets will be reloaded via PRESETS_LOADED message
-        // This handler is just for acknowledgment
-      }
-    );
-
-    const unsubscribeError = on<ErrorHandler>(
-      "ERROR",
-      (message: string, details?: string) => {
-        setError(message, details);
-      }
-    );
-
-    // Cleanup
-    return () => {
-      unsubscribeSelection();
-      unsubscribePresets();
-      unsubscribePresetSaved();
-      unsubscribePresetDeleted();
-      unsubscribePresetsReset();
-      unsubscribeError();
-    };
-  }, [
-    handleSelectionChanged,
-    setPresets,
-    _syncPreset,
-    _syncDeletePreset,
-    setError,
-  ]);
-
-  // Request initial data
-  useEffect(() => {
-    emit<InitHandler>("INIT");
-  }, []);
 
   return {
     sendToPlugin: emit,
