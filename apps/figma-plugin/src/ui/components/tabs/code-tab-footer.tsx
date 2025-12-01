@@ -37,7 +37,7 @@ export function CodeTabFooter() {
         onValueChange={(value) => setCodeFormat(value as CodeFormat)}
         value={selectedCodeFormat}
       >
-        <SelectTrigger className="w-20 rounded-lg px-2 py-1" size="xs">
+        <SelectTrigger className="w-28 rounded-lg px-2 py-1" size="xs">
           <SelectValue />
         </SelectTrigger>
         <SelectContent className="rounded-lg">

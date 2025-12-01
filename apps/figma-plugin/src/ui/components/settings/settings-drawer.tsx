@@ -54,11 +54,11 @@ export function SettingsDrawer() {
                 Settings
               </DrawerDescription>
 
-              <TabsList className="h-auto p-0.5">
-                <TabsTrigger className="px-2 py-0.5" value="presets">
+              <TabsList className="h-7 p-0.5">
+                <TabsTrigger className="px-2 py-1" value="presets">
                   预设
                 </TabsTrigger>
-                <TabsTrigger className="px-2 py-0.5" value="about">
+                <TabsTrigger className="px-2 py-1" value="about">
                   关于
                 </TabsTrigger>
               </TabsList>

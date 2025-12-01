@@ -25,14 +25,14 @@ export function Header() {
         onValueChange={(value) => setActiveTab(value as TabType)}
         value={activeTab}
       >
-        <TabsList className="h-auto p-0.5">
-          <TabsTrigger className="px-2 py-0.5" value="svg">
+        <TabsList className="h-7 p-0.5">
+          <TabsTrigger className="px-2 py-1" value="svg">
             SVG
           </TabsTrigger>
-          <TabsTrigger className="px-2 py-0.5" value="image">
+          <TabsTrigger className="px-2 py-1" value="image">
             Image
           </TabsTrigger>
-          <TabsTrigger className="px-2 py-0.5" value="code">
+          <TabsTrigger className="px-2 py-1" value="code">
             Code
           </TabsTrigger>
         </TabsList>
