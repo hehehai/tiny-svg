@@ -3,8 +3,14 @@
   "editorType": [
     "figma"
   ],
-  "id": "tiny-svg-optimizer",
+  "id": "1577284420062305768",
   "name": "Tiny SVG - SVG Optimizer",
   "main": "dist/plugin.js",
-  "ui": "dist/index.html"
+  "ui": "dist/index.html",
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": [
+      "none"
+    ]
+  }
 }
