@@ -4,7 +4,7 @@ import React from "react";
 import { refractor } from "refractor/all";
 import "./theme.css";
 import { ChevronsUpDown } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 import {
   type File,
   guessLang,
@@ -19,6 +19,8 @@ import {
 
 interface DiffContextValue {
   language: string;
+  wrapLines?: boolean;
+  maxLineWidth?: number | "auto";
 }
 
 const DiffContext = React.createContext<DiffContextValue | null>(null);
@@ -76,6 +78,8 @@ export interface DiffProps
     Pick<File, "hunks" | "type"> {
   fileName?: string;
   language?: string;
+  wrapLines?: boolean;
+  maxLineWidth?: number | "auto";
 }
 
 const LINE_KEY_PREVIEW_LENGTH = 20;
@@ -101,9 +105,11 @@ export const Diff: React.FC<DiffProps> = ({
   hunks,
   className,
   children,
+  wrapLines = true,
+  maxLineWidth = "auto",
   ...props
 }) => (
-  <DiffContext.Provider value={{ language }}>
+  <DiffContext.Provider value={{ language, wrapLines, maxLineWidth }}>
     <table
       {...props}
       className={cn(
@@ -146,7 +152,11 @@ const SkipBlockRow: React.FC<{
 const Line: React.FC<{
   line: LineType;
 }> = ({ line }) => {
-  const { language } = useDiffContext();
+  const {
+    language,
+    wrapLines = true,
+    maxLineWidth = "auto",
+  } = useDiffContext();
 
   let Tag: "ins" | "del" | "span" = "span";
   if (line.type === "insert") {
@@ -158,6 +168,10 @@ const Line: React.FC<{
   const lineNumberNew =
     line.type === "normal" ? line.newLineNumber : line.lineNumber;
   const lineNumberOld = line.type === "normal" ? line.oldLineNumber : undefined;
+
+  // Calculate max-width style
+  const maxWidthStyle =
+    maxLineWidth === "auto" ? {} : { maxWidth: `${maxLineWidth}ch` };
 
   return (
     <tr
@@ -178,8 +192,11 @@ const Line: React.FC<{
       <td className="select-none px-2 text-center text-xs tabular-nums opacity-50">
         {line.type === "delete" ? "–" : lineNumberNew}
       </td>
-      <td className="text-nowrap pr-6">
-        <Tag>
+      <td
+        className={wrapLines ? "break-all pr-3" : "text-nowrap pr-6"}
+        style={maxWidthStyle}
+      >
+        <Tag className={wrapLines ? "whitespace-pre-wrap" : "whitespace-pre"}>
           {line.content.map((seg, i) => {
             const segKey = `seg-${i}-${seg.value.slice(0, SEGMENT_KEY_PREVIEW_LENGTH)}`;
             return (

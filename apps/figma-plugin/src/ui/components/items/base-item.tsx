@@ -109,7 +109,7 @@ export function BaseItem({
         {renderThumbnail()}
       </button>
 
-      <div className="flex min-w-0 flex-1 flex-col gap-1">
+      <div className="flex min-w-0 flex-1 flex-col justify-between gap-1">
         <div className="truncate text-sm" title={item.name}>
           {item.name}
         </div>

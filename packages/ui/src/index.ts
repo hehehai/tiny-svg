@@ -6,6 +6,7 @@ export * from "./components/button";
 export * from "./components/card";
 export * from "./components/checkbox";
 export * from "./components/dialog";
+export * from "./components/diff";
 export * from "./components/drawer";
 export * from "./components/dropdown-menu";
 export * from "./components/input";
@@ -22,6 +23,7 @@ export * from "./components/textarea";
 export * from "./components/toggle";
 export * from "./components/toggle-group";
 export * from "./components/tooltip";
+export * from "./lib/diff-utils";
 // Utilities
 export * from "./lib/utils";
 // Shared/custom components

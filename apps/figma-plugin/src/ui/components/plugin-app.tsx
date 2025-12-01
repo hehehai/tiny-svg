@@ -6,6 +6,7 @@ import { Header } from "@/ui/components/header";
 import { SvgItem } from "@/ui/components/items/svg-item";
 import { PluginLayout } from "@/ui/components/layout/plugin-layout";
 import { PresetEditorDrawer } from "@/ui/components/preset/preset-editor-drawer";
+import { PreviewDrawer } from "@/ui/components/preview/preview-drawer";
 import { SettingsDrawer } from "@/ui/components/settings/settings-drawer";
 import { useFigmaMessages } from "@/ui/hooks/use-figma-messages";
 import { usePluginStore } from "@/ui/store";
@@ -85,6 +86,7 @@ export function PluginApp() {
 
       <SettingsDrawer />
       <PresetEditorDrawer />
+      <PreviewDrawer />
       <Toaster position="bottom-center" />
     </>
   );

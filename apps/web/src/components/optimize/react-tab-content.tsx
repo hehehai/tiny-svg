@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { refractor } from "refractor/all";
 import { CodeActionsToolbar } from "@/components/ui/code-actions-toolbar";
 import type { SupportedLanguage } from "@/lib/worker-utils/prettier-worker-client";
-import "@/components/ui/diff/theme.css";
+import "@tiny-svg/ui/components/diff/theme.css";
 
 type ReactSubTab = "jsx" | "tsx";
 

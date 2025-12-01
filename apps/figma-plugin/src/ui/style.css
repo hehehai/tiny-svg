@@ -145,3 +145,37 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--muted);
 }
+
+/* ============================================
+   SVG PREVIEW STYLES
+   ============================================ */
+
+/* SVG preview styles for main preview panels */
+.svg-preview-container svg,
+.svg-preview-container > div > svg {
+  min-width: 1px;
+  min-height: 1px;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+/* Fallback for SVGs without explicit width/height attributes */
+.svg-preview-container svg:not([width]):not([height]),
+.svg-preview-container > div > svg:not([width]):not([height]) {
+  width: 200px;
+  height: 200px;
+}
+
+/* Preview svg outline */
+.svg-view-outline::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+  outline: 1px dashed rgba(192, 192, 192, 0.8);
+  z-index: 1;
+}

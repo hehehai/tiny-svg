@@ -6,6 +6,12 @@ import type { StateCreator } from "zustand";
 
 export type TabType = "svg" | "image" | "code";
 export type PreviewTabType = "view" | "code";
+export type CodeViewMode = "diff" | "origin" | "optimized";
+export type BackgroundStyle =
+  | "transparent-light"
+  | "transparent-dark"
+  | "solid-light"
+  | "solid-dark";
 export type ImageFormat = "png" | "jpeg" | "webp" | "ico";
 export type CodeFormat =
   | "react-jsx"
@@ -22,6 +28,9 @@ interface PreviewModalState {
   isOpen: boolean;
   itemId: string | null;
   activeTab: PreviewTabType;
+  codeViewMode: CodeViewMode;
+  showViewBoxOutline: boolean;
+  backgroundStyle: BackgroundStyle;
 }
 
 interface PresetEditorState {
@@ -69,6 +78,9 @@ export interface UiActions {
   closePreview: () => void;
   setPreviewTab: (tab: PreviewTabType) => void;
   setPreviewPreset: (itemId: string, presetId: string) => void;
+  setPreviewCodeViewMode: (mode: CodeViewMode) => void;
+  togglePreviewViewBoxOutline: () => void;
+  cyclePreviewBackground: () => void;
 
   // Preset editor
   openPresetEditor: (
@@ -105,6 +117,9 @@ const initialState: UiState = {
     isOpen: false,
     itemId: null,
     activeTab: "view",
+    codeViewMode: "diff",
+    showViewBoxOutline: false,
+    backgroundStyle: "transparent-light",
   },
   presetEditor: {
     isOpen: false,
@@ -143,6 +158,9 @@ export const createUiStore: StateCreator<
         isOpen: true,
         itemId,
         activeTab: tab,
+        codeViewMode: "diff",
+        showViewBoxOutline: false,
+        backgroundStyle: "transparent-light",
       },
     });
   },
@@ -153,6 +171,9 @@ export const createUiStore: StateCreator<
         isOpen: false,
         itemId: null,
         activeTab: "view",
+        codeViewMode: "diff",
+        showViewBoxOutline: false,
+        backgroundStyle: "transparent-light",
       },
     });
   },
@@ -169,6 +190,44 @@ export const createUiStore: StateCreator<
   setPreviewPreset: (itemId, presetId) => {
     // Update the item's preset in the main list
     get().updateItem(itemId, { preset: presetId });
+  },
+
+  setPreviewCodeViewMode: (mode) => {
+    set((state) => ({
+      previewModal: {
+        ...state.previewModal,
+        codeViewMode: mode,
+      },
+    }));
+  },
+
+  togglePreviewViewBoxOutline: () => {
+    set((state) => ({
+      previewModal: {
+        ...state.previewModal,
+        showViewBoxOutline: !state.previewModal.showViewBoxOutline,
+      },
+    }));
+  },
+
+  cyclePreviewBackground: () => {
+    set((state) => {
+      const styles: BackgroundStyle[] = [
+        "transparent-light",
+        "transparent-dark",
+        "solid-light",
+        "solid-dark",
+      ];
+      const currentIndex = styles.indexOf(state.previewModal.backgroundStyle);
+      const nextIndex = (currentIndex + 1) % styles.length;
+      const nextStyle = styles[nextIndex];
+      return {
+        previewModal: {
+          ...state.previewModal,
+          backgroundStyle: nextStyle || "transparent-light",
+        },
+      };
+    });
   },
 
   // Preset editor

@@ -42,6 +42,9 @@ export const usePluginStore = create<PluginStore>((set, get, api) => ({
         isOpen: false,
         itemId: null,
         activeTab: "view",
+        codeViewMode: "diff",
+        showViewBoxOutline: false,
+        backgroundStyle: "transparent-light",
       },
       presetEditor: {
         isOpen: false,

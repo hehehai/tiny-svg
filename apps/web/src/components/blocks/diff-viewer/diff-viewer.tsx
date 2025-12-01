@@ -1,12 +1,12 @@
+import { Diff, Hunk } from "@tiny-svg/ui";
+import type { ParseOptions } from "@tiny-svg/ui/components/diff/utils";
+import { parseDiff } from "@tiny-svg/ui/components/diff/utils";
 import {
   CollapsibleCard,
   CollapsibleCardContent,
   CollapsibleCardHeader,
   CollapsibleCardTitle,
 } from "@/components/ui/collapsible-card";
-import { Diff, Hunk } from "@/components/ui/diff";
-
-import { type ParseOptions, parseDiff } from "@/components/ui/diff/utils/parse";
 
 export function DiffViewer({
   patch,

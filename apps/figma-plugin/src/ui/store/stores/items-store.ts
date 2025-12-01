@@ -1,4 +1,6 @@
 import type { StateCreator } from "zustand";
+import type { Preset } from "@/types/messages";
+import { optimizeSvgBatch } from "@/ui/lib/svgo-optimizer";
 
 // ============================================================================
 // Types
@@ -38,6 +40,7 @@ export interface ItemsActions {
   setCompressing: (isCompressing: boolean) => void;
   setExporting: (isExporting: boolean) => void;
   setCompressionProgress: (progress: number) => void;
+  compressSingleItem: (itemId: string) => Promise<void>;
 }
 
 export type ItemsStore = ItemsState & ItemsActions;
@@ -58,7 +61,12 @@ const initialState: ItemsState = {
 // Items Store
 // ============================================================================
 
-export const createItemsStore: StateCreator<ItemsStore> = (set) => ({
+export const createItemsStore: StateCreator<
+  ItemsStore & { presets: Preset[]; globalPreset: string },
+  [],
+  [],
+  ItemsStore
+> = (set, get) => ({
   ...initialState,
 
   setItems: (items) => {
@@ -104,5 +112,57 @@ export const createItemsStore: StateCreator<ItemsStore> = (set) => ({
 
   setCompressionProgress: (progress) => {
     set({ compressionProgress: progress });
+  },
+
+  compressSingleItem: async (itemId) => {
+    const state = get();
+    const item = state.items.find((i) => i.id === itemId);
+
+    if (!item) {
+      console.error(`Item ${itemId} not found`);
+      return;
+    }
+
+    try {
+      // Get effective preset (resolve 'inherit')
+      const presetId =
+        item.preset === "inherit" ? state.globalPreset : item.preset;
+      const presets = state.presets;
+      let preset = presets.find((p) => p.id === presetId);
+
+      if (!preset) {
+        console.warn(`Preset "${presetId}" not found, using default`);
+        preset = presets.find((p) => p.id === "default");
+        if (!preset) {
+          throw new Error("Default preset not found");
+        }
+      }
+
+      // Optimize single item (batch of 1)
+      const results = await optimizeSvgBatch(
+        [item],
+        presets,
+        state.globalPreset
+      );
+
+      if (results[0]) {
+        // Update item with compression result
+        set((currentState) => ({
+          items: currentState.items.map((i) =>
+            i.id === itemId
+              ? {
+                  ...i,
+                  compressedSvg: results[0].compressedSvg,
+                  originalSize: results[0].originalSize,
+                  compressedSize: results[0].compressedSize,
+                  compressionRatio: results[0].compressionRatio,
+                }
+              : i
+          ),
+        }));
+      }
+    } catch (error) {
+      console.error(`Failed to compress item ${itemId}:`, error);
+    }
   },
 });
