@@ -1,3 +1,4 @@
+import { copyFileSync } from "node:fs";
 import { resolve } from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
@@ -9,6 +10,23 @@ function buildPluginCode() {
   return {
     name: "build-plugin-code",
     closeBundle: async () => {
+      // Copy icon assets to dist directory
+      const distDir = resolve(__dirname, "dist");
+      const assetsDir = resolve(__dirname, "assets");
+
+      try {
+        copyFileSync(
+          resolve(assetsDir, "icon.svg"),
+          resolve(distDir, "icon.svg")
+        );
+        copyFileSync(
+          resolve(assetsDir, "icon.png"),
+          resolve(distDir, "icon.png")
+        );
+      } catch (error) {
+        console.warn("Failed to copy icon assets:", error);
+      }
+
       await build({
         configFile: false,
         resolve: {
