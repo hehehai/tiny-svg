@@ -1,6 +1,7 @@
 import { Button } from "@tiny-svg/ui/components/button";
 import { ButtonGroup } from "@tiny-svg/ui/components/button-group";
 import {
+  copyToClipboard,
   downloadBlob,
   svgToIcoBlob,
   svgToJpegBlob,
@@ -23,17 +24,24 @@ type ImageFormat = "png" | "jpeg" | "webp" | "ico";
 const SVG_EXTENSION_REGEX = /\.svg$/i;
 
 /**
- * Copy image blob to clipboard using ClipboardItem API
+ * Copy image blob as base64 data URL to clipboard
+ * Figma plugin environment doesn't support ClipboardItem API
  */
-async function copyImageToClipboard(
-  blob: Blob,
-  mimeType: string
-): Promise<void> {
-  if (navigator.clipboard && ClipboardItem) {
-    await navigator.clipboard.write([new ClipboardItem({ [mimeType]: blob })]);
-  } else {
-    throw new Error("Clipboard API not supported for images");
-  }
+async function copyImageToClipboard(blob: Blob): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = async () => {
+      try {
+        const base64data = reader.result as string;
+        await copyToClipboard(base64data);
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    };
+    reader.onerror = () => reject(new Error("Failed to read blob"));
+    reader.readAsDataURL(blob);
+  });
 }
 
 export function ImageItem({ item, onPreview }: ImageItemProps) {
@@ -85,31 +93,26 @@ export function ImageItem({ item, onPreview }: ImageItemProps) {
       setLoadingFormat(`${format}-copy`);
 
       let blob: Blob;
-      let mimeType: string;
 
       switch (format) {
         case "png":
           blob = await svgToPngBlob(svg);
-          mimeType = "image/png";
           break;
         case "jpeg":
           blob = await svgToJpegBlob(svg);
-          mimeType = "image/jpeg";
           break;
         case "webp":
           blob = await svgToWebpBlob(svg);
-          mimeType = "image/webp";
           break;
         case "ico":
           blob = await svgToIcoBlob(svg);
-          mimeType = "image/x-icon";
           break;
         default:
           throw new Error(`Unknown format: ${format}`);
       }
 
-      await copyImageToClipboard(blob, mimeType);
-      toast.success(`${format.toUpperCase()} copied to clipboard`);
+      await copyImageToClipboard(blob);
+      toast.success(`${format.toUpperCase()} copied to clipboard as data URL`);
     } catch (error) {
       console.error(`Failed to copy ${format}:`, error);
       toast.error(`Failed to copy ${format.toUpperCase()}`);

@@ -50,6 +50,7 @@
     "@tiny-svg/svg": "workspace:*",
     "@tiny-svg/code-generators": "workspace:*",
     "@tiny-svg/ui": "workspace:*",
+    "@tiny-svg/utils": "workspace:*",
     "react-dropzone": "^14.3.8",
     "react-intlayer": "^6.1.6",
     "refractor": "^5.0.0",

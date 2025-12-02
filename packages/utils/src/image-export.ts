@@ -156,7 +156,17 @@ export const canvasToBlob = async (
     canvas.toBlob(
       (blob) => {
         if (blob) {
-          resolve(blob);
+          // Canvas.toBlob only supports image/png, image/jpeg, and image/webp
+          // If a different MIME type is requested (e.g., image/x-icon),
+          // we need to manually create a new Blob with the correct type
+          if (blob.type !== mimeType) {
+            blob.arrayBuffer().then((buffer) => {
+              const newBlob = new Blob([buffer], { type: mimeType });
+              resolve(newBlob);
+            });
+          } else {
+            resolve(blob);
+          }
         } else {
           reject(new Error("Failed to create blob"));
         }
@@ -250,6 +260,8 @@ export const exportAsIco = async (
     centered: true,
     canvasSize: size,
   });
+  // Browser canvas doesn't support true ICO format, but we use ICO_MIME_TYPE
+  // to ensure the browser downloads with .ico extension
   await canvasToBlobAndDownload(
     canvas,
     fileName.replace(SVG_EXTENSION, ".ico"),
@@ -314,5 +326,7 @@ export const svgToIcoBlob = async (
     centered: true,
     canvasSize: size,
   });
+  // Browser canvas doesn't support true ICO format, but we use ICO_MIME_TYPE
+  // to ensure the browser downloads with .ico extension
   return canvasToBlob(canvas, ICO_MIME_TYPE);
 };

@@ -13,6 +13,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@tiny-svg/ui/components/select";
+import {
+  exportAsIco,
+  exportAsJpeg,
+  exportAsPng,
+  exportAsWebp,
+} from "@tiny-svg/utils";
 import { useIntlayer } from "react-intlayer";
 import { toast } from "sonner";
 import {
@@ -20,13 +26,7 @@ import {
   DEFAULT_WEBP_QUALITY,
   EXPORT_SCALE_OPTIONS,
 } from "@/lib/constants";
-import {
-  exportAsIco,
-  exportAsJpeg,
-  exportAsPdf,
-  exportAsPng,
-  exportAsWebP,
-} from "@/lib/file-utils";
+import { exportAsPdf } from "@/lib/file-utils";
 import type { ExportScale } from "@/store/ui-store";
 
 type ExportPanelProps = {
@@ -111,7 +111,7 @@ export function ExportPanel({
       return;
     }
     try {
-      await exportAsWebP(
+      await exportAsWebp(
         compressedSvg,
         fileName,
         DEFAULT_WEBP_QUALITY,
