@@ -115,7 +115,10 @@ export function PluginApp() {
         <PresetEditorDrawer />
         <PreviewDrawer />
       </Suspense>
-      <Toaster position="bottom-center" />
+      <Toaster
+        position="bottom-center"
+        toastOptions={{ classNames: { toast: "p-2.5! rounded-lg!" } }}
+      />
     </>
   );
 }
