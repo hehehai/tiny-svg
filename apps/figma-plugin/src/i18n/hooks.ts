@@ -24,5 +24,5 @@ export function useTranslation() {
     return key;
   };
 
-  return { t, locale, isLoading };
+  return { t, locale, isLoading, translations };
 }

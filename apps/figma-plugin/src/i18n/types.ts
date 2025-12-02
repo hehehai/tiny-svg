@@ -144,20 +144,38 @@ export interface TranslationKeys {
     };
     createButton: string;
     editor: {
-      createTitle: string;
-      editTitle: string;
+      title: {
+        create: string;
+        edit: string;
+      };
       namePlaceholder: string;
-      nameExists: string;
-      nameRequired: string;
-      globalSettings: string;
-      multipass: string;
-      multipassDescription: string;
-      floatPrecision: string;
-      floatPrecisionDescription: string;
-      transformPrecision: string;
-      transformPrecisionDescription: string;
-      pluginsSection: string;
+      errors: {
+        duplicateName: string;
+        emptyName: string;
+      };
+      actions: {
+        save: string;
+        delete: string;
+      };
       copySuffix: string;
+      globalSettings: {
+        title: string;
+        multipass: {
+          label: string;
+          description: string;
+        };
+        floatPrecision: {
+          label: string;
+          description: string;
+        };
+        transformPrecision: {
+          label: string;
+          description: string;
+        };
+      };
+      plugins: {
+        title: string;
+      };
     };
     deleteDialog: {
       title: string;
@@ -181,6 +199,53 @@ export interface TranslationKeys {
         delete: string;
         cannotDeleteDefault: string;
       };
+    };
+    pluginLabels: {
+      removeDoctype: string;
+      removeXMLProcInst: string;
+      removeComments: string;
+      removeMetadata: string;
+      removeXMLNS: string;
+      removeEditorsNSData: string;
+      cleanupAttrs: string;
+      removeUnknownsAndDefaults: string;
+      removeNonInheritableGroupAttrs: string;
+      removeUselessStrokeAndFill: string;
+      removeViewBox: string;
+      cleanupEnableBackground: string;
+      removeEmptyAttrs: string;
+      removeDimensions: string;
+      removeAttributesBySelector: string;
+      mergeStyles: string;
+      inlineStyles: string;
+      minifyStyles: string;
+      convertStyleToAttrs: string;
+      removeStyleElement: string;
+      cleanupIds: string;
+      cleanupNumericValues: string;
+      cleanupListOfValues: string;
+      convertColors: string;
+      removeUselessDefs: string;
+      removeHiddenElems: string;
+      removeEmptyText: string;
+      removeEmptyContainers: string;
+      removeRasterImages: string;
+      removeTitle: string;
+      removeDesc: string;
+      removeScriptElement: string;
+      removeOffCanvasPaths: string;
+      moveElemsAttrsToGroup: string;
+      moveGroupAttrsToElems: string;
+      collapseGroups: string;
+      convertPathData: string;
+      convertShapeToPath: string;
+      mergePaths: string;
+      reusePaths: string;
+      convertEllipseToCircle: string;
+      convertTransform: string;
+      removeUnusedNS: string;
+      sortAttrs: string;
+      sortDefsChildren: string;
     };
   };
 }

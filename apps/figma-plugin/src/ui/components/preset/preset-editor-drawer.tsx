@@ -12,6 +12,7 @@ import { ScrollArea } from "@tiny-svg/ui/components/scroll-area";
 import { Separator } from "@tiny-svg/ui/components/separator";
 import { Switch } from "@tiny-svg/ui/components/switch";
 import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "@/i18n/hooks";
 import { getPluginLabel } from "@/ui/lib/plugin-labels";
 import {
   allSvgoPlugins,
@@ -39,6 +40,7 @@ export function PresetEditorDrawer() {
     updatePreset,
     deletePreset,
   } = usePluginStore();
+  const { t, translations } = useTranslation();
 
   const [name, setName] = useState("");
   const [plugins, setPlugins] = useState<SvgoPluginConfig[]>(allSvgoPlugins);
@@ -115,7 +117,7 @@ export function PresetEditorDrawer() {
         (p) => p.id === presetEditor.sourcePresetId
       );
       if (sourcePreset) {
-        setName(`${sourcePreset.name} (副本)`);
+        setName(`${sourcePreset.name} ${t("presets.editor.copySuffix")}`);
         const config = sourcePreset.svgoConfig as PresetConfig;
         loadConfigToState(config);
       }
@@ -133,6 +135,7 @@ export function PresetEditorDrawer() {
     presetEditor.sourcePresetId,
     presets,
     loadConfigToState,
+    t,
   ]);
 
   // Convert component state to Config
@@ -158,10 +161,10 @@ export function PresetEditorDrawer() {
           (presetEditor.mode === "create" || p.id !== presetEditor.presetId)
       );
       if (isDuplicate) {
-        newErrors.name = "预设名称已存在";
+        newErrors.name = t("presets.editor.errors.duplicateName");
       }
     } else {
-      newErrors.name = "预设名称不能为空";
+      newErrors.name = t("presets.editor.errors.emptyName");
     }
 
     setErrors(newErrors);
@@ -237,7 +240,9 @@ export function PresetEditorDrawer() {
           <DrawerHeader className="flex items-center justify-between border-b px-4 py-3">
             <div className="flex items-center gap-1.5">
               <DrawerTitle className="font-semibold text-base">
-                {presetEditor.mode === "edit" ? "编辑" : "创建"}
+                {presetEditor.mode === "edit"
+                  ? t("presets.editor.title.edit")
+                  : t("presets.editor.title.create")}
               </DrawerTitle>
               <DrawerDescription className="sr-only">Preset</DrawerDescription>
               <Input
@@ -246,7 +251,7 @@ export function PresetEditorDrawer() {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   setName(e.target.value);
                 }}
-                placeholder="输入预设名称"
+                placeholder={t("presets.editor.namePlaceholder")}
                 value={name}
               />
               {errors.name && (
@@ -255,7 +260,7 @@ export function PresetEditorDrawer() {
             </div>
             <div className="flex items-center gap-2">
               <Button className="h-7 rounded-lg px-3 py-1" onClick={handleSave}>
-                保存
+                {t("presets.editor.actions.save")}
               </Button>
               {presetEditor.mode === "edit" && !isDefaultPreset && (
                 <Button
@@ -265,7 +270,7 @@ export function PresetEditorDrawer() {
                   }}
                   variant="destructive"
                 >
-                  删除
+                  {t("presets.editor.actions.delete")}
                 </Button>
               )}
               <DrawerClose asChild>
@@ -284,7 +289,9 @@ export function PresetEditorDrawer() {
             <div className="space-y-6 p-4">
               {/* Global Settings */}
               <div className="space-y-3">
-                <h3 className="font-medium text-sm">全局设置</h3>
+                <h3 className="font-medium text-sm">
+                  {t("presets.editor.globalSettings.title")}
+                </h3>
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="space-y-0.5">
@@ -292,10 +299,12 @@ export function PresetEditorDrawer() {
                         className="font-medium text-sm"
                         htmlFor="multipass"
                       >
-                        多遍优化
+                        {t("presets.editor.globalSettings.multipass.label")}
                       </label>
                       <p className="text-muted-foreground text-xs">
-                        重复执行优化直到无法进一步优化
+                        {t(
+                          "presets.editor.globalSettings.multipass.description"
+                        )}
                       </p>
                     </div>
                     <Switch
@@ -318,10 +327,14 @@ export function PresetEditorDrawer() {
                         className="font-medium text-sm"
                         htmlFor="float-precision"
                       >
-                        浮点数精度
+                        {t(
+                          "presets.editor.globalSettings.floatPrecision.label"
+                        )}
                       </label>
                       <p className="text-muted-foreground text-xs">
-                        坐标和数值的小数位数 (0-10)
+                        {t(
+                          "presets.editor.globalSettings.floatPrecision.description"
+                        )}
                       </p>
                     </div>
                     <Input
@@ -351,10 +364,14 @@ export function PresetEditorDrawer() {
                         className="font-medium text-sm"
                         htmlFor="transform-precision"
                       >
-                        变换精度
+                        {t(
+                          "presets.editor.globalSettings.transformPrecision.label"
+                        )}
                       </label>
                       <p className="text-muted-foreground text-xs">
-                        变换矩阵的小数位数 (0-10)
+                        {t(
+                          "presets.editor.globalSettings.transformPrecision.description"
+                        )}
                       </p>
                     </div>
                     <Input
@@ -382,7 +399,9 @@ export function PresetEditorDrawer() {
 
               {/* SVGO Plugins */}
               <div className="space-y-3">
-                <h3 className="font-medium text-sm">优化插件</h3>
+                <h3 className="font-medium text-sm">
+                  {t("presets.editor.plugins.title")}
+                </h3>
                 <div className="space-y-2">
                   {plugins.map((plugin) => (
                     <div
@@ -393,7 +412,7 @@ export function PresetEditorDrawer() {
                         className="cursor-pointer text-sm"
                         htmlFor={plugin.name}
                       >
-                        {getPluginLabel(plugin.name)}
+                        {getPluginLabel(plugin.name, translations)}
                       </label>
                       <Switch
                         checked={plugin.enabled}

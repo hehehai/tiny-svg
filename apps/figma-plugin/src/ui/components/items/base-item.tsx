@@ -6,6 +6,7 @@ import {
   SelectValue,
 } from "@tiny-svg/ui/components/select";
 import { type ReactNode, useEffect, useState } from "react";
+import { useTranslation } from "@/i18n/hooks";
 import { ItemSizeDisplay } from "@/ui/components/items/item-size-display";
 import { generateThumbnail } from "@/ui/lib/thumbnail";
 import { thumbnailCache } from "@/ui/lib/thumbnail-cache";
@@ -27,6 +28,7 @@ export function BaseItem({
   actions,
   onThumbnailClick,
 }: BaseItemProps) {
+  const { t } = useTranslation();
   const [thumbnail, setThumbnail] = useState<string>();
   const [isLoadingThumbnail, setIsLoadingThumbnail] = useState(true);
 
@@ -84,7 +86,10 @@ export function BaseItem({
   return (
     <div className="flex gap-2 rounded-lg border border-border bg-background p-2">
       <button
-        aria-label={`Preview ${item.name}`}
+        aria-label={t("preview.ariaLabels.previewButton").replace(
+          "{name}",
+          item.name
+        )}
         className="size-[60px] shrink-0 cursor-pointer overflow-hidden rounded bg-foreground/10 p-1 transition-colors hover:border-ring"
         onClick={onThumbnailClick}
         type="button"
@@ -112,7 +117,7 @@ export function BaseItem({
                   className="rounded-md py-1 pr-4 pl-1 text-xs"
                   value="inherit"
                 >
-                  Inherit
+                  {t("common.inherit")}
                 </SelectItem>
                 {presets.map((preset) => (
                   <SelectItem

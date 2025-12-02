@@ -150,23 +150,39 @@ export const fr: TranslationFile = {
     },
     createButton: "Créer un préréglage",
     editor: {
-      createTitle: "Créer un préréglage",
-      editTitle: "Modifier le préréglage",
+      title: {
+        create: "Créer",
+        edit: "Modifier",
+      },
       namePlaceholder: "Entrez le nom du préréglage",
-      nameExists: "Le nom du préréglage existe déjà",
-      nameRequired: "Le nom du préréglage ne peut pas être vide",
-      globalSettings: "Paramètres globaux",
-      multipass: "Multipasse",
-      multipassDescription:
-        "Répéter l'optimisation jusqu'à ce qu'aucune amélioration supplémentaire ne soit possible",
-      floatPrecision: "Précision flottante",
-      floatPrecisionDescription:
-        "Décimales pour les coordonnées et les valeurs (0-10)",
-      transformPrecision: "Précision de transformation",
-      transformPrecisionDescription:
-        "Décimales pour les matrices de transformation (0-10)",
-      pluginsSection: "Plugins d'optimisation",
-      copySuffix: "Copie",
+      errors: {
+        duplicateName: "Le nom du préréglage existe déjà",
+        emptyName: "Le nom du préréglage ne peut pas être vide",
+      },
+      actions: {
+        save: "Enregistrer",
+        delete: "Supprimer",
+      },
+      copySuffix: "(Copie)",
+      globalSettings: {
+        title: "Paramètres globaux",
+        multipass: {
+          label: "Multipasse",
+          description:
+            "Répéter l'optimisation jusqu'à ce qu'aucune amélioration supplémentaire ne soit possible",
+        },
+        floatPrecision: {
+          label: "Précision flottante",
+          description: "Décimales pour les coordonnées et les valeurs (0-10)",
+        },
+        transformPrecision: {
+          label: "Précision de transformation",
+          description: "Décimales pour les matrices de transformation (0-10)",
+        },
+      },
+      plugins: {
+        title: "Plugins d'optimisation",
+      },
     },
     deleteDialog: {
       title: "Confirmer la suppression du préréglage ?",
@@ -193,6 +209,57 @@ export const fr: TranslationFile = {
         cannotDeleteDefault:
           "Le préréglage par défaut ne peut pas être supprimé",
       },
+    },
+    pluginLabels: {
+      removeDoctype: "Supprimer Doctype",
+      removeXMLProcInst: "Supprimer les instructions de traitement XML",
+      removeComments: "Supprimer les commentaires",
+      removeMetadata: "Supprimer les métadonnées",
+      removeXMLNS: "Supprimer l'espace de noms XML",
+      removeEditorsNSData: "Supprimer les données de l'éditeur",
+      cleanupAttrs: "Nettoyer les attributs",
+      removeUnknownsAndDefaults:
+        "Supprimer les inconnus et les valeurs par défaut",
+      removeNonInheritableGroupAttrs:
+        "Supprimer les attributs de groupe non héritables",
+      removeUselessStrokeAndFill:
+        "Supprimer les contours et remplissages inutiles",
+      removeViewBox: "Supprimer ViewBox",
+      cleanupEnableBackground: "Nettoyer Enable Background",
+      removeEmptyAttrs: "Supprimer les attributs vides",
+      removeDimensions: "Supprimer les dimensions",
+      removeAttributesBySelector: "Supprimer les attributs par sélecteur",
+      mergeStyles: "Fusionner les styles",
+      inlineStyles: "Styles en ligne",
+      minifyStyles: "Minimiser les styles",
+      convertStyleToAttrs: "Convertir le style en attributs",
+      removeStyleElement: "Supprimer l'élément style",
+      cleanupIds: "Nettoyer les IDs",
+      cleanupNumericValues: "Nettoyer les valeurs numériques",
+      cleanupListOfValues: "Nettoyer les listes de valeurs",
+      convertColors: "Convertir les couleurs",
+      removeUselessDefs: "Supprimer les définitions inutiles",
+      removeHiddenElems: "Supprimer les éléments cachés",
+      removeEmptyText: "Supprimer le texte vide",
+      removeEmptyContainers: "Supprimer les conteneurs vides",
+      removeRasterImages: "Supprimer les images matricielles",
+      removeTitle: "Supprimer le titre",
+      removeDesc: "Supprimer la description",
+      removeScriptElement: "Supprimer l'élément script",
+      removeOffCanvasPaths: "Supprimer les chemins hors canvas",
+      moveElemsAttrsToGroup: "Déplacer les attributs d'élément vers le groupe",
+      moveGroupAttrsToElems:
+        "Déplacer les attributs de groupe vers les éléments",
+      collapseGroups: "Réduire les groupes",
+      convertPathData: "Convertir les données de chemin",
+      convertShapeToPath: "Convertir la forme en chemin",
+      mergePaths: "Fusionner les chemins",
+      reusePaths: "Réutiliser les chemins",
+      convertEllipseToCircle: "Convertir l'ellipse en cercle",
+      convertTransform: "Convertir la transformation",
+      removeUnusedNS: "Supprimer l'espace de noms inutilisé",
+      sortAttrs: "Trier les attributs",
+      sortDefsChildren: "Trier les enfants de définitions",
     },
   },
 };
