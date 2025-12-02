@@ -1,3 +1,4 @@
+import { memo } from "react";
 import type { SvgItem } from "@/ui/store";
 import { usePluginStore } from "@/ui/store";
 import { PreviewCanvas } from "./preview-canvas";
@@ -11,7 +12,7 @@ interface PreviewContentProps {
   maxLineWidth?: number | "auto";
 }
 
-export function PreviewContent({
+export const PreviewContent = memo(function PreviewContentComponent({
   item,
   onZoomDataChange,
   onCodeDataChange,
@@ -40,4 +41,4 @@ export function PreviewContent({
       )}
     </div>
   );
-}
+});

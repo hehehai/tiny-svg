@@ -13,6 +13,7 @@ import {
   TooltipTrigger,
 } from "@tiny-svg/ui/components/tooltip";
 import { cn } from "@tiny-svg/ui/lib/utils";
+import { memo } from "react";
 import { useTranslation } from "@/i18n/hooks";
 import { BACKGROUND_STYLES } from "@/ui/lib/svg-preview-helpers";
 import { usePluginStore } from "@/ui/store";
@@ -33,7 +34,7 @@ interface PreviewFooterProps {
   onCopy?: () => void;
 }
 
-export function PreviewFooter({
+export const PreviewFooter = memo(function PreviewFooterComponent({
   zoom,
   minZoom,
   maxZoom,
@@ -253,4 +254,4 @@ export function PreviewFooter({
       </div>
     </div>
   );
-}
+});

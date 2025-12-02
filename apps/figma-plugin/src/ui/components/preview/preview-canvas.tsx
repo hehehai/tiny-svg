@@ -1,5 +1,5 @@
 import { cn } from "@tiny-svg/ui/lib/utils";
-import React from "react";
+import { memo, useEffect } from "react";
 import { useSvgPanZoom } from "@/ui/hooks/use-svg-pan-zoom";
 import {
   BACKGROUND_STYLES,
@@ -19,7 +19,10 @@ interface PreviewCanvasProps {
   }) => void;
 }
 
-export function PreviewCanvas({ svg, onZoomDataChange }: PreviewCanvasProps) {
+export const PreviewCanvas = memo(function PreviewCanvasComponent({
+  svg,
+  onZoomDataChange,
+}: PreviewCanvasProps) {
   const { previewModal } = usePluginStore();
 
   const {
@@ -39,7 +42,7 @@ export function PreviewCanvas({ svg, onZoomDataChange }: PreviewCanvasProps) {
   } = useSvgPanZoom();
 
   // Notify parent of zoom data changes
-  React.useEffect(() => {
+  useEffect(() => {
     onZoomDataChange?.({
       zoom,
       minZoom,
@@ -71,25 +74,6 @@ export function PreviewCanvas({ svg, onZoomDataChange }: PreviewCanvasProps) {
 
   const currentBgStyle = BACKGROUND_STYLES[backgroundStyle];
 
-  // Wrap handlers to prevent event propagation to Sheet
-  const handleMouseDownWithStop = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    handleMouseDown(e);
-  };
-
-  const handleMouseMoveWithStop = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    handleMouseMove(e);
-  };
-
-  const handleMouseUpWithStop = () => {
-    handleMouseUp();
-  };
-
-  const handleMouseLeaveWithStop = () => {
-    handleMouseLeave();
-  };
-
   return (
     <button
       aria-label="SVG preview canvas - use mouse wheel to zoom, click and drag to pan"
@@ -98,10 +82,16 @@ export function PreviewCanvas({ svg, onZoomDataChange }: PreviewCanvasProps) {
         currentBgStyle.className,
         isDragging ? "cursor-grabbing" : "cursor-grab"
       )}
-      onMouseDown={handleMouseDownWithStop}
-      onMouseLeave={handleMouseLeaveWithStop}
-      onMouseMove={handleMouseMoveWithStop}
-      onMouseUp={handleMouseUpWithStop}
+      onMouseDown={(e) => {
+        e.stopPropagation();
+        handleMouseDown(e);
+      }}
+      onMouseLeave={handleMouseLeave}
+      onMouseMove={(e) => {
+        e.stopPropagation();
+        handleMouseMove(e);
+      }}
+      onMouseUp={handleMouseUp}
       ref={containerRef}
       type="button"
     >
@@ -126,4 +116,4 @@ export function PreviewCanvas({ svg, onZoomDataChange }: PreviewCanvasProps) {
       </div>
     </button>
   );
-}
+});

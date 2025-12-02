@@ -1,11 +1,11 @@
 import { Sheet, SheetContent } from "@tiny-svg/ui/components/sheet";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { usePluginStore } from "@/ui/store";
 import { PreviewContent } from "./preview-content";
 import { PreviewFooter } from "./preview-footer";
 import { PreviewHeader } from "./preview-header";
 
-export function PreviewDrawer() {
+export const PreviewDrawer = memo(function PreviewDrawerComponent() {
   const { previewModal, closePreview, items } = usePluginStore();
   const { isOpen, itemId, codeViewMode } = previewModal;
 
@@ -25,9 +25,10 @@ export function PreviewDrawer() {
   const [codeData, setCodeData] = useState<any>(null);
 
   // Reset code data when switching code view mode
+  // biome-ignore lint/correctness/useExhaustiveDependencies: We intentionally reset on codeViewMode change
   useEffect(() => {
     setCodeData(null);
-  }, []);
+  }, [codeViewMode]);
 
   // Auto-close if item is deleted
   useEffect(() => {
@@ -70,6 +71,6 @@ export function PreviewDrawer() {
       </SheetContent>
     </Sheet>
   );
-}
+});
 
 export default PreviewDrawer;

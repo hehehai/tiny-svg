@@ -14,7 +14,9 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@tiny-svg/ui/components/sheet";
-import { useState } from "react";
+import { memo } from "react";
+import { usePreviewHeader } from "@/ui/hooks/preview/use-preview-header";
+import { formatCompressionRatio } from "@/ui/lib/preview-helpers";
 import type { SvgItem } from "@/ui/store";
 import { usePluginStore } from "@/ui/store";
 
@@ -22,34 +24,12 @@ interface PreviewHeaderProps {
   item: SvgItem;
 }
 
-export function PreviewHeader({ item }: PreviewHeaderProps) {
-  const { updateItem, setPreviewPreset, compressSingleItem, presets } =
-    usePluginStore();
-  const [itemName, setItemName] = useState(item.name);
-
-  const handleNameBlur = () => {
-    if (itemName.trim() && itemName !== item.name) {
-      updateItem(item.id, { name: itemName.trim() });
-    } else if (!itemName.trim()) {
-      // Revert if empty
-      setItemName(item.name);
-    }
-  };
-
-  const handlePresetChange = async (presetId: string) => {
-    // Update preset
-    setPreviewPreset(item.id, presetId);
-
-    // Auto-compress since preview is open
-    await compressSingleItem(item.id);
-  };
-
-  const formatCompressionRatio = (ratio: number | undefined): string => {
-    if (!ratio) {
-      return "";
-    }
-    return `-${Math.round(ratio * 100)}%`;
-  };
+export const PreviewHeader = memo(function PreviewHeaderComponent({
+  item,
+}: PreviewHeaderProps) {
+  const { presets } = usePluginStore();
+  const { itemName, handleNameChange, handleNameBlur, handlePresetChange } =
+    usePreviewHeader(item.id, item.name);
 
   return (
     <SheetHeader className="flex flex-row items-center justify-between space-y-0 border-b px-3 py-2">
@@ -62,7 +42,7 @@ export function PreviewHeader({ item }: PreviewHeaderProps) {
         <Input
           className="h-7 max-w-[100px]"
           onBlur={handleNameBlur}
-          onChange={(e) => setItemName(e.target.value)}
+          onChange={(e) => handleNameChange(e.target.value)}
           title={itemName}
           value={itemName}
         />
@@ -116,4 +96,4 @@ export function PreviewHeader({ item }: PreviewHeaderProps) {
       </div>
     </SheetHeader>
   );
-}
+});

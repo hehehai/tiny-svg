@@ -5,9 +5,9 @@ import {
   generateUnifiedDiff,
 } from "@tiny-svg/ui/lib/diff-utils";
 import { highlight } from "@tiny-svg/ui/lib/syntax-highlight";
-import { copyToClipboard } from "@tiny-svg/utils";
-import React, { useCallback, useEffect, useState } from "react";
-import { toast } from "sonner";
+import React, { useEffect, useState } from "react";
+import { useCodeViewer } from "@/ui/hooks/preview/use-code-viewer";
+import { useDiffViewer } from "@/ui/hooks/preview/use-diff-viewer";
 import { usePluginStore } from "@/ui/store";
 
 interface PreviewCodeProps {
@@ -18,16 +18,9 @@ interface PreviewCodeProps {
   maxLineWidth?: number | "auto";
 }
 
-function CodeViewer({
-  code,
-  canPrettify,
-  onStateChange,
-  onDataChange,
-  wrapLines = true,
-}: {
+interface CodeViewerProps {
   code: string;
   canPrettify: boolean;
-  onStateChange?: (canPrettify: boolean, isPrettified: boolean) => void;
   onDataChange?: (data: {
     displayCode: string;
     isPrettified: boolean;
@@ -35,18 +28,20 @@ function CodeViewer({
     onCopy: () => void;
   }) => void;
   wrapLines?: boolean;
-}) {
-  const [displayCode, setDisplayCode] = useState(code);
-  const [isPrettified, setIsPrettified] = useState(false);
+}
+
+function CodeViewer({
+  code,
+  canPrettify,
+  onDataChange,
+  wrapLines = true,
+}: CodeViewerProps) {
+  const { displayCode, isPrettified, handlePrettify, handleCopy } =
+    useCodeViewer(code, canPrettify);
+
   const [highlightedLines, setHighlightedLines] = useState<
     Map<number, React.ReactNode[]>
   >(new Map());
-
-  useEffect(() => {
-    setDisplayCode(code);
-    setIsPrettified(false);
-    setHighlightedLines(new Map());
-  }, [code]);
 
   // Highlight code lines asynchronously
   useEffect(() => {
@@ -63,44 +58,6 @@ function CodeViewer({
       }
       setHighlightedLines(newMap);
     });
-  }, [displayCode]);
-
-  // Notify parent of state changes
-  useEffect(() => {
-    onStateChange?.(canPrettify, isPrettified);
-  }, [canPrettify, isPrettified, onStateChange]);
-
-  const handlePrettify = useCallback(async () => {
-    if (!canPrettify) {
-      return;
-    }
-
-    try {
-      // Import prettier standalone and html parser
-      const [prettier, parserHtml] = await Promise.all([
-        import("prettier/standalone"),
-        import("prettier/plugins/html"),
-      ]);
-
-      const formatted = await prettier.format(displayCode, {
-        parser: "html",
-        plugins: [parserHtml],
-        printWidth: 80,
-        tabWidth: 2,
-        useTabs: false,
-      });
-      setDisplayCode(formatted);
-      setIsPrettified(true);
-      toast.success("Code prettified");
-    } catch (error) {
-      console.error("Prettify error:", error);
-      toast.error("Failed to prettify code");
-    }
-  }, [canPrettify, displayCode]);
-
-  const handleCopy = useCallback(() => {
-    copyToClipboard(displayCode);
-    toast.success("Code copied to clipboard");
   }, [displayCode]);
 
   // Notify parent of data changes
@@ -160,29 +117,28 @@ function CodeViewer({
   );
 }
 
+interface DiffViewerProps {
+  original: string;
+  modified: string;
+  onDataChange?: (data: { onCopy: () => void }) => void;
+  wrapLines?: boolean;
+  maxLineWidth?: number | "auto";
+}
+
 function DiffViewer({
   original,
   modified,
   onDataChange,
   wrapLines = true,
   maxLineWidth = "auto",
-}: {
-  original: string;
-  modified: string;
-  onDataChange?: (data: { onCopy: () => void }) => void;
-  wrapLines?: boolean;
-  maxLineWidth?: number | "auto";
-}) {
+}: DiffViewerProps) {
+  const { handleCopy } = useDiffViewer(modified);
+
   const patch = generateUnifiedDiff(original, modified);
   const [file] = parseDiff(patch, DEFAULT_DIFF_PARSE_OPTIONS);
 
-  const handleCopy = useCallback(() => {
-    copyToClipboard(modified);
-    toast.success("Optimized code copied to clipboard");
-  }, [modified]);
-
   // Notify parent of data changes
-  React.useEffect(() => {
+  useEffect(() => {
     onDataChange?.({
       onCopy: handleCopy,
     });
