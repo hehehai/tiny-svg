@@ -211,7 +211,7 @@ export function SvgPreview({
   const [contextMenuTarget, setContextMenuTarget] = useState<"canvas" | "svg">(
     "canvas"
   );
-  const { applyTransformation } = useSvgStore();
+  const { applyTransformation, originalSvg, compressedSvg } = useSvgStore();
 
   const zoomInLongPress = useLongPress({
     onLongPress: handleZoomIn,
@@ -240,23 +240,27 @@ export function SvgPreview({
   };
 
   const handleRotate = () => {
-    const rotated = rotateSvg(svg);
-    applyTransformation(rotated);
+    const rotatedOriginal = rotateSvg(originalSvg);
+    const rotatedCompressed = rotateSvg(compressedSvg);
+    applyTransformation(rotatedOriginal, rotatedCompressed);
   };
 
   const handleFlipHorizontal = () => {
-    const flipped = flipHorizontal(svg);
-    applyTransformation(flipped);
+    const flippedOriginal = flipHorizontal(originalSvg);
+    const flippedCompressed = flipHorizontal(compressedSvg);
+    applyTransformation(flippedOriginal, flippedCompressed);
   };
 
   const handleFlipVertical = () => {
-    const flipped = flipVertical(svg);
-    applyTransformation(flipped);
+    const flippedOriginal = flipVertical(originalSvg);
+    const flippedCompressed = flipVertical(compressedSvg);
+    applyTransformation(flippedOriginal, flippedCompressed);
   };
 
   const handleResize = (newWidth: number, newHeight: number) => {
-    const resized = resizeSvg(svg, newWidth, newHeight);
-    applyTransformation(resized);
+    const resizedOriginal = resizeSvg(originalSvg, newWidth, newHeight);
+    const resizedCompressed = resizeSvg(compressedSvg, newWidth, newHeight);
+    applyTransformation(resizedOriginal, resizedCompressed);
     setShowSizeAdjuster(false);
   };
 
