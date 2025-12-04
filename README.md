@@ -183,9 +183,13 @@ Deployed on **Vercel** for full SSR support. Cloudflare Workers not supported du
 A full-featured web application for SVG optimization with SSR, PWA support, and i18n.
 
 ### 🎨 Figma Plugin
-**Status:** In Development
+[![Install Plugin](https://img.shields.io/badge/Figma-Install_Plugin-F24E1E?logo=figma&logoColor=white)](https://www.figma.com/community/plugin/1577284420062305768)
 
-Optimize SVGs directly within Figma. See [apps/figma-plugin/README.md](apps/figma-plugin/README.md) for details.
+Optimize SVGs directly within Figma with our official plugin. Available now on Figma Community!
+
+**[→ Install from Figma Community](https://www.figma.com/community/plugin/1577284420062305768)**
+
+See [apps/figma-plugin/README.md](apps/figma-plugin/README.md) for development details.
 
 ## TODO
 
@@ -194,7 +198,6 @@ Optimize SVGs directly within Figma. See [apps/figma-plugin/README.md](apps/figm
 - [ ] Interactive plugin demos - Visual examples for SVGO plugins
 - [ ] SVG sprite generator - Combine multiple SVGs into sprite sheets
 - [ ] Accessibility checker - Analyze and suggest SVG accessibility improvements
-- [ ] Publish Figma plugin to Figma Community
 
 ## Contributing
 

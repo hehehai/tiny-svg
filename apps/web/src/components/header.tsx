@@ -106,6 +106,16 @@ export default function Header() {
             {getThemeIcon()}
           </button>
           <a
+            aria-label="Install Figma Plugin"
+            className="hidden items-center justify-center rounded-md p-2 transition-colors hover:bg-accent sm:flex"
+            href="https://www.figma.com/community/plugin/1577284420062305768"
+            rel="noopener noreferrer"
+            target="_blank"
+            title="Install Figma Plugin"
+          >
+            <span className="i-hugeicons-figma size-5" />
+          </a>
+          <a
             aria-label="View on GitHub"
             className="hidden items-center justify-center rounded-md p-2 transition-colors hover:bg-accent sm:flex"
             href="https://github.com/hehehai/tiny-svg"
@@ -148,6 +158,16 @@ export default function Header() {
                 {label}
               </LocalizedLink>
             ))}
+            <a
+              className="flex items-center gap-2 rounded-md px-3 py-3 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+              href="https://www.figma.com/community/plugin/1577284420062305768"
+              onClick={() => setMobileMenuOpen(false)}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span className="i-hugeicons-figma size-5" />
+              <span>Figma Plugin</span>
+            </a>
             <a
               className="flex items-center gap-2 rounded-md px-3 py-3 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
               href="https://github.com/hehehai/tiny-svg"

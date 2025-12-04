@@ -1,6 +1,10 @@
 # Tiny SVG - Figma Plugin
 
+[![Install Plugin](https://img.shields.io/badge/Figma-Install_Plugin-F24E1E?logo=figma&logoColor=white)](https://www.figma.com/community/plugin/1577284420062305768)
+
 A Figma plugin for optimizing SVG assets with real-time compression and code export capabilities.
+
+**[→ Install from Figma Community](https://www.figma.com/community/plugin/1577284420062305768)**
 
 ## Features
 

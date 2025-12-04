@@ -79,6 +79,66 @@ const aboutContent: Dictionary = {
         }),
       },
     },
+    figmaPluginSection: {
+      title: t({
+        en: "Figma Plugin",
+        zh: "Figma 插件",
+        ko: "Figma 플러그인",
+        de: "Figma Plugin",
+        fr: "Plugin Figma",
+      }),
+      description: t({
+        en: "Optimize SVGs directly in Figma with our official plugin! Available now on Figma Community, it brings all the power of Tiny SVG into your design workflow.",
+        zh: "使用我们的官方插件直接在 Figma 中优化 SVG！现已在 Figma 社区上线，将 Tiny SVG 的所有功能带入您的设计工作流程。",
+        ko: "공식 플러그인으로 Figma에서 직접 SVG를 최적화하세요! Figma 커뮤니티에서 이용 가능하며 Tiny SVG의 모든 기능을 디자인 워크플로우에 제공합니다.",
+        de: "Optimieren Sie SVGs direkt in Figma mit unserem offiziellen Plugin! Jetzt in der Figma Community verfügbar, bringt es die gesamte Leistung von Tiny SVG in Ihren Design-Workflow.",
+        fr: "Optimisez les SVG directement dans Figma avec notre plugin officiel ! Disponible dès maintenant sur Figma Community, il apporte toute la puissance de Tiny SVG à votre flux de travail de conception.",
+      }),
+      features: {
+        batch: t({
+          en: "Batch processing - optimize multiple SVG layers at once",
+          zh: "批量处理 - 一次优化多个 SVG 图层",
+          ko: "일괄 처리 - 여러 SVG 레이어를 한 번에 최적화",
+          de: "Stapelverarbeitung - mehrere SVG-Ebenen auf einmal optimieren",
+          fr: "Traitement par lots - optimisez plusieurs calques SVG à la fois",
+        }),
+        realtime: t({
+          en: "Real-time preview with side-by-side diff viewer",
+          zh: "实时预览，带有并排差异查看器",
+          ko: "나란히 비교 뷰어로 실시간 미리보기",
+          de: "Echtzeitvorschau mit Seite-an-Seite-Diff-Viewer",
+          fr: "Aperçu en temps réel avec visualisation des différences côte à côte",
+        }),
+        presets: t({
+          en: "Compression presets - Default, Aggressive, Minimal, Custom",
+          zh: "压缩预设 - 默认、激进、最小、自定义",
+          ko: "압축 프리셋 - 기본, 공격적, 최소, 사용자 정의",
+          de: "Komprimierungsvorlagen - Standard, Aggressiv, Minimal, Benutzerdefiniert",
+          fr: "Préréglages de compression - Par défaut, Agressif, Minimal, Personnalisé",
+        }),
+        replace: t({
+          en: "In-place replacement - update SVGs directly in your designs",
+          zh: "原位替换 - 直接在设计中更新 SVG",
+          ko: "제자리 교체 - 디자인에서 직접 SVG 업데이트",
+          de: "In-Place-Ersetzung - SVGs direkt in Ihren Designs aktualisieren",
+          fr: "Remplacement sur place - mettez à jour les SVG directement dans vos designs",
+        }),
+        codeExport: t({
+          en: "Code export - generate React, Vue, Svelte, React Native, Flutter code",
+          zh: "代码导出 - 生成 React、Vue、Svelte、React Native、Flutter 代码",
+          ko: "코드 내보내기 - React, Vue, Svelte, React Native, Flutter 코드 생성",
+          de: "Code-Export - React-, Vue-, Svelte-, React Native-, Flutter-Code generieren",
+          fr: "Export de code - générez du code React, Vue, Svelte, React Native, Flutter",
+        }),
+      },
+      installButton: t({
+        en: "Install from Figma Community",
+        zh: "从 Figma 社区安装",
+        ko: "Figma 커뮤니티에서 설치",
+        de: "Von Figma Community installieren",
+        fr: "Installer depuis Figma Community",
+      }),
+    },
     authorSection: {
       title: t({
         en: "Author",
@@ -97,11 +157,11 @@ const aboutContent: Dictionary = {
     },
     dependenciesSection: {
       title: t({
-        en: "Third-Party Dependencies",
-        zh: "第三方依赖",
-        ko: "타사 종속성",
-        de: "Drittanbieter-Abhängigkeiten",
-        fr: "Dépendances tierces",
+        en: "Built With",
+        zh: "构建技术",
+        ko: "기술 스택",
+        de: "Erstellt mit",
+        fr: "Construit avec",
       }),
       description: t({
         en: "This project is built with amazing open source libraries:",
@@ -199,11 +259,11 @@ const aboutContent: Dictionary = {
         fr: "Open Source",
       }),
       description: t({
-        en: "This project is open source and available on GitHub.",
-        zh: "本项目是开源的，可在 GitHub 上获取。",
-        ko: "이 프로젝트는 오픈 소스이며 GitHub에서 사용할 수 있습니다.",
-        de: "Dieses Projekt ist Open Source und auf GitHub verfügbar.",
-        fr: "Ce projet est open source et disponible sur GitHub.",
+        en: "This project is open source and available on GitHub. Contributions, bug reports, and feature requests are welcome!",
+        zh: "本项目是开源的，可在 GitHub 上获取。欢迎贡献代码、报告错误和提出功能请求！",
+        ko: "이 프로젝트는 오픈 소스이며 GitHub에서 사용할 수 있습니다. 기여, 버그 보고 및 기능 요청을 환영합니다!",
+        de: "Dieses Projekt ist Open Source und auf GitHub verfügbar. Beiträge, Fehlerberichte und Feature-Anfragen sind willkommen!",
+        fr: "Ce projet est open source et disponible sur GitHub. Les contributions, les rapports de bugs et les demandes de fonctionnalités sont les bienvenues !",
       }),
       viewOnGitHub: t({
         en: "View on GitHub",
