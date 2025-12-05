@@ -48,7 +48,7 @@ export function AboutTab() {
       <div className="mx-auto max-w-md space-y-4 p-4">
         {/* Plugin Info Header */}
         <div className="flex flex-col items-center gap-4 text-center">
-          <div className="flex size-16 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/60">
+          <div className="flex size-16 items-center justify-center rounded-xl bg-linear-to-br from-primary to-primary/60">
             <Logo className="size-10 text-white" />
           </div>
           <div>

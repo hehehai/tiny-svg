@@ -25,7 +25,7 @@ export type CodeFormat =
   | "flutter"
   | "data-uri"
   | "base64";
-export type SvgExportFormat = "zip" | "sprite";
+export type SvgExportFormat = "zip" | "sprite" | "iconfonts";
 
 interface PreviewModalState {
   isOpen: boolean;
@@ -41,6 +41,15 @@ interface PresetEditorState {
   mode: "create" | "edit";
   presetId: string | null;
   sourcePresetId?: string; // For duplicating
+}
+
+interface IconFontsDrawerState {
+  isOpen: boolean;
+  isGenerating: boolean;
+  hasGenerated: boolean;
+  generatedBlob: Blob | null;
+  selectedIconIds: string[];
+  iconNames: Record<string, string>;
 }
 
 // ============================================================================
@@ -59,6 +68,9 @@ export interface UiState {
 
   // Preset editor
   presetEditor: PresetEditorState;
+
+  // Icon fonts drawer
+  iconFontsDrawer: IconFontsDrawerState;
 
   // Settings
   settingsOpen: boolean;
@@ -99,6 +111,16 @@ export interface UiActions {
   ) => void;
   closePresetEditor: () => void;
 
+  // Icon fonts drawer
+  openIconFontsDrawer: () => void;
+  closeIconFontsDrawer: () => void;
+  setIconFontsGenerating: (isGenerating: boolean) => void;
+  setIconFontsGenerated: (blob: Blob) => void;
+  toggleIconSelection: (id: string) => void;
+  selectAllIcons: () => void;
+  deselectAllIcons: () => void;
+  updateIconName: (id: string, name: string) => void;
+
   // Settings
   openSettings: () => void;
   closeSettings: () => void;
@@ -137,6 +159,14 @@ const initialState: UiState = {
     mode: "create",
     presetId: null,
     sourcePresetId: undefined,
+  },
+  iconFontsDrawer: {
+    isOpen: false,
+    isGenerating: false,
+    hasGenerated: false,
+    generatedBlob: null,
+    selectedIconIds: [],
+    iconNames: {},
   },
   settingsOpen: false,
   selectedImageFormats: ["png"],
@@ -272,6 +302,109 @@ export const createUiStore: StateCreator<
         sourcePresetId: undefined,
       },
     });
+  },
+
+  // Icon fonts drawer
+  openIconFontsDrawer: () => {
+    const items = (get() as any).items || [];
+    const sanitizeIconName = (name: string): string =>
+      name
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(/[^a-z0-9-_]/g, "")
+        .replace(/^-+|-+$/g, "")
+        .replace(/-+/g, "-") || "icon";
+
+    const iconNames: Record<string, string> = {};
+    for (const item of items) {
+      iconNames[item.id] = sanitizeIconName(item.name);
+    }
+
+    set({
+      iconFontsDrawer: {
+        isOpen: true,
+        isGenerating: false,
+        hasGenerated: false,
+        generatedBlob: null,
+        selectedIconIds: items.map((item: any) => item.id),
+        iconNames,
+      },
+    });
+  },
+
+  closeIconFontsDrawer: () => {
+    set({
+      iconFontsDrawer: {
+        isOpen: false,
+        isGenerating: false,
+        hasGenerated: false,
+        generatedBlob: null,
+        selectedIconIds: [],
+        iconNames: {},
+      },
+    });
+  },
+
+  setIconFontsGenerating: (isGenerating) => {
+    set((state) => ({
+      iconFontsDrawer: {
+        ...state.iconFontsDrawer,
+        isGenerating,
+      },
+    }));
+  },
+
+  setIconFontsGenerated: (blob) => {
+    set((state) => ({
+      iconFontsDrawer: {
+        ...state.iconFontsDrawer,
+        isGenerating: false,
+        hasGenerated: true,
+        generatedBlob: blob,
+      },
+    }));
+  },
+
+  toggleIconSelection: (id) => {
+    set((state) => ({
+      iconFontsDrawer: {
+        ...state.iconFontsDrawer,
+        selectedIconIds: state.iconFontsDrawer.selectedIconIds.includes(id)
+          ? state.iconFontsDrawer.selectedIconIds.filter((i) => i !== id)
+          : [...state.iconFontsDrawer.selectedIconIds, id],
+      },
+    }));
+  },
+
+  selectAllIcons: () => {
+    const items = (get() as any).items || [];
+    set((state) => ({
+      iconFontsDrawer: {
+        ...state.iconFontsDrawer,
+        selectedIconIds: items.map((item: any) => item.id),
+      },
+    }));
+  },
+
+  deselectAllIcons: () => {
+    set((state) => ({
+      iconFontsDrawer: {
+        ...state.iconFontsDrawer,
+        selectedIconIds: [],
+      },
+    }));
+  },
+
+  updateIconName: (id, name) => {
+    set((state) => ({
+      iconFontsDrawer: {
+        ...state.iconFontsDrawer,
+        iconNames: {
+          ...state.iconFontsDrawer.iconNames,
+          [id]: name,
+        },
+      },
+    }));
   },
 
   // Settings
