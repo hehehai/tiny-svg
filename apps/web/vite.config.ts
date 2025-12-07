@@ -8,7 +8,7 @@ import viteReact from "@vitejs/plugin-react";
 import { Locales } from "intlayer";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
-import { intlayer, intlayerMiddleware } from "vite-intlayer";
+import { intlayer, intlayerProxy } from "vite-intlayer";
 import { VitePWA } from "vite-plugin-pwa";
 import tsconfigPaths from "vite-tsconfig-paths";
 
@@ -20,13 +20,14 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     contentCollections(),
     intlayer(),
-    intlayerMiddleware(),
+    intlayerProxy(),
     tsconfigPaths(),
     tanstackStart({
       sitemap: {
-        host: process.env.VERCEL_URL
-          ? `https://${process.env.VERCEL_URL}`
-          : "http://localhost:3001",
+        host:
+          mode === "production"
+            ? "https://tiny-svg.actnow.dev"
+            : "http://localhost:3001",
       },
       prerender: {
         // Only enable static pre-rendering in production builds
