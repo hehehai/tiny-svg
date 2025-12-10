@@ -1,0 +1,57 @@
+{
+  "name": "@tiny-svg/svg-packer",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Pack SVGs to Icon Fonts - In Browser!",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.browser.js",
+      "require": "./dist/index.browser.js",
+      "default": "./dist/index.browser.js"
+    }
+  },
+  "main": "./dist/index.browser.js",
+  "module": "./dist/index.browser.js",
+  "unpkg": "./dist/index.browser.js",
+  "jsdelivr": "./dist/index.browser.js",
+  "types": "./dist/index.d.mts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "check-types": "tsc --noEmit",
+    "prepare": "node scripts/pack-wasm.js",
+    "test:node": "vitest --project=node",
+    "test:node:run": "vitest --project=node run",
+    "test:browser": "vitest --config=vitest.browser.config.ts",
+    "test:browser:headless": "CI=true vitest --config=vitest.browser.config.ts",
+    "test": "tsc --noEmit && vitest",
+    "test:ci": "tsc --noEmit && pnpm test:node:run && pnpm test:browser:headless"
+  },
+  "dependencies": {
+    "client-zip": "2.5.0",
+    "node-stdlib-browser": "^1.3.1",
+    "readable-stream": "latest",
+    "svg2ttf": "6.0.3",
+    "ttf2eot": "3.1.0",
+    "ttf2woff": "3.0.0",
+    "ttf2woff2": "6.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.1",
+    "@types/svg2ttf": "^5.0.3",
+    "@vitest/browser": "^3.2.4",
+    "esbuild": "^0.25.4",
+    "playwright": "^1.52.0",
+    "std-env": "^3.9.0",
+    "svgicons2svgfont": "15.0.1",
+    "tsdown": "^0.16.8",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.6",
+    "vitest": "^3.2.4"
+  }
+}

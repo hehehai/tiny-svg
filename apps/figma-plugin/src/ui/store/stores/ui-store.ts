@@ -50,6 +50,15 @@ interface IconFontsDrawerState {
   generatedBlob: Blob | null;
   selectedIconIds: string[];
   iconNames: Record<string, string>;
+  // Form configuration
+  fontName: string;
+  fileName: string;
+  cssPrefix: string;
+  formErrors: {
+    fontName?: string;
+    fileName?: string;
+    cssPrefix?: string;
+  };
 }
 
 // ============================================================================
@@ -120,6 +129,14 @@ export interface UiActions {
   selectAllIcons: () => void;
   deselectAllIcons: () => void;
   updateIconName: (id: string, name: string) => void;
+  setIconFontName: (fontName: string) => void;
+  setIconFileName: (fileName: string) => void;
+  setIconCssPrefix: (cssPrefix: string) => void;
+  setIconFormErrors: (errors: {
+    fontName?: string;
+    fileName?: string;
+    cssPrefix?: string;
+  }) => void;
 
   // Settings
   openSettings: () => void;
@@ -167,6 +184,10 @@ const initialState: UiState = {
     generatedBlob: null,
     selectedIconIds: [],
     iconNames: {},
+    fontName: "My Icon Font",
+    fileName: "my-icon-font",
+    cssPrefix: "icon",
+    formErrors: {},
   },
   settingsOpen: false,
   selectedImageFormats: ["png"],
@@ -328,6 +349,10 @@ export const createUiStore: StateCreator<
         generatedBlob: null,
         selectedIconIds: items.map((item: any) => item.id),
         iconNames,
+        fontName: "My Icon Font",
+        fileName: "my-icon-font",
+        cssPrefix: "icon",
+        formErrors: {},
       },
     });
   },
@@ -341,6 +366,10 @@ export const createUiStore: StateCreator<
         generatedBlob: null,
         selectedIconIds: [],
         iconNames: {},
+        fontName: "My Icon Font",
+        fileName: "my-icon-font",
+        cssPrefix: "icon",
+        formErrors: {},
       },
     });
   },
@@ -403,6 +432,42 @@ export const createUiStore: StateCreator<
           ...state.iconFontsDrawer.iconNames,
           [id]: name,
         },
+      },
+    }));
+  },
+
+  setIconFontName: (fontName) => {
+    set((state) => ({
+      iconFontsDrawer: {
+        ...state.iconFontsDrawer,
+        fontName,
+      },
+    }));
+  },
+
+  setIconFileName: (fileName) => {
+    set((state) => ({
+      iconFontsDrawer: {
+        ...state.iconFontsDrawer,
+        fileName,
+      },
+    }));
+  },
+
+  setIconCssPrefix: (cssPrefix) => {
+    set((state) => ({
+      iconFontsDrawer: {
+        ...state.iconFontsDrawer,
+        cssPrefix,
+      },
+    }));
+  },
+
+  setIconFormErrors: (errors) => {
+    set((state) => ({
+      iconFontsDrawer: {
+        ...state.iconFontsDrawer,
+        formErrors: errors,
       },
     }));
   },

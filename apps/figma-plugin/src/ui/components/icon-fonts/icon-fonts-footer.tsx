@@ -10,32 +10,39 @@ const FILE_NAME_REGEX = /^[a-z0-9-_]+$/i;
 const CSS_PREFIX_REGEX = /^[a-z][a-z0-9-_]*$/i;
 
 export const IconFontsFooter = memo(function IconFontsFooterComponent() {
-  const {
-    items,
-    iconFontsDrawer,
-    setIconFontsGenerating,
-    setIconFontsGenerated,
-  } = usePluginStore();
+  const items = usePluginStore((state) => state.items);
+  const iconFontsDrawer = usePluginStore((state) => state.iconFontsDrawer);
+  const setIconFontsGenerating = usePluginStore(
+    (state) => state.setIconFontsGenerating
+  );
+  const setIconFontsGenerated = usePluginStore(
+    (state) => state.setIconFontsGenerated
+  );
+  const setIconFormErrors = usePluginStore((state) => state.setIconFormErrors);
 
   const selectedCount = iconFontsDrawer.selectedIconIds.length;
   const hasSelection = selectedCount > 0;
 
-  const validateConfig = (config: any) => {
-    const newErrors: any = {};
+  const validateConfig = () => {
+    const newErrors: {
+      fontName?: string;
+      fileName?: string;
+      cssPrefix?: string;
+    } = {};
 
-    if (!config.fontName.trim()) {
+    if (!iconFontsDrawer.fontName.trim()) {
       newErrors.fontName = "Font name is required";
     }
 
-    if (!config.fileName.trim()) {
+    if (!iconFontsDrawer.fileName.trim()) {
       newErrors.fileName = "File name is required";
-    } else if (!FILE_NAME_REGEX.test(config.fileName)) {
+    } else if (!FILE_NAME_REGEX.test(iconFontsDrawer.fileName)) {
       newErrors.fileName = "Only letters, numbers, hyphens and underscores";
     }
 
-    if (!config.cssPrefix.trim()) {
+    if (!iconFontsDrawer.cssPrefix.trim()) {
       newErrors.cssPrefix = "CSS prefix is required";
-    } else if (!CSS_PREFIX_REGEX.test(config.cssPrefix)) {
+    } else if (!CSS_PREFIX_REGEX.test(iconFontsDrawer.cssPrefix)) {
       newErrors.cssPrefix = "Must start with letter";
     }
 
@@ -43,14 +50,11 @@ export const IconFontsFooter = memo(function IconFontsFooterComponent() {
   };
 
   const handleGenerate = async () => {
-    // Get form values from window (set by IconFontsContent)
-    const config = (window as any).__iconFontsConfig;
-
-    // Validate
-    const newErrors = validateConfig(config);
+    // Validate form
+    const newErrors = validateConfig();
 
     if (Object.keys(newErrors).length > 0) {
-      config.setErrors(newErrors);
+      setIconFormErrors(newErrors);
       toast.error("Please fix validation errors");
       return;
     }
@@ -64,9 +68,9 @@ export const IconFontsFooter = memo(function IconFontsFooterComponent() {
 
     try {
       const fontConfig: IconFontsConfig = {
-        fontName: config.fontName.trim(),
-        fileName: config.fileName.trim(),
-        cssPrefix: config.cssPrefix.trim(),
+        fontName: iconFontsDrawer.fontName.trim(),
+        fileName: iconFontsDrawer.fileName.trim(),
+        cssPrefix: iconFontsDrawer.cssPrefix.trim(),
       };
 
       const blob = await exportAsIconFonts(
@@ -78,7 +82,7 @@ export const IconFontsFooter = memo(function IconFontsFooterComponent() {
 
       setIconFontsGenerated(blob);
       toast.success(
-        "Icon fonts package ready! Check the README for conversion instructions"
+        "Icon fonts generated! Package includes TTF, WOFF, EOT, SVG, CSS, and demo HTML"
       );
     } catch (error) {
       console.error("Failed to generate icon fonts package:", error);
@@ -96,22 +100,21 @@ export const IconFontsFooter = memo(function IconFontsFooterComponent() {
       return;
     }
 
-    const config = (window as any).__iconFontsConfig;
     downloadBlob(
       iconFontsDrawer.generatedBlob,
-      `${config.fileName}-iconfonts-${Date.now()}.zip`
+      `${iconFontsDrawer.fileName}-iconfonts-${Date.now()}.zip`
     );
-    toast.success("Icon fonts package downloaded successfully");
+    toast.success("Icon fonts downloaded successfully");
   };
 
   const getGenerateButtonText = () => {
     if (iconFontsDrawer.isGenerating) {
-      return "Preparing...";
+      return "Generating...";
     }
     if (iconFontsDrawer.hasGenerated) {
-      return "Regenerate Package";
+      return "Regenerate Fonts";
     }
-    return "Generate Package";
+    return "Generate Fonts";
   };
 
   return (

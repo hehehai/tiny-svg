@@ -14,7 +14,8 @@
       "!bts.jsonc",
       "!**/.source",
       "!**/index.css",
-      "!**/.intlayer"
+      "!**/.intlayer",
+      "!**/*.js"
     ]
   },
   "extends": ["ultracite", "ultracite/core"],

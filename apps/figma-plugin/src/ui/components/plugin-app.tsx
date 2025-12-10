@@ -120,7 +120,7 @@ export function PluginApp() {
         <IconFontsDrawer />
       </Suspense>
       <Toaster
-        position="bottom-center"
+        position="top-center"
         toastOptions={{ classNames: { toast: "p-2.5! rounded-lg!" } }}
       />
     </>
