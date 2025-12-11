@@ -2,6 +2,7 @@ import { resolve } from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { build, defineConfig } from "vite";
+import { nodePolyfills } from "vite-plugin-node-polyfills";
 import { viteSingleFile } from "vite-plugin-singlefile";
 
 // Plugin to build the Figma sandbox code (plugin.ts) after UI build
@@ -47,9 +48,22 @@ export default defineConfig({
       },
     }),
     tailwindcss(),
+    nodePolyfills({
+      protocolImports: true,
+    }),
     viteSingleFile(),
     buildPluginCode(),
   ],
+  optimizeDeps: {
+    include: [
+      "@tiny-svg/svg-packer",
+      "svgo/browser",
+      "@radix-ui/react-dialog",
+      "@radix-ui/react-tabs",
+      "prettier/standalone",
+      "prettier/plugins/html",
+    ],
+  },
   root: resolve(__dirname, "src/ui"),
   resolve: {
     alias: {
@@ -68,6 +82,9 @@ export default defineConfig({
         chunkFileNames: "[name].js",
         assetFileNames: "[name].[ext]",
       },
+    },
+    commonjsOptions: {
+      transformMixedEsModules: true,
     },
   },
 });

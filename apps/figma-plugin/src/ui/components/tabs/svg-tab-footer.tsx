@@ -17,10 +17,17 @@ export function SvgTabFooter() {
     items,
     isExporting,
     setExporting,
+    openIconFontsDrawer,
   } = usePluginStore();
 
   const handleExportAll = async () => {
     if (items.length === 0) {
+      return;
+    }
+
+    // Open icon fonts drawer for iconfonts format
+    if (selectedSvgExportFormat === "iconfonts") {
+      openIconFontsDrawer();
       return;
     }
 
@@ -47,10 +54,12 @@ export function SvgTabFooter() {
   return (
     <>
       <Select
-        onValueChange={(value) => setSvgExportFormat(value as "zip" | "sprite")}
+        onValueChange={(value) =>
+          setSvgExportFormat(value as "zip" | "sprite" | "iconfonts")
+        }
         value={selectedSvgExportFormat}
       >
-        <SelectTrigger className="w-16 rounded-lg px-2 py-1" size="xs">
+        <SelectTrigger className="w-28 rounded-lg px-2 py-1" size="xs">
           <SelectValue />
         </SelectTrigger>
         <SelectContent className="rounded-lg">
@@ -62,6 +71,12 @@ export function SvgTabFooter() {
             value="sprite"
           >
             Sprite Sheet
+          </SelectItem>
+          <SelectItem
+            className="rounded-md py-1 pr-4 pl-1 text-xs"
+            value="iconfonts"
+          >
+            Icon Fonts
           </SelectItem>
         </SelectContent>
       </Select>

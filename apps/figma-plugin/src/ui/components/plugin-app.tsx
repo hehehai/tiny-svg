@@ -21,6 +21,9 @@ const PreviewDrawer = lazy(
 const SettingsDrawer = lazy(
   () => import("@/ui/components/settings/settings-drawer")
 );
+const IconFontsDrawer = lazy(
+  () => import("@/ui/components/icon-fonts/icon-fonts-drawer")
+);
 
 export function PluginApp() {
   const {
@@ -114,9 +117,10 @@ export function PluginApp() {
         <SettingsDrawer />
         <PresetEditorDrawer />
         <PreviewDrawer />
+        <IconFontsDrawer />
       </Suspense>
       <Toaster
-        position="bottom-center"
+        position="top-center"
         toastOptions={{ classNames: { toast: "p-2.5! rounded-lg!" } }}
       />
     </>

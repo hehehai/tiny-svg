@@ -54,3 +54,6 @@ temp
 
 # i18n
 .intlayer
+
+# svg-packer
+ttf2woff2.wasm.js

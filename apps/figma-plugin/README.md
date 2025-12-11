@@ -17,6 +17,7 @@ A Figma plugin for optimizing SVG assets with real-time compression and code exp
 - 🔄 **In-place Replacement**: Replace SVGs directly in your Figma design
 - 🎭 **SVG Transformations**: Rotate, flip, and resize SVGs with visual preview
 - 🌓 **Syntax Highlighting**: Beautiful code preview with theme support
+- 🔤 **Icon Fonts Export**: Convert multiple SVGs to icon fonts (TTF, EOT, WOFF, WOFF2) with auto-generated CSS
 
 ## Development
 
@@ -57,6 +58,8 @@ The built plugin will be in the `dist/` directory.
 
 ### Usage
 
+#### SVG Optimization
+
 1. **Select SVG layers**: Click on one or more SVG layers in your Figma file
 2. **Open plugin**: Go to **Plugins → Development → Tiny SVG - SVG Optimizer**
 3. **Choose preset**: Select a compression preset from the dropdown (Default, Aggressive, Minimal, or Custom)
@@ -70,6 +73,22 @@ The built plugin will be in the `dist/` directory.
    - Generate framework-specific code (React, Vue, Svelte, etc.)
    - Convert to Data URI for inline usage
    - Replace the original in Figma with "Replace in Figma" button
+
+#### Icon Fonts Export
+
+1. **Select multiple SVG layers**: Select two or more SVG layers in your Figma file
+2. **Open plugin**: Go to **Plugins → Development → Tiny SVG - SVG Optimizer**
+3. **Generate icon fonts**: Click "Icon Fonts" button in the footer
+4. **Configure settings**:
+   - Set font name, CSS prefix, and file name
+   - Customize font properties (height, descent, fixed width)
+   - Toggle WOFF2 format (requires WebAssembly)
+5. **Preview and download**:
+   - Preview generated icons with demo HTML
+   - View auto-generated CSS with @font-face rules
+   - Download individual font files (SVG, TTF, EOT, WOFF, WOFF2)
+   - Download all files as a ZIP archive
+   - Copy CSS to clipboard for easy integration
 
 ## Plugin Configuration
 
@@ -96,9 +115,11 @@ The plugin uses the Tiny SVG logo as its icon. According to Figma's plugin guide
 
 ### Shared Packages
 
-- **@tiny-svg/svg-core**: Core SVG processing utilities and types
-- **@tiny-svg/svgo-plugins**: SVGO plugin configurations and presets
+- **@tiny-svg/svg**: SVGO configuration and SVG processing utilities
 - **@tiny-svg/code-generators**: Multi-framework code generation
+- **@tiny-svg/svg-packer**: Icon fonts generation (SVG to TTF, WOFF, WOFF2, EOT)
+- **@tiny-svg/ui**: Shared React UI components
+- **@tiny-svg/utils**: Common utilities
 
 ### Plugin Structure
 
@@ -161,17 +182,18 @@ When running `pnpm dev:figma`:
 
 | Issue | Solution |
 |-------|----------|
-| **"Cannot find module"** | Run `pnpm build:packages` to build shared packages (`@tiny-svg/svg-core`, `@tiny-svg/svgo-plugins`, `@tiny-svg/code-generators`) |
+| **"Cannot find module"** | Run `pnpm build:packages` to build shared packages (`@tiny-svg/svg`, `@tiny-svg/code-generators`, `@tiny-svg/svg-packer`, `@tiny-svg/ui`, `@tiny-svg/utils`) |
 | **"Plugin not loading"** | Verify `manifest.json` paths are correct. Ensure `dist/` directory exists with `plugin.js` and `index.html` |
 | **"Messages not working"** | Check message passing between `plugin.ts` (sandbox) and UI. Use `figma.ui.postMessage()` and `window.onmessage` |
 | **"Icons not showing"** | Run `pnpm build` to copy icons from `assets/` to `dist/`. Verify `manifest.json` references `dist/icon.svg` |
 | **Styles not matching Figma** | The plugin uses Figma's design tokens. Check `styles.css` for proper color and spacing variables |
+| **Icon fonts not generating** | Ensure you have selected 2+ SVG layers. Check browser console for WASM errors if using WOFF2 format |
 
 ## Contributing
 
 When making changes:
 
-1. **Shared packages**: If modifying `@tiny-svg/svg-core`, `@tiny-svg/svgo-plugins`, or `@tiny-svg/code-generators`:
+1. **Shared packages**: If modifying `@tiny-svg/svg`, `@tiny-svg/code-generators`, `@tiny-svg/svg-packer`, or other packages:
    ```bash
    pnpm build:packages  # Rebuild shared packages
    pnpm build:figma     # Rebuild plugin
@@ -217,8 +239,9 @@ To publish the plugin to Figma Community:
 - **Styling**: Tailwind CSS 4 with Figma design tokens
 - **UI Components**: Radix UI primitives
 - **State Management**: Zustand
-- **SVG Optimization**: SVGO (via shared `@tiny-svg/svgo-plugins`)
+- **SVG Optimization**: SVGO (via shared `@tiny-svg/svg`)
 - **Code Generation**: Multi-framework support (via shared `@tiny-svg/code-generators`)
+- **Icon Fonts**: SVG to font conversion (via shared `@tiny-svg/svg-packer`)
 - **Syntax Highlighting**: Shiki (lazy-loaded)
 - **Diff Viewer**: Custom implementation with line-by-line comparison
 
