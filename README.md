@@ -38,6 +38,7 @@
 - **Compression Presets** - Default, Aggressive, Minimal, or Custom configurations
 - **In-place Replacement** - Update SVGs directly in your Figma designs
 - **Code Export** - Generate framework-specific code within Figma
+- **Icon Fonts Export** - Convert multiple SVGs to icon fonts (TTF, EOT, WOFF, WOFF2) with auto-generated CSS
 
 #### Screenshots
 ![Plugin](./docs/images/figma-plugin.webp)
@@ -158,6 +159,8 @@ tiny-svg/
     │   └── src/                    # SVGO config, presets, utilities
     ├── code-generators/            # @tiny-svg/code-generators
     │   └── src/                    # Framework code generators (React, Vue, Svelte, etc.)
+    ├── svg-packer/                 # @tiny-svg/svg-packer
+    │   └── src/                    # Icon fonts generation (SVG to TTF, WOFF, WOFF2, EOT)
     ├── ui/                         # @tiny-svg/ui
     │   └── src/                    # Shared React components (diff viewer, etc.)
     └── utils/                      # @tiny-svg/utils
@@ -167,7 +170,7 @@ tiny-svg/
 ### Package Dependencies
 
 - **Web app** depends on: `@tiny-svg/svg`, `@tiny-svg/code-generators`, `@tiny-svg/ui`
-- **Figma plugin** depends on: `@tiny-svg/svg`, `@tiny-svg/code-generators`, `@tiny-svg/ui`, `@tiny-svg/utils`
+- **Figma plugin** depends on: `@tiny-svg/svg`, `@tiny-svg/code-generators`, `@tiny-svg/svg-packer`, `@tiny-svg/ui`, `@tiny-svg/utils`
 
 **Important:** After modifying any package in `packages/`, run `pnpm build:packages` before building apps.
 
@@ -178,12 +181,14 @@ Deployed on **Vercel** for full SSR support. Cloudflare Workers not supported du
 ## Applications
 
 ### 🌐 Web Application
-[Visit Tiny SVG](https://tiny-svg.vercel.app)
+[![Visit Website](https://img.shields.io/badge/Visit-Website-blue?style=flat-square)](https://tiny-svg.vercel.app)
 
 A full-featured web application for SVG optimization with SSR, PWA support, and i18n.
 
+**[→ Visit Tiny SVG Web App](https://tiny-svg.vercel.app)**
+
 ### 🎨 Figma Plugin
-[![Install Plugin](https://img.shields.io/badge/Figma-Install_Plugin-F24E1E?logo=figma&logoColor=white)](https://www.figma.com/community/plugin/1577284420062305768)
+[![Install Plugin](https://img.shields.io/badge/Figma-Install_Plugin-F24E1E?logo=figma&logoColor=white&style=flat-square)](https://www.figma.com/community/plugin/1577284420062305768)
 
 Optimize SVGs directly within Figma with our official plugin. Available now on Figma Community!
 
