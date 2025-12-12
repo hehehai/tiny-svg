@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as OgRouteImport } from './routes/og'
 import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
 import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404'
+import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$'
 import { Route as Char123LocaleChar125appRouteRouteImport } from './routes/{-$locale}/(app)/route'
 import { Route as Char123LocaleChar125appIndexRouteImport } from './routes/{-$locale}/(app)/index'
 import { Route as Char123LocaleChar125appOptimizeRouteImport } from './routes/{-$locale}/(app)/optimize'
@@ -36,6 +37,12 @@ const Char123LocaleChar125404Route = Char123LocaleChar125404RouteImport.update({
   path: '/404',
   getParentRoute: () => Char123LocaleChar125RouteRoute,
 } as any)
+const Char123LocaleChar125SplatRoute =
+  Char123LocaleChar125SplatRouteImport.update({
+    id: '/$',
+    path: '/$',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
 const Char123LocaleChar125appRouteRoute =
   Char123LocaleChar125appRouteRouteImport.update({
     id: '/(app)',
@@ -81,6 +88,7 @@ const Char123LocaleChar125appBlogSlugRoute =
 export interface FileRoutesByFullPath {
   '/{-$locale}': typeof Char123LocaleChar125appRouteRouteWithChildren
   '/og': typeof OgRoute
+  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
   '/{-$locale}/404': typeof Char123LocaleChar125404Route
   '/{-$locale}/blog': typeof Char123LocaleChar125appBlogRouteRouteWithChildren
   '/{-$locale}/about': typeof Char123LocaleChar125appAboutRoute
@@ -92,6 +100,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/{-$locale}': typeof Char123LocaleChar125appIndexRoute
   '/og': typeof OgRoute
+  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
   '/{-$locale}/404': typeof Char123LocaleChar125404Route
   '/{-$locale}/about': typeof Char123LocaleChar125appAboutRoute
   '/{-$locale}/optimize': typeof Char123LocaleChar125appOptimizeRoute
@@ -103,6 +112,7 @@ export interface FileRoutesById {
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
   '/og': typeof OgRoute
   '/{-$locale}/(app)': typeof Char123LocaleChar125appRouteRouteWithChildren
+  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
   '/{-$locale}/404': typeof Char123LocaleChar125404Route
   '/{-$locale}/(app)/blog': typeof Char123LocaleChar125appBlogRouteRouteWithChildren
   '/{-$locale}/(app)/about': typeof Char123LocaleChar125appAboutRoute
@@ -116,6 +126,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/{-$locale}'
     | '/og'
+    | '/{-$locale}/$'
     | '/{-$locale}/404'
     | '/{-$locale}/blog'
     | '/{-$locale}/about'
@@ -127,6 +138,7 @@ export interface FileRouteTypes {
   to:
     | '/{-$locale}'
     | '/og'
+    | '/{-$locale}/$'
     | '/{-$locale}/404'
     | '/{-$locale}/about'
     | '/{-$locale}/optimize'
@@ -137,6 +149,7 @@ export interface FileRouteTypes {
     | '/{-$locale}'
     | '/og'
     | '/{-$locale}/(app)'
+    | '/{-$locale}/$'
     | '/{-$locale}/404'
     | '/{-$locale}/(app)/blog'
     | '/{-$locale}/(app)/about'
@@ -172,6 +185,13 @@ declare module '@tanstack/react-router' {
       path: '/404'
       fullPath: '/{-$locale}/404'
       preLoaderRoute: typeof Char123LocaleChar125404RouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/$': {
+      id: '/{-$locale}/$'
+      path: '/$'
+      fullPath: '/{-$locale}/$'
+      preLoaderRoute: typeof Char123LocaleChar125SplatRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
     '/{-$locale}/(app)': {
@@ -266,6 +286,7 @@ const Char123LocaleChar125appRouteRouteWithChildren =
 
 interface Char123LocaleChar125RouteRouteChildren {
   Char123LocaleChar125appRouteRoute: typeof Char123LocaleChar125appRouteRouteWithChildren
+  Char123LocaleChar125SplatRoute: typeof Char123LocaleChar125SplatRoute
   Char123LocaleChar125404Route: typeof Char123LocaleChar125404Route
 }
 
@@ -273,6 +294,7 @@ const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChil
   {
     Char123LocaleChar125appRouteRoute:
       Char123LocaleChar125appRouteRouteWithChildren,
+    Char123LocaleChar125SplatRoute: Char123LocaleChar125SplatRoute,
     Char123LocaleChar125404Route: Char123LocaleChar125404Route,
   }
 
