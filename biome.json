@@ -18,15 +18,9 @@
       "!**/*.js"
     ]
   },
-  "extends": [
-    "ultracite",
-    "ultracite/core"
-  ],
+  "extends": ["ultracite", "ultracite/core"],
   "javascript": {
-    "globals": [
-      "figma",
-      "__html__"
-    ]
+    "globals": ["figma", "__html__"]
   },
   "linter": {
     "rules": {
@@ -37,16 +31,8 @@
         "useSortedClasses": {
           "level": "warn",
           "options": {
-            "attributes": [
-              "classList"
-            ],
-            "functions": [
-              "clsx",
-              "cn",
-              "cva",
-              "tw",
-              "tw.*"
-            ]
+            "attributes": ["classList"],
+            "functions": ["clsx", "cn", "cva", "tw", "tw.*"]
           }
         }
       },
@@ -74,11 +60,7 @@
         "noConsole": {
           "level": "info",
           "options": {
-            "allow": [
-              "warn",
-              "info",
-              "error"
-            ]
+            "allow": ["warn", "info", "error"]
           }
         }
       },

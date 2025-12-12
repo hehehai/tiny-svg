@@ -16,7 +16,9 @@
   "files": [
     "src"
   ],
-  "scripts": {},
+  "scripts": {
+    "check-types": "tsc --noEmit"
+  },
   "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

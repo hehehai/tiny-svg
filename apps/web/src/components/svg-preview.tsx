@@ -6,6 +6,11 @@ import {
   ContextMenuSeparator,
   ContextMenuTrigger,
 } from "@tiny-svg/ui/components/context-menu";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@tiny-svg/ui/components/tooltip";
 import { useState } from "react";
 import { useIntlayer } from "react-intlayer";
 import { SvgSizeAdjuster } from "@/components/svg-size-adjuster";
@@ -300,43 +305,59 @@ export function SvgPreview({
       <div className="flex items-center justify-between border-b bg-muted/30 p-2">
         <h3 className="font-medium text-sm">{title}</h3>
         <div className="flex items-center gap-1">
-          <Button
-            onClick={handleRotate}
-            size="sm"
-            title={String(preview.rotate)}
-            type="button"
-            variant="outline"
-          >
-            <i className="i-hugeicons-rotate-clockwise size-4" />
-          </Button>
-          <Button
-            onClick={handleFlipHorizontal}
-            size="sm"
-            title={String(preview.flipHorizontal)}
-            type="button"
-            variant="outline"
-          >
-            <i className="i-hugeicons-image-flip-horizontal size-4" />
-          </Button>
-          <Button
-            onClick={handleFlipVertical}
-            size="sm"
-            title={String(preview.flipVertical)}
-            type="button"
-            variant="outline"
-          >
-            <i className="i-hugeicons-image-flip-vertical size-4" />
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                onClick={handleRotate}
+                size="sm"
+                type="button"
+                variant="outline"
+              >
+                <i className="i-hugeicons-rotate-clockwise size-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>{preview.rotate}</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                onClick={handleFlipHorizontal}
+                size="sm"
+                type="button"
+                variant="outline"
+              >
+                <i className="i-hugeicons-image-flip-horizontal size-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>{preview.flipHorizontal}</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                onClick={handleFlipVertical}
+                size="sm"
+                type="button"
+                variant="outline"
+              >
+                <i className="i-hugeicons-image-flip-vertical size-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>{preview.flipVertical}</TooltipContent>
+          </Tooltip>
           <div className="relative">
-            <Button
-              onClick={() => setShowSizeAdjuster(!showSizeAdjuster)}
-              size="sm"
-              title={String(preview.adjustSize)}
-              type="button"
-              variant="outline"
-            >
-              <i className="i-hugeicons-resize-01 size-4" />
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  onClick={() => setShowSizeAdjuster(!showSizeAdjuster)}
+                  size="sm"
+                  type="button"
+                  variant="outline"
+                >
+                  <i className="i-hugeicons-resize-01 size-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{preview.adjustSize}</TooltipContent>
+            </Tooltip>
             {showSizeAdjuster && (
               <SvgSizeAdjuster
                 onApply={handleResize}
@@ -346,68 +367,93 @@ export function SvgPreview({
             )}
           </div>
           <div className="mx-1 h-4 w-px bg-border" />
-          <Button
-            onClick={() => setShowViewBoxOutline(!showViewBoxOutline)}
-            size="sm"
-            title={String(
-              showViewBoxOutline ? preview.hideOutline : preview.showOutline
-            )}
-            type="button"
-            variant="outline"
-          >
-            <i
-              className={cn(
-                "size-4",
-                showViewBoxOutline
-                  ? "i-hugeicons-border-none-01"
-                  : "i-hugeicons-border-none-02"
-              )}
-            />
-          </Button>
-          <Button
-            onClick={cycleBackground}
-            size="sm"
-            title={BACKGROUND_STYLES[backgroundStyle].label}
-            type="button"
-            variant="outline"
-          >
-            <i
-              className={cn(BACKGROUND_STYLES[backgroundStyle].icon, "size-4")}
-            />
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                onClick={() => setShowViewBoxOutline(!showViewBoxOutline)}
+                size="sm"
+                type="button"
+                variant="outline"
+              >
+                <i
+                  className={cn(
+                    "size-4",
+                    showViewBoxOutline
+                      ? "i-hugeicons-border-none-01"
+                      : "i-hugeicons-border-none-02"
+                  )}
+                />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              {showViewBoxOutline ? preview.hideOutline : preview.showOutline}
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                onClick={cycleBackground}
+                size="sm"
+                type="button"
+                variant="outline"
+              >
+                <i
+                  className={cn(
+                    BACKGROUND_STYLES[backgroundStyle].icon,
+                    "size-4"
+                  )}
+                />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              {BACKGROUND_STYLES[backgroundStyle].label}
+            </TooltipContent>
+          </Tooltip>
           <div className="mx-1 h-4 w-px bg-border" />
-          <Button
-            disabled={zoom <= minZoom}
-            {...zoomOutLongPress}
-            size="sm"
-            title={String(preview.zoomOut)}
-            type="button"
-            variant="outline"
-          >
-            <i className="i-hugeicons-zoom-out-area size-4" />
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                disabled={zoom <= minZoom}
+                {...zoomOutLongPress}
+                size="sm"
+                type="button"
+                variant="outline"
+              >
+                <i className="i-hugeicons-zoom-out-area size-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>{preview.zoomOut}</TooltipContent>
+          </Tooltip>
           <span className="w-16 px-2 text-center font-mono text-muted-foreground text-xs">
             {zoom}%
           </span>
-          <Button
-            disabled={zoom >= maxZoom}
-            {...zoomInLongPress}
-            size="sm"
-            title={String(preview.zoomIn)}
-            type="button"
-            variant="outline"
-          >
-            <i className="i-hugeicons-zoom-in-area size-4" />
-          </Button>
-          <Button
-            onClick={handleZoomReset}
-            size="sm"
-            title={String(preview.resetZoom)}
-            type="button"
-            variant="outline"
-          >
-            <i className="i-hugeicons-image-actual-size size-4" />
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                disabled={zoom >= maxZoom}
+                {...zoomInLongPress}
+                size="sm"
+                type="button"
+                variant="outline"
+              >
+                <i className="i-hugeicons-zoom-in-area size-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>{preview.zoomIn}</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                onClick={handleZoomReset}
+                size="sm"
+                type="button"
+                variant="outline"
+              >
+                <i className="i-hugeicons-image-actual-size size-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>{preview.resetZoom}</TooltipContent>
+          </Tooltip>
         </div>
       </div>
       <ContextMenu>
