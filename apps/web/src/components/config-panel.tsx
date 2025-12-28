@@ -5,7 +5,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@tiny-svg/ui/components/card";
-import { Input } from "@tiny-svg/ui/components/input";
 import { Label } from "@tiny-svg/ui/components/label";
 import { Switch } from "@tiny-svg/ui/components/switch";
 import { useCallback, useEffect } from "react";
@@ -20,6 +19,9 @@ import {
 import { useSvgStore } from "@/store/svg-store";
 import { type ExportScale, useUiStore } from "@/store/ui-store";
 import { ExportPanel } from "./export-panel";
+import { DeletePresetDialog } from "./presets/delete-preset-dialog";
+import { PresetEditorDialog } from "./presets/preset-editor-dialog";
+import { PresetList } from "./presets/preset-list";
 
 type ConfigPanelProps = {
   isCollapsed: boolean;
@@ -33,11 +35,8 @@ export function ConfigPanel({
   className,
 }: ConfigPanelProps) {
   const {
-    plugins,
     globalSettings,
-    togglePlugin,
     updateGlobalSettings,
-    resetPlugins,
     compressedSvg,
     fileName,
     originalSvg,
@@ -52,23 +51,15 @@ export function ConfigPanel({
     setExportDimensions,
   } = useUiStore();
   const { settings } = useIntlayer("optimize");
-  const pluginLabels = useIntlayer("plugins");
 
   // 提供默认值，防止服务器端渲染错误
   const safeSettings = settings || {
     title: "Settings",
     global: {
-      title: "Global Settings",
+      title: "Display Settings",
       showOriginal: "Show original",
       compareGzipped: "Compare gzipped",
       prettifyMarkup: "Prettify markup",
-      multipass: "Multipass",
-      numberPrecision: "Number precision",
-      transformPrecision: "Transform precision",
-    },
-    features: {
-      title: "Features",
-      resetAll: "Reset all",
     },
     export: {
       title: "Export",
@@ -213,7 +204,14 @@ export function ConfigPanel({
       </div>
 
       <div className="flex-1 space-y-4 overflow-y-auto">
-        {/* Global Settings */}
+        {/* Presets */}
+        <Card>
+          <CardContent className="pt-4">
+            <PresetList />
+          </CardContent>
+        </Card>
+
+        {/* Display Settings */}
         <Card>
           <CardHeader>
             <CardTitle className="text-base">
@@ -264,91 +262,6 @@ export function ConfigPanel({
                 }
               />
             </div>
-            <div className="flex items-center justify-between">
-              <Label className="text-sm" htmlFor="multipass">
-                {safeSettings.global.multipass}
-              </Label>
-              <Switch
-                checked={globalSettings.multipass}
-                id="multipass"
-                onCheckedChange={(checked) =>
-                  updateGlobalSettings({ multipass: checked })
-                }
-              />
-            </div>
-            <div className="space-y-2">
-              <Label className="text-sm" htmlFor="float-precision">
-                {safeSettings.global.numberPrecision}
-              </Label>
-              <Input
-                className="h-8"
-                id="float-precision"
-                max={10}
-                min={0}
-                onChange={(e) =>
-                  updateGlobalSettings({
-                    floatPrecision: Number.parseInt(e.target.value, 10),
-                  })
-                }
-                type="number"
-                value={globalSettings.floatPrecision}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label className="text-sm" htmlFor="transform-precision">
-                {safeSettings.global.transformPrecision}
-              </Label>
-              <Input
-                className="h-8"
-                id="transform-precision"
-                max={10}
-                min={0}
-                onChange={(e) =>
-                  updateGlobalSettings({
-                    transformPrecision: Number.parseInt(e.target.value, 10),
-                  })
-                }
-                type="number"
-                value={globalSettings.transformPrecision}
-              />
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Features */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-base">
-                {safeSettings.features.title}
-              </CardTitle>
-              <Button
-                onClick={resetPlugins}
-                size="sm"
-                type="button"
-                variant="ghost"
-              >
-                {safeSettings.features.resetAll}
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            {plugins.map((plugin) => (
-              <div
-                className="flex items-center justify-between py-1"
-                key={plugin.name}
-              >
-                <Label className="cursor-pointer text-sm" htmlFor={plugin.name}>
-                  {(pluginLabels as Record<string, string>)[plugin.name] ||
-                    plugin.name}
-                </Label>
-                <Switch
-                  checked={plugin.enabled}
-                  id={plugin.name}
-                  onCheckedChange={() => togglePlugin(plugin.name)}
-                />
-              </div>
-            ))}
           </CardContent>
         </Card>
 
@@ -364,6 +277,10 @@ export function ConfigPanel({
           onWidthChange={handleWidthChange}
         />
       </div>
+
+      {/* Preset Dialogs */}
+      <PresetEditorDialog />
+      <DeletePresetDialog />
     </div>
   );
 }

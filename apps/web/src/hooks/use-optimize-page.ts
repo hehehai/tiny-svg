@@ -18,6 +18,7 @@ import {
 import type { HistoryEntry } from "@/lib/svg-history-storage";
 import { getComponentName } from "@/lib/svg-to-code";
 import { calculateCompressionRate } from "@/lib/svgo-config";
+import { usePresetsStore } from "@/store/presets-store";
 import { useSvgStore } from "@/store/svg-store";
 import { useUiStore } from "@/store/ui-store";
 
@@ -63,7 +64,14 @@ export function useOptimizePage() {
     clearAll,
   } = useSvgHistory();
 
+  const { initializePresets } = usePresetsStore();
+
   const { messages, ui } = useIntlayer("optimize");
+
+  // Initialize presets store on mount
+  useEffect(() => {
+    initializePresets();
+  }, [initializePresets]);
 
   // Ensure globalSettings has default values for SSR
   const safeGlobalSettings = globalSettings || defaultGlobalSettings;
