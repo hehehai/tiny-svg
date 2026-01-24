@@ -15,7 +15,7 @@ export function CompactUploadButton({
   const { header } = useIntlayer("optimize");
 
   const { openFilePicker, loading } = useFilePicker({
-    accept: ".svg",
+    accept: ".svg,.svg+xml,image/svg+xml",
     multiple: false,
     onFilesSelected: (data: {
       plainFiles?: File[];

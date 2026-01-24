@@ -122,11 +122,11 @@ const homeContent: Dictionary = {
         fr: "Vous pouvez aussi coller du code SVG ou base64 directement (Ctrl+V / Cmd+V)",
       }),
       acceptsOnly: t({
-        en: "Accepts .svg files only",
-        zh: "仅接受 .svg 文件",
-        ko: ".svg 파일만 허용됩니다",
-        de: "Akzeptiert nur .svg-Dateien",
-        fr: "Accepte uniquement les fichiers .svg",
+        en: "Accepts .svg and .svg+xml files",
+        zh: "接受 .svg 和 .svg+xml 文件",
+        ko: ".svg 및 .svg+xml 파일을 허용합니다",
+        de: "Akzeptiert .svg- und .svg+xml-Dateien",
+        fr: "Accepte les fichiers .svg et .svg+xml",
       }),
     },
     messages: {
@@ -138,11 +138,11 @@ const homeContent: Dictionary = {
         fr: "Contenu SVG invalide. Veuillez coller un code SVG valide.",
       }),
       invalidSvgFile: t({
-        en: "Invalid file. Please select a valid SVG file (.svg).",
-        zh: "无效的文件。请选择有效的 SVG 文件 (.svg)。",
-        ko: "유효하지 않은 파일입니다. 유효한 SVG 파일(.svg)을 선택해주세요.",
-        de: "Ungültige Datei. Bitte wählen Sie eine gültige SVG-Datei (.svg).",
-        fr: "Fichier invalide. Veuillez sélectionner un fichier SVG valide (.svg).",
+        en: "Invalid file. Please select a valid SVG file (.svg or .svg+xml).",
+        zh: "无效的文件。请选择有效的 SVG 文件（.svg 或 .svg+xml）。",
+        ko: "유효하지 않은 파일입니다. 유효한 SVG 파일(.svg 또는 .svg+xml)을 선택해주세요.",
+        de: "Ungültige Datei. Bitte wählen Sie eine gültige SVG-Datei (.svg oder .svg+xml).",
+        fr: "Fichier invalide. Veuillez sélectionner un fichier SVG valide (.svg ou .svg+xml).",
       }),
       fileReadError: t({
         en: "Failed to read file. Please try again.",

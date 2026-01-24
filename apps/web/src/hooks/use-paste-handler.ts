@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { useEffect } from "react";
 import { toast } from "sonner";
-import { extractSvgFromBase64, isSvgContent } from "@/lib/file-utils";
+import { extractSvgFromDataUri, isSvgContent } from "@/lib/file-utils";
 
 interface UsePasteHandlerOptions {
   setOriginalSvg: (svg: string, name: string) => void;
@@ -32,7 +32,7 @@ export function usePasteHandler({
               toast.success("SVG pasted successfully!");
               onSuccess?.();
             } else {
-              const extracted = extractSvgFromBase64(text);
+              const extracted = extractSvgFromDataUri(text);
               if (extracted) {
                 setOriginalSvg(extracted, "pasted.svg");
                 setHasAutoSwitchedTab?.(false);

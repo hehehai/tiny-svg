@@ -9,12 +9,14 @@ import { usePasteHandler } from "@/hooks/use-paste-handler";
 import { usePrettifiedSvg } from "@/hooks/use-prettified-svg";
 import { useSvgHistory } from "@/hooks/use-svg-history";
 import {
+  addXmlnsToSvg,
   copyToClipboard,
   downloadSvg,
   isSvgContent,
   isSvgFile,
   readFileAsText,
 } from "@/lib/file-utils";
+import { PASTED_FILENAME } from "@/lib/constants";
 import type { HistoryEntry } from "@/lib/svg-history-storage";
 import { getComponentName } from "@/lib/svg-to-code";
 import { calculateCompressionRate } from "@/lib/svgo-config";
@@ -79,7 +81,7 @@ export function useOptimizePage() {
         messages?.uploadSuccess || "SVG file uploaded successfully!",
       invalidSvgFile:
         messages?.invalidSvgFile ||
-        "Invalid file. Please select a valid SVG file (.svg).",
+        "Invalid file. Please select a valid SVG file (.svg or .svg+xml).",
       fileReadError:
         messages?.fileReadError || "Failed to read file. Please try again.",
       invalidSvgStructure:
@@ -159,6 +161,12 @@ export function useOptimizePage() {
     compressedSvg,
     fileName
   );
+  const normalizedFileName = useMemo(() => {
+    const trimmedName = fileName?.trim();
+    const baseName = trimmedName && trimmedName.length > 0 ? trimmedName : PASTED_FILENAME;
+    const normalized = baseName.replace(/\.svg(\+xml)?$/i, ".svg");
+    return normalized.endsWith(".svg") ? normalized : `${normalized}.svg`;
+  }, [fileName]);
 
   const handleCopyOriginal = useCallback(async () => {
     try {
@@ -171,14 +179,15 @@ export function useOptimizePage() {
 
   const handleDownloadOriginal = useCallback(() => {
     try {
-      downloadSvg(originalSvg, fileName);
+      const svgWithNamespace = addXmlnsToSvg(originalSvg);
+      downloadSvg(svgWithNamespace, normalizedFileName);
       toast.success(messages?.downloadSuccess || "Downloaded successfully!");
     } catch {
       toast.error(messages?.downloadError || "Failed to download file");
     }
   }, [
     originalSvg,
-    fileName,
+    normalizedFileName,
     messages?.downloadSuccess,
     messages?.downloadError,
   ]);
@@ -194,15 +203,16 @@ export function useOptimizePage() {
 
   const handleDownloadCompressed = useCallback(() => {
     try {
-      const newFileName = fileName.replace(".svg", ".optimized.svg");
-      downloadSvg(compressedSvg, newFileName);
+      const newFileName = normalizedFileName.replace(/\.svg$/i, ".optimized.svg");
+      const svgWithNamespace = addXmlnsToSvg(compressedSvg);
+      downloadSvg(svgWithNamespace, newFileName);
       toast.success(messages?.downloadSuccess || "Downloaded successfully!");
     } catch {
       toast.error(messages?.downloadError || "Failed to download file");
     }
   }, [
     compressedSvg,
-    fileName,
+    normalizedFileName,
     messages?.downloadSuccess,
     messages?.downloadError,
   ]);

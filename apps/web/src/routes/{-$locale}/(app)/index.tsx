@@ -41,7 +41,7 @@ function HomeComponent() {
   const { recentEntries } = useSvgHistory();
 
   const safeMessages = messages || {
-    invalidSvgFile: "Invalid file. Please select a valid SVG file (.svg).",
+    invalidSvgFile: "Invalid file. Please select a valid SVG file (.svg or .svg+xml).",
     fileReadError: "Failed to read file. Please try again.",
     invalidSvgStructure: "The file does not contain valid SVG content.",
   };

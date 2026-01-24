@@ -20,8 +20,19 @@ export {
 /**
  * Check if a file is an SVG file
  */
-export const isSvgFile = (file: File): boolean =>
-  file.type === SVG_MIME_TYPE || file.name.endsWith(SVG_EXTENSION);
+export const isSvgFile = (file: File): boolean => {
+  const fileType = file.type.toLowerCase();
+  const fileName = file.name.toLowerCase();
+  const hasSvgExtension =
+    fileName.endsWith(SVG_EXTENSION) || fileName.endsWith(`${SVG_EXTENSION}+xml`);
+
+  return (
+    fileType === SVG_MIME_TYPE ||
+    fileType.startsWith(`${SVG_MIME_TYPE};`) ||
+    fileType.includes("image/svg+xml") ||
+    hasSvgExtension
+  );
+};
 
 /**
  * Read a file as text
@@ -48,20 +59,33 @@ export const readFileAsText = (file: File): Promise<string> =>
  */
 export const isSvgContent = (content: string): boolean => {
   const trimmed = content.trim();
-  return trimmed.startsWith("<svg") || trimmed.includes("<svg");
+  return /<svg[\s>]/i.test(trimmed);
 };
 
 /**
- * Extract SVG from base64 data URI
+ * Extract SVG from data URI (base64 or URL-encoded)
  */
-export const extractSvgFromBase64 = (base64: string): string | null => {
+export const extractSvgFromDataUri = (dataUri: string): string | null => {
   try {
-    const base64Prefix = `data:${SVG_MIME_TYPE};base64,`;
-    if (base64.startsWith(base64Prefix)) {
-      const svgData = base64.replace(base64Prefix, "");
-      return atob(svgData);
+    const prefix = `data:${SVG_MIME_TYPE}`;
+    if (!dataUri.toLowerCase().startsWith(prefix)) {
+      return null;
     }
-    return null;
+
+    const [meta, data = ""] = dataUri.split(",", 2);
+    if (!meta || !meta.toLowerCase().startsWith(prefix)) {
+      return null;
+    }
+
+    if (meta.toLowerCase().includes(";base64")) {
+      return atob(data);
+    }
+
+    try {
+      return decodeURIComponent(data);
+    } catch {
+      return data;
+    }
   } catch {
     return null;
   }

@@ -55,11 +55,11 @@ export function UploadBox({
     clickToBrowse: "or click to browse files",
     pasteHint:
       "You can also paste SVG code or base64 directly (Ctrl+V / Cmd+V)",
-    acceptsOnly: "Accepts .svg files only",
+    acceptsOnly: "Accepts .svg and .svg+xml files",
   };
 
   const safeMessages: SafeMessages = messages || {
-    invalidSvgFile: "Invalid file. Please select a valid SVG file (.svg).",
+    invalidSvgFile: "Invalid file. Please select a valid SVG file (.svg or .svg+xml).",
     fileReadError: "Failed to read file. Please try again.",
     invalidSvgStructure: "The file does not contain valid SVG content.",
     uploadSuccess: "SVG uploaded successfully!",
@@ -85,7 +85,7 @@ export function UploadBox({
   );
 
   const { openFilePicker, loading } = useFilePicker({
-    accept: ".svg",
+    accept: ".svg,.svg+xml,image/svg+xml",
     multiple: false,
     onFilesSelected: handleFilesSelected,
   });
