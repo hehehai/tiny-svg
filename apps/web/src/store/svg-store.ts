@@ -6,6 +6,7 @@ import {
   type SvgoGlobalSettings,
   type SvgoPluginConfig,
 } from "@/lib/svgo-plugins";
+import type { PresetGlobalSettings } from "@/types/preset";
 
 // Note: SvgoConfig type is imported but SVGO library is NOT bundled
 // SVGO is only used in workers (svgo.worker.ts)
@@ -35,6 +36,10 @@ type SvgActions = {
   applyTransformation: (
     transformedOriginal: string,
     transformedCompressed: string
+  ) => void;
+  applyPreset: (
+    plugins: SvgoPluginConfig[],
+    presetGlobalSettings: PresetGlobalSettings
   ) => void;
 };
 
@@ -89,4 +94,14 @@ export const useSvgStore = create<SvgState & SvgActions>((set) => ({
       originalSvg: transformedOriginal,
       compressedSvg: transformedCompressed,
     }),
+  applyPreset: (plugins, presetGlobalSettings) =>
+    set((state) => ({
+      plugins,
+      globalSettings: {
+        ...state.globalSettings,
+        multipass: presetGlobalSettings.multipass,
+        floatPrecision: presetGlobalSettings.floatPrecision,
+        transformPrecision: presetGlobalSettings.transformPrecision,
+      },
+    })),
 }));

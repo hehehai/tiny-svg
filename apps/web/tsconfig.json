@@ -14,32 +14,18 @@
     "composite": true,
     "target": "ES2022",
     "module": "ESNext",
-    "lib": [
-      "ES2022",
-      "DOM",
-      "DOM.Iterable"
-    ],
-    "types": [
-      "vite/client"
-    ],
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["vite/client"],
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "noEmit": true,
     "noUncheckedSideEffectImports": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@content/*": [
-        "./content/*"
-      ],
-      "content-collections": [
-        "./.content-collections/generated"
-      ],
-      "@workspace/ui/*": [
-        "../../packages/ui/src/*"
-      ]
+      "@/*": ["./src/*"],
+      "@content/*": ["./content/*"],
+      "content-collections": ["./.content-collections/generated"],
+      "@workspace/ui/*": ["../../packages/ui/src/*"]
     }
   }
 }
